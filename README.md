@@ -3,21 +3,22 @@
 == TODO
 
 User 
+* username
 * credits
 * missions
 * kills
+* xp
 * (clan)
 * (affiliation)
 
 
 Units
+- name
 - bt user
 - bt template
-- weapon
-- armor
-- mobility
 - strategy
 - xp
+- (bonuses?)
 
 Templates
 - price
@@ -27,7 +28,6 @@ Templates
 - base-ev
 - base-mv
 - base-def
-- base-los
 - weapon-default
 - weapon-max
 - armor-default
@@ -45,12 +45,16 @@ Equipment
 - bonus-ev
 - bonus-mv
 - bonus-def
-- bonus-los
 - bonus-acc
 - price
 - points
 - min kills
 - min missions
+
+User Equipment
+- bt equipment
+- bt unit
+- (bonuses?)
 
 Arenas
 * map-type
@@ -61,9 +65,10 @@ Arenas
   * survival (cat and mice)
 * length
 * width
-* layout
+* layout (odd-r)
 * min-pts
 * max-pts
+* reward-join
 * reward-kill
 * reward-win
 * reward-survive
@@ -88,6 +93,7 @@ Unit Battle Outcome
 
 Bots
 * bt arena
+* bt template
 * filler - true if for filling empty slots
 
 ex:
