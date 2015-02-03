@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150201115704) do
+ActiveRecord::Schema.define(version: 20150203014714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20150201115704) do
     t.string   "name"
     t.string   "slug"
     t.string   "mode"
-    t.integer  "x"
-    t.integer  "y"
+    t.integer  "columns"
+    t.integer  "rows"
     t.text     "layout"
     t.integer  "points_max",       default: 3
     t.integer  "points_min",       default: 3
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150201115704) do
     t.integer  "xp_survive",       default: 1
     t.integer  "credits_survive",  default: 10
     t.integer  "team_count",       default: 1
-    t.integer  "players_min",      default: 1
+    t.integer  "players_max",      default: 1
     t.integer  "minutes_interval", default: 5
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20150201115704) do
     t.integer  "mobility_pt_limit",   default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "points",              default: 3
   end
 
   add_index "unit_templates", ["armor_default_id"], name: "index_unit_templates_on_armor_default_id", using: :btree
