@@ -1,7 +1,7 @@
 module HexMap
   class Unit
     attr_reader :damage, :range_min, :range_max, :evade, :move, :defense, :accuracy
-    attr_accessor :hp, :team
+    attr_accessor :hp, :team, :target
 
     def initialize(unit)
       @hp = unit.unit_template.hp

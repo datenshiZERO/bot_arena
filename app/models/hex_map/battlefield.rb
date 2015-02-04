@@ -56,11 +56,53 @@ module HexMap
         end
         @map << row
       end
+
+      @all_units = (@units + @bots).shuffle
     end
 
-
     def process_battle
+      # until turn limit
+      #   for each unit
+      #     skip if not alive
+      #     set target if target is null
+      #     move to target
+      #     fire at target
+      # process outcome
+    end
 
+    def set_target(unit)
+      # find all enemy units
+      # find closest and set as target
+      # add to battle log
+    end
+
+    def move_unit(unit)
+      # note: hueg pathfinding code
+      # find max range -> min range tiles from target, max range has higher priority
+      # Dijkstra's to all target tiles
+      #   store priority, distance from unit, and distance from target
+      # if no path exists
+      #   move towards tile closest to the target
+      # if within movement, 
+      #   move to closest tile that is as close to max range as possible
+      # if not,
+      #   move towards tile closest to max range
+      # add movement to battle log
+    end
+
+    def attack(unit)
+      # check if hit
+      #   apply damage
+      #   add target as assist
+      #   if dead
+      #     move target from assist to kill
+      # add attack to battle log
+    end
+
+    def process_outcome
+      # for each @units
+      #   create unit battle outcome
+      # summarize everything in battle log
     end
 
     def get_tile(q, r)
