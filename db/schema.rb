@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203014714) do
+ActiveRecord::Schema.define(version: 20150208151759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,10 +53,13 @@ ActiveRecord::Schema.define(version: 20150203014714) do
     t.integer  "team_count",       default: 1
     t.integer  "players_max",      default: 1
     t.integer  "minutes_interval", default: 5
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "turn_limit"
+    t.boolean  "active",           default: false
   end
 
+  add_index "arenas", ["active"], name: "index_arenas_on_active", using: :btree
   add_index "arenas", ["name"], name: "index_arenas_on_name", using: :btree
   add_index "arenas", ["slug"], name: "index_arenas_on_slug", unique: true, using: :btree
 
@@ -99,10 +102,12 @@ ActiveRecord::Schema.define(version: 20150203014714) do
     t.integer  "points",              default: 1
     t.integer  "kill_requirement",    default: 0
     t.integer  "mission_requirement", default: 0
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "active",              default: false
   end
 
+  add_index "equipment", ["active"], name: "index_equipment_on_active", using: :btree
   add_index "equipment", ["name"], name: "index_equipment_on_name", using: :btree
   add_index "equipment", ["slug"], name: "index_equipment_on_slug", unique: true, using: :btree
 
@@ -137,11 +142,13 @@ ActiveRecord::Schema.define(version: 20150203014714) do
     t.integer  "armor_pt_limit",      default: 1
     t.integer  "mobility_default_id"
     t.integer  "mobility_pt_limit",   default: 1
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "points",              default: 3
+    t.boolean  "active",              default: false
   end
 
+  add_index "unit_templates", ["active"], name: "index_unit_templates_on_active", using: :btree
   add_index "unit_templates", ["armor_default_id"], name: "index_unit_templates_on_armor_default_id", using: :btree
   add_index "unit_templates", ["mobility_default_id"], name: "index_unit_templates_on_mobility_default_id", using: :btree
   add_index "unit_templates", ["name"], name: "index_unit_templates_on_name", using: :btree
