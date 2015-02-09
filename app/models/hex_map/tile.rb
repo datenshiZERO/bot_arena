@@ -34,6 +34,23 @@ module HexMap
       end.compact
     end
 
+    def tiles_at_range(range)
+      (0...range).map do |a| 
+        [ 
+          @battlefield.get_tile(range, -(range - a), -a),
+          @battlefield.get_tile(-(range - a), range, -a),
+          @battlefield.get_tile(-(range - a), -a, range),
+          @battlefield.get_tile(-range, range - a, a),
+          @battlefield.get_tile(range - a, -range, a),
+          @battlefield.get_tile(range - a, a, -range)
+        ]
+      end.flatten 
+    end
+
+    def landable_tiles_at_range(range)
+      tiles_at_range(range).select { |t| t.empty_space }
+    end
+
     def passable_neighbors
       neighbors.select { |n| n.passable?(self) }
     end
