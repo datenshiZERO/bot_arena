@@ -1,14 +1,14 @@
-= Untitled Multiplayer Incremental Game
+# Untitled Multiplayer Incremental Game
 
-== Combat
+## Combat
 
-=== Philosophy
+### Philosophy
 
 For this phase of the prototype, we will be using D&D style leveling and attributes (ie. linear growth and very low level cap). Most of the game should be unlockable under 3 hours to ensure that we can test the game engine more thoroughly.
 
 Later on, we can tweak it to a more "grindy" system like Diablo or (*gasp*) Disgaea.
 
-=== Attributes
+### Attributes
 
 Base unit attributes:
 
@@ -24,88 +24,62 @@ Weapon/equipment attributes:
 * Damage - duh. Reduced by defense.
 * Range Min/Max - range of the weapon. Lowest minimum range is 1 (melee).
 * Points - "weight" or "experience requirement". Each unit's slot has a maximum point allotment, preventing stronger weapons/items from being equipped by lower-level units.
-=== Leveling up
+### Leveling up
 
 In this version, units do not level up. The XP they'll gain will be added to your XP, which in turn will unlock unit and inventory slots. Similarly, kills and missions completed will unlock new units and equipment for purchase.
 
-== TODO
+## TODO
 
 * shooting bots - bot hunt
 
-    X X X X X X X X X X
-     . . . . . . . . . .
-    . . . . . . . . . .
-     . . . . . . . . . .
-    . . . . . . . . . . 
-     A A A A A A A A A A
+      X X X X X X X X X X
+       . . . . . . . . . .
+      . . . . . . . . . .
+       . . . . . . . . . .
+      . . . . . . . . . . 
+       A A A A A A A A A A
     
 * Chess - tdm
 
-    A A A A A A A A
-     A A A A A A A A
-    . . . . . . . .
-     . . . . . . . .
-    . . . . . . . . 
-     . . . . . . . .
-    B B B B B B B B
-     B B B B B B B B
+      A A A A A A A A
+       A A A A A A A A
+      . . . . . . . .
+       . . . . . . . .
+      . . . . . . . . 
+       . . . . . . . .
+      B B B B B B B B
+       B B B B B B B B
 
 * Triangle - dm
   
-    X X X X A X X X X
-     X X X . . X X X X
-    X X X A . A X X X
-     X X . . . . X X X
-    X X A . A . A X X
-     X . . . . . . X X 
-    X A . A . A . A X
-     . . . . . . . . X
-    A . A . A . A . A 
+      X X X X A X X X X
+       X X X . . X X X X
+      X X X A . A X X X
+       X X . . . . X X X
+      X X A . A . A X X
+       X . . . . . . X X 
+      X A . A . A . A X
+       . . . . . . . . X
+      A . A . A . A . A 
 
-== Log format
+## Log format
 
-    {
-      arena: {
-        name: 'xxx',
-        mode: 'xxx',
-        outcome: 'xxxxx'
-      },
-      participants: [
-        { 
-          bot: false,
-          name: 'xxx',
-          team: 'x',
-          spawning_point: [q, r],
-          ...
-        },
-        ...
-      ]
-      unit_battle_outcomes: [
+    [
+      [ 
         { 
           id: x,
-          outcome: 'xxx',
-          xp: x,
-          kills: x
+          target: x, // no new target if not present
+          move: [[q, r], [q, r]...] // still present if no move
+          attack: {
+            new_target: x, // no new target (i.e. same target) if not present
+            hit: true,
+            damage: x,
+            kill: false
+          }
         },
-        ...
-      ],
-      battle_log: [
-        [ 
-          { 
-            id: x,
-            target: x, // no new target if not present
-            move: [[q, r], [q, r]...] // still present if no move
-            attack: {
-              new_target: x, // no new target (i.e. same target) if not present
-              hit: true,
-              damage: x,
-              kill: false
-            }
-          },
-          ...
-        ],
         ...
       ],
       ...
-    }
-      
+    ],
+    ...
+   ]
