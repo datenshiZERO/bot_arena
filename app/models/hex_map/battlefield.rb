@@ -135,59 +135,115 @@ module HexMap
         end
       end
 
-      q = unit.tile.q
-      r = unit.tile.r
+      moves = [[unit.tile.q, unit.tile.r]]
+
+      flattened_info = tile_infos.map do |k, v|
+        { tile: k }.merge(v)
+      end
+
       # if no path exists
       if (target_tiles - visited).count == target_tiles.count
-      #   move towards tile closest to the target
+        # move towards tile closest to the target
+        closest = flattened_info.select do |info|
+          info[:tile].empty_space && info[:dist] <= unit.move
+        end.sort_by { |info| info[:range] }.first 
+
+        unless closest.nil?
+          # move to target
+          unit.move_to(closest)
+
+          current = closest
+          next_moves = []
+          while current[:tile] != unit.tile
+            next_moves << [current[:tile].q, current[:tile].r]
+            current = closest[:prev]
+          end
+          moves = moves + next_moves.reverse
+        end
       else 
-        flattened_info = tile_infos.map do |k, v|
-          { tile: k }.merge(v)
-        end
         ideal_tiles = flattened_info.select do |info|
-          target_tiles.include?(info[:tile]) && info[:dist] <= unit.move
+          target_tiles.include?(info[:tile])
         end
-        # if within movement, 
-        unless ideal_tiles.empty?
-          #   move to closest tile that is as close to max range as possible
-          good_tile = ideal_tiles.sort_by { |info| info[:range] }.reverse.first
-
-          unless good_tile.nil?
-            q = good_tile[:tile].q
-            r = good_tile[:tile].r
+        # move to closest tile that is as close to max range as possible
+        # pick the final target tile by finding the max range and min distance
+        target_tile = ideal_tiles.sort do |a, b| 
+          if a[:range] == b[:range]
+            a[:dist] <=> b[:dist]
+          else
+            b[:range] <=> a[:range]
           end
-        else
-          # if not, move towards tile closest to target
-          closest = flattened_info.select do |info|
-            info[:tile].empty_space && info[:dist] <= unit.move
-          end.sort_by { |info| info[:range] }.first 
+        end.first
 
-          unless closest.nil?
-            q = closest[:tile].q
-            r = closest[:tile].r
-          end
+        # if not within movement, backtrack to the tile which is within movement
+        while target_tile[:dist] > unit.move
+          target_tile = target_tile[:prev]
         end
+
+        # move to target
+        unit.move_to(target_tile)
+
+        current = target_tile
+        next_moves = []
+        while current[:tile] != unit.tile
+          next_moves << [current[:tile].q, current[:tile].r]
+          current = closest[:prev]
+        end
+        moves = moves + next_moves.reverse
       end
       # add movement to battle log
-      log.log_move(q, r)
+      log.log_moves(moves)
     end
 
     def attack(unit, log)
+      # TODO if out of range, check if there is a new target within range
+      #   set as new target
+      
+      target_distance = HexMap::Utils.distance(unit.tile, unit.target.tile)
+      return unless (unit.range_min..unit.range_max).include? target_distance 
+
+      chance = unit.accuracy - unit.target.evade
+
+      roll = Random.rand(20) + 1
+
       # check if hit
-      #   apply damage
-      #   add target as assist
-      #   if dead
-      #     move target from assist to kill
+      hit = false
+      damage = nil
+      kill = false
+      if roll == 20 || (roll >= chance && roll != 1)
+        damage = unit.damage - unit.target.defense
+        damage = 1 if damage < 1
+        unit.target.hp = unit.target.hp - damage
+        #   apply damage
+        #   add target as assist
+        unless unit.assists.include? target
+          unit.assists << target
+        end
+
+        #   if dead
+        if unit.target.hp < 1
+          # move target from assist to kill
+          unit.assists.delete target
+          unit.kills << target
+          kill = true
+        end
+      end
       # add attack to battle log
+      log.log_attack(hit, damage, kill)
     end
 
     def battle_ended?
       # check if only one team survived
+      @all_units.select { |u| u.alive }
+        .group_by { |u| u.team }
+        .count <= 1
     end
 
     def process_outcome
-      # for each @units
-      #   create unit battle outcome
+      @units.each do |unit|
+        #   remove non-killed units from assist
+        unit.assists.reject! { |t| t.alive? }
+        #   create unit battle outcome
+      end
       # summarize everything in battle log
     end
 

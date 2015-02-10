@@ -1,6 +1,6 @@
 module HexMap
   class UnitTurnLog
-    attr_accessor :id, :target, :move, :attack
+    attr_accessor :id, :target, :moves, :attack
 
     def initialize(unit)
       @id = unit.id
@@ -10,8 +10,8 @@ module HexMap
       @target = target
     end
 
-    def log_move(q, r)
-      @move = [q, r]
+    def log_moves(moves)
+      @moves = moves
     end
   end
 end

@@ -1,7 +1,7 @@
 module HexMap
   class Unit
     attr_reader :damage, :range_min, :range_max, :evade, :move, :defense, :accuracy, :hp_max
-    attr_accessor :id, :hp, :team, :target, :tile
+    attr_accessor :id, :hp, :team, :target, :tile, :kills, :assists
 
     def initialize(unit)
       @hp = unit.unit_template.hp
@@ -12,6 +12,8 @@ module HexMap
       @accuracy = 0
       @range_min = 0
       @range_max = 0
+      @kills = []
+      @assists = []
 
       weapon, armor, mobility = 
         if unit.is_a? Unit
@@ -52,6 +54,13 @@ module HexMap
  
     def alive?
       @hp > 0
+    end
+
+    def move_to(target)
+      origin = @tile
+      target.unit = self
+      @tile = target
+      origin.unit = nil
     end
   end
 end
