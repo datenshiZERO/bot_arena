@@ -49,6 +49,7 @@ module HexMap
               tile.unit = @units[unit_idx]
               unit_idx += 1
             end
+            tile.unit.spawn_point = tile
             tile.unit.tile = tile
 
             if tile.unit.present?
@@ -239,12 +240,27 @@ module HexMap
     end
 
     def process_outcome
+
+      outcomes = []
       @units.each do |unit|
         #   remove non-killed units from assist
         unit.assists.reject! { |t| t.alive? }
         #   create unit battle outcome
+        outcome = UnitBattleOutcome.new(unit: unit)
+        outcome.outcome = (unit.alive? ? "survived" : "killed")
+        outcome.kills = unit.kills.count
+        outcome.assists = unit.assists.count
+        #TODO unit snapshot in details
       end
+
       # summarize everything in battle log
+      
+      battle = Battle.new(arena: @arena)
+      battle.outcome = "..."
+      battle.battle_log = JSON.generate(@battle_log)
+      battle.unit_battle_outcomes = outcomes
+      battle.save
+
     end
 
     def get_tile(q, r)

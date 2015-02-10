@@ -1,6 +1,6 @@
 module HexMap
   class Unit
-    attr_reader :damage, :range_min, :range_max, :evade, :move, :defense, :accuracy, :hp_max
+    attr_reader :damage, :range_min, :range_max, :evade, :move, :defense, :accuracy, :hp_max, :spawn_point
     attr_accessor :id, :hp, :team, :target, :tile, :kills, :assists
 
     def initialize(unit)

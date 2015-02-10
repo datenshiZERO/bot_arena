@@ -64,20 +64,34 @@ In this version, units do not level up. The XP they'll gain will be added to you
 
 ## Log format
 
-    [
-      [ 
-        { 
+    {
+      participants: [
+        {
           id: x,
-          target: x, // no new target if not present
-          move: [[q, r], [q, r]...] // still present if no move
-          attack: {
-            new_target: x, // no new target (i.e. same target) if not present
-            hit: true,
-            damage: x,
-            kill: false
-          }
+          team: "x",
+          spawn_point: [q, r],
+          // snapshot
+          name:
+          template:
+          weapon:
+          ...
         },
+      ]
+      battle_log: [
+        [ 
+          { 
+            id: x,
+            target: x, // no new target if not present
+            move: [[q, r], [q, r]...] // still present if no move
+            attack: {
+              new_target: x, // no new target (i.e. same target) if not present
+              hit: true,
+              damage: x,
+              kill: false
+            }
+          },
+          ...
+        ],
         ...
-      ],
-      ...
-    ]
+      ]
+    }
