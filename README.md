@@ -32,35 +32,35 @@ In this version, units do not level up. The XP they'll gain will be added to you
 
 * shooting bots - bot hunt
 
-      X X X X X X X X X X
-       . . . . . . . . . .
-      . . . . . . . . . .
-       . . . . . . . . . .
-      . . . . . . . . . . 
-       A A A A A A A A A A
+        X X X X X X X X X X
+         . . . . . . . . . .
+        . . . . . . . . . .
+         . . . . . . . . . .
+        . . . . . . . . . . 
+         A A A A A A A A A A
     
 * Chess - tdm
 
-      A A A A A A A A
-       A A A A A A A A
-      . . . . . . . .
-       . . . . . . . .
-      . . . . . . . . 
-       . . . . . . . .
-      B B B B B B B B
-       B B B B B B B B
+        A A A A A A A A
+         A A A A A A A A
+        . . . . . . . .
+         . . . . . . . .
+        . . . . . . . . 
+         . . . . . . . .
+        B B B B B B B B
+         B B B B B B B B
 
 * Triangle - dm
   
-      X X X X A X X X X
-       X X X . . X X X X
-      X X X A . A X X X
-       X X . . . . X X X
-      X X A . A . A X X
-       X . . . . . . X X 
-      X A . A . A . A X
-       . . . . . . . . X
-      A . A . A . A . A 
+        X X X X A X X X X
+         X X X . . X X X X
+        X X X A . A X X X
+         X X . . . . X X X
+        X X A . A . A X X
+         X . . . . . . X X 
+        X A . A . A . A X
+         . . . . . . . . X
+        A . A . A . A . A 
 
 ## Log format
 
@@ -80,6 +80,4 @@ In this version, units do not level up. The XP they'll gain will be added to you
         ...
       ],
       ...
-    ],
-    ...
-   ]
+    ]
