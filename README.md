@@ -52,15 +52,15 @@ In this version, units do not level up. The XP they'll gain will be added to you
 
 * Triangle - dm
   
-        X X X X A X X X X
-         X X X . . X X X X
-        X X X A . A X X X
-         X X . . . . X X X
-        X X A . A . A X X
-         X . . . . . . X X 
-        X A . A . A . A X
-         . . . . . . . . X
-        A . A . A . A . A 
+        * * * * A * * * *
+         * * * . . * * * *
+        * * * B . C * * *
+         * * . . . . * * *
+        * * D . E . F * *
+         * . . . . . . * * 
+        * G . H . I . J *
+         . . . . . . . . *
+        J . K . L . M . N 
 
 ## Log format
 
