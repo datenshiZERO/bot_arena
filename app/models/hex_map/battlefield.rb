@@ -1,14 +1,13 @@
 module HexMap
   class Battlefield
-    def initialize(arena, unit_ids)
+    def initialize(arena, units)
       @arena = arena
-      setup_units(unit_ids)
+      setup_units(units)
       setup_bots
       setup_map
     end
 
-    def setup_units(unit_ids)
-      units = Unit.where(id: unit_ids)
+    def setup_units(units)
       if units.count < @arena.players_max
         filler = @arena.battle_bots.where(filler: true)
         units += (1..(@arena.players_max - units.count)).map do
@@ -24,7 +23,7 @@ module HexMap
       @bots = bots.inject([]) do |memo, bot|
         memo += [bot] * bot.count
         memo
-      end
+      end.map { |u| HexMap::Unit.new(u) }.shuffle
     end
 
     def setup_map
@@ -79,12 +78,13 @@ module HexMap
         @battle_log << turn_log
         @all_units.select {|u| u.alive? }.each do |unit|
           log = HexMap::UnitTurnLog.new(unit)
-          turn_log << log
-          set_target(unit, log) if unit.target.null?
+          set_target(unit, log) if unit.target.nil?
           move_unit(unit, log)
           attack(unit, log)
+          turn_log << log.to_hash
         end
         break if battle_ended?
+        @turns += 1
       end
       process_outcome
     end
@@ -94,7 +94,7 @@ module HexMap
       all_enemies = @all_units - @team_assignments[unit.team]
       target = all_enemies.map do |enemy|
         [enemy, HexMap::Utils.distance(unit.tile, enemy.tile)]
-      end.sort_by { |u| u[1] }.first
+      end.sort_by { |u| u[1] }.first[0]
       
       unit.target = target
 
@@ -107,39 +107,43 @@ module HexMap
       # find max range -> min range tiles from target, max range has higher priority
       target = unit.target
       target_tiles = (unit.range_min..unit.range_max).map do |range|
-        tile.landable_tiles_at_range(range)
+        target.tile.landable_tiles_at_range(range)
       end.flatten
+      target_tiles.each { |t| puts "#{t.q} #{t.r}" }
       
       # BFS to all target tiles
       #   store priority, distance from unit, and distance from target
-      tile_infos = {
-        unit.tile => {
-          dist: 0, prev: nil,
-          range: HexMap::Utils.distance(unit.tile, target.tile)
-        }
-      }
+      dist = { unit.tile => 0 }
+      prev = {}
+      range = { unit.tile => HexMap::Utils.distance(unit.tile, target.tile) }
       queue = [unit.tile]
       visited = []
 
       until queue.empty? || (target_tiles - visited).empty?
         tile = queue.shift
         visited << tile
-        tile.passable_neighbors.each do |n|
+        tile.passable_neighbors(unit).each do |n|
+          puts "#{tile.q} #{tile.r} * #{n.q} #{n.r}"
           unless visited.include? n
             queue << n
-            tile_infos[n] = {
-              prev: tile,
-              dist: tile_infos[tile][:dist] + 1,
-              range: HexMap::Utils.distance(n, target.tile)
-            }
+            if prev[n].nil?
+              prev[n] = tile,
+              dist[n] = dist[tile] + 1,
+              range[n] = HexMap::Utils.distance(n, target.tile)
+            end
           end
         end
       end
 
       moves = [[unit.tile.q, unit.tile.r]]
 
-      flattened_info = tile_infos.map do |k, v|
-        { tile: k }.merge(v)
+      flattened_info = visited.map() do |t|
+        { 
+          tile: t,
+          prev: prev[t],
+          dist: dist[t],
+          range: range[t]
+        } 
       end
 
       # if no path exists
@@ -147,17 +151,17 @@ module HexMap
         # move towards tile closest to the target
         closest = flattened_info.select do |info|
           info[:tile].empty_space && info[:dist] <= unit.move
-        end.sort_by { |info| info[:range] }.first 
+        end.sort_by { |info| info[:range] }.first
 
         unless closest.nil?
           # move to target
-          unit.move_to(closest)
+          unit.move_to(closest[:tile])
 
-          current = closest
+          current = closest[:tile]
           next_moves = []
-          while current[:tile] != unit.tile
-            next_moves << [current[:tile].q, current[:tile].r]
-            current = closest[:prev]
+          while current != unit.tile
+            next_moves << [current.q, current.r]
+            current = prev[current]
           end
           moves = moves + next_moves.reverse
         end
@@ -165,6 +169,7 @@ module HexMap
         ideal_tiles = flattened_info.select do |info|
           target_tiles.include?(info[:tile])
         end
+
         # move to closest tile that is as close to max range as possible
         # pick the final target tile by finding the max range and min distance
         target_tile = ideal_tiles.sort do |a, b| 
@@ -173,11 +178,14 @@ module HexMap
           else
             b[:range] <=> a[:range]
           end
-        end.first
+        end.first[:tile]
+        puts "> #{target_tile.q} #{target_tile.r}"
+        puts dist.keys.map { |x| "#{x.q}, #{x.r} - #{dist[x]}" }
+        puts dist[target_tile]
 
         # if not within movement, backtrack to the tile which is within movement
-        while target_tile[:dist] > unit.move
-          target_tile = target_tile[:prev]
+        while dist[target_tile] > unit.move
+          target_tile = prev[target_tile]
         end
 
         # move to target
@@ -185,9 +193,9 @@ module HexMap
 
         current = target_tile
         next_moves = []
-        while current[:tile] != unit.tile
-          next_moves << [current[:tile].q, current[:tile].r]
-          current = closest[:prev]
+        while current != unit.tile
+          next_moves << [current.q, current.r]
+          current = prev[current]
         end
         moves = moves + next_moves.reverse
       end
@@ -201,6 +209,7 @@ module HexMap
       
       target_distance = HexMap::Utils.distance(unit.tile, unit.target.tile)
       return unless (unit.range_min..unit.range_max).include? target_distance 
+      puts target_distance
 
       chance = unit.accuracy - unit.target.evade
 
@@ -216,15 +225,15 @@ module HexMap
         unit.target.hp = unit.target.hp - damage
         #   apply damage
         #   add target as assist
-        unless unit.assists.include? target
-          unit.assists << target
+        unless unit.assists.include? unit.target
+          unit.assists << unit.target
         end
 
         #   if dead
         if unit.target.hp < 1
           # move target from assist to kill
-          unit.assists.delete target
-          unit.kills << target
+          unit.assists.delete unit.target
+          unit.kills << unit.target
           kill = true
         end
       end
@@ -234,9 +243,12 @@ module HexMap
 
     def battle_ended?
       # check if only one team survived
-      @all_units.select { |u| u.alive }
+      remaining_teams.count <= 1
+    end
+
+    def remaining_teams
+      @all_units.select { |u| u.alive? }
         .group_by { |u| u.team }
-        .count <= 1
     end
 
     def process_outcome
@@ -246,30 +258,49 @@ module HexMap
         #   remove non-killed units from assist
         unit.assists.reject! { |t| t.alive? }
         #   create unit battle outcome
-        outcome = UnitBattleOutcome.new(unit: unit)
+        outcome = UnitBattleOutcome.new(unit_id: unit.real_id)
         outcome.outcome = (unit.alive? ? "survived" : "killed")
         outcome.kills = unit.kills.count
         outcome.assists = unit.assists.count
-        #TODO unit snapshot in details
       end
 
       # summarize everything in battle log
-      
+
       battle = Battle.new(arena: @arena)
-      battle.outcome = "..."
-      battle.battle_log = JSON.generate(@battle_log)
+
+      # bots win, team win, draw TODO survived
+      if remaining_teams.count == 1
+        if remaining_teams.first[0] == "X"
+          battle.outcome = "Bots Win"
+        else
+          battle.outcome = "Team #{remaining_teams.first[0]} Wins"
+        end
+      else
+        battle.outcome = "Draw"
+      end
+
+
+      battle.battle_log = JSON.generate({ 
+        participants: @all_units.inject({}) do |p, unit| 
+          p[unit.id] = unit.details
+          p
+        end,
+        battle_log: @battle_log
+      })
       battle.unit_battle_outcomes = outcomes
       battle.save
 
     end
 
     def get_tile(q, r)
-      return nil if (q < 0 || r < 0 || q > @arena.columns || r > @arena.rows)
+      #puts "-- #{q} #{r}"
+      return nil if (q < 0 || r < 0 || q >= @arena.columns || r >= @arena.rows)
 
       @map[q][r]
     end
 
-    def get_tile(x, y, z)
+    def get_3d_tile(x, y, z)
+      #puts "*- #{x} #{y} #{z}"
       get_tile(*HexMap::Utils.cube_to_offset(x, y, z))
     end
   end

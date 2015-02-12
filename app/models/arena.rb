@@ -1,4 +1,5 @@
 class Arena < ActiveRecord::Base
+  has_many :units
   has_many :battle_bots
 
   #TODO layout checking
@@ -30,8 +31,9 @@ class Arena < ActiveRecord::Base
     # return array of id arrays
   end
 
-  def commence_battle(units)
-    battlefield = HexMap::Battlefield.new(self, unit_ids)
+  def commence_battle(unit_ids)
+    units = Unit.where(id: unit_ids)
+    battlefield = HexMap::Battlefield.new(self, units)
 
     battlefield.process_battle
   end

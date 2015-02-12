@@ -7,11 +7,11 @@ class Unit < ActiveRecord::Base
   #TODO limit to one weapon/armor/mobility
   has_many :user_equipments
 
-  has_one :weapon, -> { where slot: "weapon" },
-    through: :user_equipments, class_name: "Equipment"
-  has_one :armor, -> { where slot: "armor" },
-    through: :user_equipments, class_name: "Equipment"
-  has_one :mobility, -> { where slot: "mobility" },
-    through: :user_equipments, class_name: "Equipment"
+  has_many :weapons, -> { where slot: "weapon" },
+    through: :user_equipments, source: :equipment
+  has_many :armors, -> { where slot: "armor" },
+    through: :user_equipments, source: :equipment
+  has_many :mobility_items, -> { where slot: "mobility" },
+    through: :user_equipments, source: :equipment
 
 end
