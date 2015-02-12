@@ -8,7 +8,7 @@ module HexMap
       @hp = unit.unit_template.hp
       @evade = unit.unit_template.evade
       @move = unit.unit_template.move
-      @defense = unit.unit_template.move
+      @defense = unit.unit_template.defense
       @damage = 0
       @accuracy = 0
       @range_min = 0
@@ -17,16 +17,16 @@ module HexMap
       @assists = []
 
       @weapon, @armor, @mobility = 
-        if unit.is_a? Unit
+        if unit.is_a? BattleBot
+          template = unit.unit_template
+          [template.weapon_default, template.armor_default, template.mobility_default]
+        else
+          # unit is a player unit
           [
            unit.weapons.empty? ? nil : unit.weapons.first,
            unit.armors.empty? ? nil : unit.armors.first,
            unit.mobility_items.empty? ? nil : unit.mobility_items.first
           ]
-        else
-          # unit is a BattleBot
-          template = unit.unit_template
-          [template.weapon_default, template.armor_default, template.mobility_default]
         end
                                   
       if @weapon.present?
@@ -84,15 +84,19 @@ module HexMap
     end
 
     def name
-      if @unit.is_a? Unit
-        @unit.name
-      else
+      if @unit.is_a? BattleBot
         "Bot#{@id}"
+      else
+        @unit.name
       end
     end
 
     def alive?
       @hp > 0
+    end
+
+    def dead?
+      !alive?
     end
 
     def real_id

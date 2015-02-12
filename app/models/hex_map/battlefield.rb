@@ -76,7 +76,8 @@ module HexMap
       while @turns <= @arena.turn_limit
         turn_log = []
         @battle_log << turn_log
-        @all_units.select {|u| u.alive? }.each do |unit|
+        @all_units.select { |u| u.alive? }.each do |unit|
+          next if unit.dead? # units can die earlier in the turn
           log = HexMap::UnitTurnLog.new(unit)
           set_target(unit, log) if unit.target.nil?
           move_unit(unit, log)
@@ -90,7 +91,8 @@ module HexMap
     end
 
     def set_target(unit, log)
-      return if unit.target.present? && unit.target.alive?
+      unit.target = nil unless unit.target.present? && unit.target.alive?
+      return if unit.target.present? 
       all_enemies = @all_units - @team_assignments[unit.team]
       target = all_enemies.map do |enemy|
         [enemy, HexMap::Utils.distance(unit.tile, enemy.tile)]
@@ -109,7 +111,7 @@ module HexMap
       target_tiles = (unit.range_min..unit.range_max).map do |range|
         target.tile.landable_tiles_at_range(range)
       end.flatten
-      target_tiles.each { |t| puts "#{t.q} #{t.r}" }
+      #target_tiles.each { |t| puts "#{t.q} #{t.r}" }
       
       # BFS to all target tiles
       #   store priority, distance from unit, and distance from target
@@ -119,7 +121,7 @@ module HexMap
       queue = [unit.tile]
       visited = []
 
-      puts "> #{target.tile.q} #{target.tile.r}"
+      #puts "> #{target.tile.q} #{target.tile.r}"
       until queue.empty? || (target_tiles - visited).empty?
         tile = queue.shift
         visited << tile
@@ -175,14 +177,14 @@ module HexMap
         # pick the final target tile by finding the max range and min distance
         target_tile = ideal_tiles.sort_by { |t| [-t[:range], t[:dist]] }.first[:tile]
 
-        ideal_tiles.sort_by { |t| [-t[:range], t[:dist]] }.each do |t|
-          puts "s #{t[:tile].q}, #{t[:tile].r} r #{t[:range]} d #{t[:dist]}"
-        end
+        #ideal_tiles.sort_by { |t| [-t[:range], t[:dist]] }.each do |t|
+          #puts "s #{t[:tile].q}, #{t[:tile].r} r #{t[:range]} d #{t[:dist]}"
+        #end
 
-        puts "t #{target_tile.q} #{target_tile.r}"
+        #puts "t #{target_tile.q} #{target_tile.r}"
 
-        puts dist.keys.map { |x| "#{x.q}, #{x.r} - r #{range[x]} d #{dist[x]} " }
-        puts dist[target_tile]
+        #puts dist.keys.map { |x| "#{x.q}, #{x.r} - r #{range[x]} d #{dist[x]} " }
+        #puts dist[target_tile]
 
         # if not within movement, backtrack to the tile which is within movement
         while dist[target_tile] > unit.move
@@ -190,13 +192,13 @@ module HexMap
         end
 
         current = target_tile
-        puts "l #{moves}"
+        #puts "l #{moves}"
         next_moves = []
         while current != unit.tile
           next_moves << [current.q, current.r]
           current = prev[current]
         end
-        puts "n #{next_moves}"
+        #puts "n #{next_moves}"
         moves = moves + next_moves.reverse
 
         # move to target
@@ -211,8 +213,8 @@ module HexMap
       #   set as new target
       
       target_distance = HexMap::Utils.distance(unit.tile, unit.target.tile)
-      return unless (unit.range_min..unit.range_max).include? target_distance 
       puts target_distance
+      return unless (unit.range_min..unit.range_max).include? target_distance 
 
       chance = unit.accuracy - unit.target.evade
 
@@ -223,6 +225,7 @@ module HexMap
       damage = nil
       kill = false
       if roll == 20 || (roll >= chance && roll != 1)
+        hit = true
         damage = unit.damage - unit.target.defense
         damage = 1 if damage < 1
         unit.target.hp = unit.target.hp - damage

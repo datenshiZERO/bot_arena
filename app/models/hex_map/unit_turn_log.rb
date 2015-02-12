@@ -14,6 +14,7 @@ module HexMap
     end
 
     def log_attack(hit, damage, kill)
+      @attacked = true
       @hit = hit
       @damage = damage
       @kill = kill
@@ -28,7 +29,7 @@ module HexMap
         log[:target] = @target.id
       end
       if @attacked == true
-        log[attack] = {
+        log[:attack] = {
           hit: @hit,
           damage: @damage,
           kill: @kill
