@@ -38,10 +38,10 @@ module HexMap
       (0...range).map do |a| 
         [ 
           @battlefield.get_3d_tile(@x + range, @y - (range - a), @z - a),
-          @battlefield.get_3d_tile(@x - (range - a), @y + range, @z - a),
+          @battlefield.get_3d_tile(@x - a, @y + range, @z - (range - a)),
           @battlefield.get_3d_tile(@x - (range - a), @y - a, @z + range),
           @battlefield.get_3d_tile(@x - range, @y + range - a, @z + a),
-          @battlefield.get_3d_tile(@x + range - a, @y - range, @z + a),
+          @battlefield.get_3d_tile(@x + a, @y - range, @z + range - a),
           @battlefield.get_3d_tile(@x + range - a, @y + a, @z - range)
         ]
       end.flatten.compact 

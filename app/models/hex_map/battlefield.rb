@@ -119,16 +119,17 @@ module HexMap
       queue = [unit.tile]
       visited = []
 
+      puts "> #{target.tile.q} #{target.tile.r}"
       until queue.empty? || (target_tiles - visited).empty?
         tile = queue.shift
         visited << tile
         tile.passable_neighbors(unit).each do |n|
-          puts "#{tile.q} #{tile.r} * #{n.q} #{n.r}"
+          #puts "#{tile.q} #{tile.r} * #{n.q} #{n.r}"
           unless visited.include? n
             queue << n
             if prev[n].nil?
-              prev[n] = tile,
-              dist[n] = dist[tile] + 1,
+              prev[n] = tile
+              dist[n] = dist[tile] + 1
               range[n] = HexMap::Utils.distance(n, target.tile)
             end
           end
@@ -172,15 +173,15 @@ module HexMap
 
         # move to closest tile that is as close to max range as possible
         # pick the final target tile by finding the max range and min distance
-        target_tile = ideal_tiles.sort do |a, b| 
-          if a[:range] == b[:range]
-            a[:dist] <=> b[:dist]
-          else
-            b[:range] <=> a[:range]
-          end
-        end.first[:tile]
-        puts "> #{target_tile.q} #{target_tile.r}"
-        puts dist.keys.map { |x| "#{x.q}, #{x.r} - #{dist[x]}" }
+        target_tile = ideal_tiles.sort_by { |t| [-t[:range], t[:dist]] }.first[:tile]
+
+        ideal_tiles.sort_by { |t| [-t[:range], t[:dist]] }.each do |t|
+          puts "s #{t[:tile].q}, #{t[:tile].r} r #{t[:range]} d #{t[:dist]}"
+        end
+
+        puts "t #{target_tile.q} #{target_tile.r}"
+
+        puts dist.keys.map { |x| "#{x.q}, #{x.r} - r #{range[x]} d #{dist[x]} " }
         puts dist[target_tile]
 
         # if not within movement, backtrack to the tile which is within movement
@@ -188,16 +189,18 @@ module HexMap
           target_tile = prev[target_tile]
         end
 
-        # move to target
-        unit.move_to(target_tile)
-
         current = target_tile
+        puts "l #{moves}"
         next_moves = []
         while current != unit.tile
           next_moves << [current.q, current.r]
           current = prev[current]
         end
+        puts "n #{next_moves}"
         moves = moves + next_moves.reverse
+
+        # move to target
+        unit.move_to(target_tile)
       end
       # add movement to battle log
       log.log_moves(moves)
