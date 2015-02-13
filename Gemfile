@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'rails_admin'
 gem 'bootstrap-sass'
-gem 'haml'
+gem 'haml-rails'
 gem 'devise'
 gem 'simple_form'
 
@@ -21,5 +21,10 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'rspec-rails'
+  gem 'rack-livereload'
+  gem 'guard-livereload'
+  gem 'guard-puma'
+  gem 'guard-bundler'
+  gem 'guard-rspec'
 end
 

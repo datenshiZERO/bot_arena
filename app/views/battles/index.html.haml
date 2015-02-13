@@ -1,0 +1,10 @@
+%h1 Battle List
+
+%table.table.table-striped.table-condensed
+  - @battles.each do |battle|
+    %tr
+      %td
+        = link_to battle.arena.name, battle
+      %td.text-right
+        = battle.updated_at
+

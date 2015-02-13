@@ -9,3 +9,40 @@ footer, .footer {
     color: #87BEE0;
   }
 }
+
+.board-container {
+  table {
+    td {
+      text-align: center;
+      font-size: 200%;
+      padding: 10px;
+      border: 1px gray solid;
+    }
+    td.extra {
+      border: none;
+    }
+    td.team-a {
+      background: lightblue;
+    }
+    td.team-x {
+      background: lightgray;
+    }
+    .team-A-unit {
+      color: blue;
+    }
+    
+  }
+  table.small {
+    th {
+      width: 50px;
+    }
+    td.tile {
+      height: 100px;
+    }
+  }
+  #battle-log {
+    margin-top: 10px;
+  }
+}
+
+

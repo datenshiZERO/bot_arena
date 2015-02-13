@@ -33,9 +33,9 @@ module HexMap
       unit_idx = 0
       bot_idx = 0
       @arena.columns.times do |q|
-        row = []
+        column = []
         @arena.rows.times do |r|
-          value = @arena.processed_layout[q][r]
+          value = @arena.processed_layout[r][q]
           wall = value == "*"
           tile = HexMap::Tile.new(self, q, r, wall)
           unless ["*", "."].include? value
@@ -59,9 +59,9 @@ module HexMap
               @team_assignments[value] << tile.unit
             end
           end
-          row << tile
+          column << tile
         end
-        @map << row
+        @map << column
       end
 
       @all_units = (@units + @bots).shuffle
@@ -213,7 +213,7 @@ module HexMap
       #   set as new target
       
       target_distance = HexMap::Utils.distance(unit.tile, unit.target.tile)
-      puts target_distance
+      #puts "#{unit.tile.q},#{unit.tile.r} - #{unit.target.tile.q},#{unit.target.tile.r} #{target_distance}"
       return unless (unit.range_min..unit.range_max).include? target_distance 
 
       chance = unit.accuracy - unit.target.evade

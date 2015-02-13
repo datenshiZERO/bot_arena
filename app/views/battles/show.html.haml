@@ -1,0 +1,33 @@
+- content_for :data_scripts do
+  :javascript
+    window.BattleLog = #{raw @battle.battle_log};
+
+%h1 Battle Results
+
+.row
+  .col-md-6
+    %h2 
+      Arena:
+      = @battle.arena.name
+
+    %p
+      = link_to "#", :class => "btn btn-default btn-lg", :id => "play" do
+        %span.glyphicon.glyphicon-play
+
+.row
+  .col-md-12.board-container
+    %table.small
+      %tr
+        - (@battle.arena.columns * 2 + 1).times do
+          %th &nbsp;
+      - @battle.arena.processed_layout.each_with_index do |row, r|
+        %tr
+          - if r.odd?
+            %td.extra 
+          - row.each_with_index do |cell, q|
+            %td.tile{ :colspan => 2, :id => "tile-#{q}-#{r}", :class => tile_class(cell) } 
+          - if r.even?
+            %td.extra 
+    %form
+      .form-group
+        %textarea.form-control#battle-log{readonly: true, rows: 4}
