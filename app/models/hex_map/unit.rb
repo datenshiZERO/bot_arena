@@ -1,6 +1,6 @@
 module HexMap
   class Unit
-    attr_reader :damage, :range_min, :range_max, :evade, :move, :defense, :accuracy, :hp_max
+    attr_reader :damage, :range_min, :range_max, :evade, :move, :defense, :accuracy, :hp_max, :bot
     attr_accessor :id, :hp, :team, :target, :tile, :kills, :assists, :spawn_point
 
     def initialize(unit)
@@ -16,16 +16,17 @@ module HexMap
       @kills = []
       @assists = []
 
-      @weapon, @armor, @mobility = 
+      @bot, @weapon, @armor, @mobility = 
         if unit.is_a? BattleBot
           template = unit.unit_template
-          [template.weapon_default, template.armor_default, template.mobility_default]
+          [true, template.weapon_default, template.armor_default, template.mobility_default]
         else
           # unit is a player unit
           [
-           unit.weapons.empty? ? nil : unit.weapons.first,
-           unit.armors.empty? ? nil : unit.armors.first,
-           unit.mobility_items.empty? ? nil : unit.mobility_items.first
+            false,
+            unit.weapons.empty? ? nil : unit.weapons.first,
+            unit.armors.empty? ? nil : unit.armors.first,
+            unit.mobility_items.empty? ? nil : unit.mobility_items.first
           ]
         end
                                   
@@ -104,6 +105,7 @@ module HexMap
     end
 
     def move_to(target)
+      return if target == @tile
       origin = @tile
       target.unit = self
       @tile = target

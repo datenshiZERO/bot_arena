@@ -13,10 +13,13 @@
     %p
       = link_to "#", :class => "btn btn-default btn-lg", :id => "play" do
         %span.glyphicon.glyphicon-play
+      &nbsp;
+      = link_to "#", :class => "btn btn-default btn-lg", :id => "pause" do
+        %span.glyphicon.glyphicon-pause
 
 .row
   .col-md-12.board-container
-    %table.small
+    %table{ :class => board_class(@battle.arena) }
       %tr
         - (@battle.arena.columns * 2 + 1).times do
           %th &nbsp;

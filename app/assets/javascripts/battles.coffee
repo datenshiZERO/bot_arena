@@ -3,12 +3,16 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 replayBattle = ->
-  setupUnits()
-  window.clearInterval(window.iid)
-  $("#battle-log").text("Turn 1")
-  window.turn = 0
-  window.currentUnit = 0
-  window.phase = "target"
+  if window.paused?
+    window.paused = false
+  else
+    setupUnits()
+    window.clearInterval(window.iid)
+    $("#battle-log").text("Turn 1")
+    window.turn = 0
+    window.currentUnit = 0
+    window.phase = "target"
+
   window.iid = window.setInterval(nextTick, 1000)
   
 setupUnits = ->
@@ -16,6 +20,12 @@ setupUnits = ->
   for id, unit of window.BattleLog.participants
     tile = getTile(unit.spawn_point)
     tile.html("<span class='glyphicon glyphicon-user team-#{unit.team}-unit'></span>")
+    unit.location = unit.spawn_point
+
+pauseReplay = ->
+  window.clearInterval(window.iid)
+  window.paused = true
+
 stopReplay = ->
   window.clearInterval(window.iid)
 
@@ -23,7 +33,7 @@ nextTick = ->
   if window.phase == "target"
     displayTarget()
     window.phase = "move"
-  if window.phase == "move"
+  else if window.phase == "move"
     displayMove()
     window.phase = "attack"
   else
@@ -39,14 +49,17 @@ nextTick = ->
         log "Turn #{window.turn + 1}"
 
 displayTarget = ->
+  highlightCurrent()
   target = currentUnitLog().target
   if target?
     currentUnit().target = target
     log "#{currentUnit().name} targetted #{getUnit(target).name}."
+    highlightTarget()
   else
     target = currentUnit().target
     if target?
       log "#{currentUnit().name} is still targetting #{getUnit(target).name}."
+      highlightTarget()
     else
       log "#{currentUnit().name} cannot find any targets."
 
@@ -56,6 +69,7 @@ displayMove = ->
     log "#{currentUnit().name} stayed put."
   else
     moveUnit(path[0], path[path.length - 1], currentUnit())
+    highlightCurrent()
     log "#{currentUnit().name} moved to #{path[path.length - 1]}."
 
 
@@ -68,11 +82,11 @@ displayAttack = ->
       log "Hit for #{attack.damage}!"
       if attack.kill
         log "#{currentUnit().name} killed #{target.name}."
-        getTile(target.location).html("")
+        getTile(target.location).html("<span class='glyphicon glyphicon-remove'></span>")
     else
       log "Missed!"
   else
-    log "#{currentUnit().name} is out of range and did not attack #{target}."
+    log "#{currentUnit().name} is out of range and did not attack #{target.name}."
 
 log = (text) ->
   $("#battle-log").append("\n" + text)
@@ -83,6 +97,20 @@ currentUnitLog = ->
 
 currentUnit = ->
   getUnit(currentUnitLog().id)
+
+highlightCurrent = ->
+  $(".current").removeClass("current")
+  $(".target").removeClass("target")
+  qr = currentUnit().location
+  $("#tile-#{qr[0]}-#{qr[1]} span").addClass("current")
+
+highlightTarget = ->
+  $(".enemy").removeClass("enemy")
+  target = currentUnit().target
+  #console.log target
+  if target?
+    qr = getUnit(target).location
+    $("#tile-#{qr[0]}-#{qr[1]} span").addClass("enemy")
 
 getUnit = (id) ->
   window.BattleLog.participants[id]
@@ -98,4 +126,8 @@ moveUnit = (source, dest, unit) ->
 
 $("#play").click ->
   replayBattle()
+  false
+
+$("#pause").click ->
+  pauseReplay()
   false

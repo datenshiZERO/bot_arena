@@ -21,16 +21,28 @@ footer, .footer {
     td.extra {
       border: none;
     }
+    td.wall {
+      background: black;
+    }
     td.team-a {
       background: lightblue;
     }
     td.team-x {
       background: lightgray;
     }
+    span.current {
+      background: green;
+    }
+    span.enemy {
+      background: red;
+    }
     .team-A-unit {
       color: blue;
     }
-    
+
+    .glyphicon-remove {
+      color: maroon;
+    }
   }
   table.small {
     th {
@@ -38,6 +50,20 @@ footer, .footer {
     }
     td.tile {
       height: 100px;
+    }
+    span.current, span.enemy {
+      padding: 5px 3px 3px;
+    }
+  }
+  table.medium {
+    th {
+      width: 30px;
+    }
+    td.tile {
+      height: 60px;
+    }
+    span.current, span.enemy {
+      padding: 3px 2px 2px;
     }
   }
   #battle-log {
