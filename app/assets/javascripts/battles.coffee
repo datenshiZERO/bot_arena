@@ -16,10 +16,11 @@ replayBattle = ->
   window.iid = window.setInterval(nextTick, 1000)
   
 setupUnits = ->
+  $("#board").addClass("battle-start")
   $(".tile").html("")
   for id, unit of window.BattleLog.participants
     tile = getTile(unit.spawn_point)
-    tile.html("<span class='glyphicon glyphicon-user team-#{unit.team}-unit'></span>")
+    tile.html("<span class='unit-icon team-#{unit.team}-unit'></span>")
     unit.location = unit.spawn_point
 
 pauseReplay = ->
@@ -69,7 +70,7 @@ displayMove = ->
     log "#{currentUnit().name} stayed put."
   else
     moveUnit(path[0], path[path.length - 1], currentUnit())
-    highlightCurrent()
+    highlightPath(path)
     log "#{currentUnit().name} moved to #{path[path.length - 1]}."
 
 
@@ -101,8 +102,9 @@ currentUnit = ->
 highlightCurrent = ->
   $(".current").removeClass("current")
   $(".target").removeClass("target")
+  $(".path").removeClass("path")
   qr = currentUnit().location
-  $("#tile-#{qr[0]}-#{qr[1]} span").addClass("current")
+  $("#tile-#{qr[0]}-#{qr[1]}").addClass("current")
 
 highlightTarget = ->
   $(".enemy").removeClass("enemy")
@@ -112,6 +114,12 @@ highlightTarget = ->
     qr = getUnit(target).location
     $("#tile-#{qr[0]}-#{qr[1]} span").addClass("enemy")
 
+highlightPath = (path) ->
+  for qr in path
+    $("#tile-#{qr[0]}-#{qr[1]}").addClass("path")
+  qr = currentUnit().location
+  $("#tile-#{qr[0]}-#{qr[1]}").removeClass("path").addClass("current")
+
 getUnit = (id) ->
   window.BattleLog.participants[id]
 
@@ -120,7 +128,7 @@ getTile = (qr) ->
 
 moveUnit = (source, dest, unit) ->
   tile = getTile(dest)
-  tile.html("<span class='glyphicon glyphicon-user team-#{unit.team}-unit'></span>")
+  tile.html("<span class='unit-icon team-#{unit.team}-unit'></span>")
   getTile(source).html("")
   currentUnit().location = dest
 

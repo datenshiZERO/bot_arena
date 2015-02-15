@@ -19,7 +19,7 @@
 
 .row
   .col-md-12.board-container
-    %table{ :class => board_class(@battle.arena) }
+    %table#board{ :class => board_class(@battle.arena) }
       %tr
         - (@battle.arena.columns * 2 + 1).times do
           %th &nbsp;

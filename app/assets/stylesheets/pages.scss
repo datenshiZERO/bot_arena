@@ -10,8 +10,21 @@ footer, .footer {
   }
 }
 
+.unit-icon {
+  background-image: asset-url("units.png");
+  background-position: top left;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  vertical-align: text-top;
+}
+
 .board-container {
   table {
+    border-spacing: 3px;
+    border-collapse: separate;
     td {
       text-align: center;
       font-size: 200%;
@@ -22,22 +35,31 @@ footer, .footer {
       border: none;
     }
     td.wall {
-      background: black;
+      border: none;
     }
     td.team-a {
-      background: lightblue;
+      background: lightyellow;
     }
     td.team-x {
       background: lightgray;
     }
-    span.current {
-      background: green;
+    td.current {
+      background: lightgreen !important;
     }
-    span.enemy {
-      background: red;
+    .enemy {
+      border: 1px salmon solid !important;
     }
-    .team-A-unit {
-      color: blue;
+    td.path {
+      background: #fd8 !important;
+    }
+
+    .unit-icon.team-X-unit {
+      border: 1px solid transparent;
+      background-position: 0 0;
+    }
+    .unit-icon.team-A-unit {
+      border: 1px solid transparent;
+      background-position: -64px 0;
     }
 
     .glyphicon-remove {
@@ -51,9 +73,6 @@ footer, .footer {
     td.tile {
       height: 100px;
     }
-    span.current, span.enemy {
-      padding: 5px 3px 3px;
-    }
   }
   table.medium {
     th {
@@ -62,8 +81,25 @@ footer, .footer {
     td.tile {
       height: 60px;
     }
-    span.current, span.enemy {
-      padding: 3px 2px 2px;
+    td {
+      font-size: 100%;
+      padding: 5px;
+    }
+    .unit-icon {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+    }
+    .unit-icon.team-X-unit {
+      background-position: -256px 0;
+    }
+    .unit-icon.team-A-unit {
+      background-position: -288px 0;
+    }
+  }
+  table.battle-start {
+    td.team-a, td.team-x {
+      background: none;
     }
   }
   #battle-log {
