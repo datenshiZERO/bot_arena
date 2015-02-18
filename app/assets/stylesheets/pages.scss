@@ -20,6 +20,12 @@ footer, .footer {
   line-height: 64px;
   vertical-align: text-top;
 }
+.unit-icon.team-X-unit {
+  background-position: 0 0;
+}
+.unit-icon.team-A-unit {
+  background-position: -64px 0;
+}
 
 .board-container {
   margin-bottom: 10px;
@@ -60,13 +66,8 @@ footer, .footer {
       background: #fd8 !important;
     }
 
-    .unit-icon.team-X-unit {
+    .unit-icon.team-X-unit, .unit-icon.team-A-unit {
       border: 1px solid transparent;
-      background-position: 0 0;
-    }
-    .unit-icon.team-A-unit {
-      border: 1px solid transparent;
-      background-position: -64px 0;
     }
 
     .glyphicon-remove {
@@ -120,4 +121,19 @@ footer, .footer {
 
 #battle-log {
   margin-top: 10px;
+}
+
+#selected-unit, #targeted-unit {
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  .unit-icon {
+    vertical-align: bottom;
+  }
+  .unit-name {
+    font-size: 200%;
+    font-weight: bold;
+    margin-top: 20px;
+  }
 }

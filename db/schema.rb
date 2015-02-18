@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210212004) do
+ActiveRecord::Schema.define(version: 20150218115557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20150210212004) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.boolean  "active",              default: false
+    t.string   "icon_class"
   end
 
   add_index "equipment", ["active"], name: "index_equipment_on_active", using: :btree
@@ -147,6 +148,7 @@ ActiveRecord::Schema.define(version: 20150210212004) do
     t.datetime "updated_at",                          null: false
     t.integer  "points",              default: 3
     t.boolean  "active",              default: false
+    t.string   "icon_class"
   end
 
   add_index "unit_templates", ["active"], name: "index_unit_templates_on_active", using: :btree

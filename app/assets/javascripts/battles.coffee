@@ -17,6 +17,7 @@ setupUnits = ->
   $("#board").addClass("battle-start")
   $(".tile").html("").removeClass("path").removeClass("current")
   for id, unit of window.BattleLog.participants
+    unit.currentHP = unit.hp
     tile = getTile(unit.spawn_point)
     tile.html("<span class='unit-icon team-#{unit.team}-unit'></span>")
     unit.location = unit.spawn_point
@@ -85,6 +86,9 @@ displayAttack = ->
     log "#{currentUnit().name} attacked #{target.name}."
     if attack.hit
       log "Hit for #{attack.damage}!"
+      target.currentHP -= attack.damage
+      target.currentHP = 0 if target.hp < 0
+      highlightTarget()
       if attack.kill
         log "#{currentUnit().name} killed #{target.name}."
         getTile(target.location).html("<span class='glyphicon glyphicon-remove'></span>")
@@ -107,16 +111,30 @@ highlightCurrent = ->
   $(".current").removeClass("current")
   $(".target").removeClass("target")
   $(".path").removeClass("path")
-  qr = currentUnit().location
+  unit = currentUnit()
+  qr = unit.location
   $("#tile-#{qr[0]}-#{qr[1]}").addClass("current")
+
+  header = $("<p>").html("<span class='unit-icon team-#{unit.team}-unit'></span> <span class='unit-name'>#{unit.name}</span>")
+  $("#selected-unit .info-header").html("").append(header)
+
+  $("#selected-unit .info-hp").html("<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' style='width: #{unit.currentHP / unit.hp * 100}%'>#{unit.currentHP}</div></div>")
+  $("#selected-unit .other-info").html("<p>Max HP: #{unit.hp} EV: #{unit.evade} DEF: #{unit.defense} MV: #{unit.move} | DMG: #{unit.damage} ACC: #{unit.accuracy} Range: #{unit.range_min}-#{unit.range_max}</p>")
 
 highlightTarget = ->
   $(".enemy").removeClass("enemy")
   target = currentUnit().target
   #console.log target
   if target?
-    qr = getUnit(target).location
+    unit = getUnit(target)
+    qr = unit.location
     $("#tile-#{qr[0]}-#{qr[1]} span").addClass("enemy")
+
+    header = $("<p>").html("<span class='unit-icon team-#{unit.team}-unit'></span> <span class='unit-name'>#{unit.name}</span>")
+    $("#targeted-unit .info-header").html("").append(header)
+
+    $("#targeted-unit .info-hp").html("<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' style='width: #{unit.currentHP / unit.hp * 100}%'>#{unit.currentHP}</div></div>")
+    $("#targeted-unit .other-info").html("<p>Max HP: #{unit.hp} EV: #{unit.evade} DEF: #{unit.defense} MV: #{unit.move} | DMG: #{unit.damage} ACC: #{unit.accuracy} Range: #{unit.range_min}-#{unit.range_max}</p>")
 
 highlightPath = (path) ->
   for qr in path

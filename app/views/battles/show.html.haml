@@ -32,9 +32,17 @@
         %span#play-icon.glyphicon.glyphicon-play
 .row
   .col-md-6
+    #selected-unit
+      .info-header
+      .info-hp
+      .other-info
+  .col-md-6
+    #targeted-unit
+      .info-header
+      .info-hp
+      .other-info
+.row
+  .col-md-12
     %form
       .form-group
         %textarea.form-control#battle-log{readonly: true, rows: 5}
-  .col-md-6
-    %p#selected-unit
-    %p#targeted-unit

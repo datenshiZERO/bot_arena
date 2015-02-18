@@ -24,6 +24,7 @@ Weapon/equipment attributes:
 * Damage - duh. Reduced by defense.
 * Range Min/Max - range of the weapon. Lowest minimum range is 1 (melee).
 * Points - "weight" or "experience requirement". Each unit's slot has a maximum point allotment, preventing stronger weapons/items from being equipped by lower-level units.
+
 ### Leveling up
 
 In this version, units do not level up. The XP they'll gain will be added to your XP, which in turn will unlock unit and inventory slots. Similarly, kills and missions completed will unlock new units and equipment for purchase.
@@ -95,3 +96,4 @@ In this version, units do not level up. The XP they'll gain will be added to you
         ...
       ]
     }
+
