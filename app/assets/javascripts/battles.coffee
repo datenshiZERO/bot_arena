@@ -3,21 +3,19 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 replayBattle = ->
-  if window.paused?
-    window.paused = false
-  else
-    setupUnits()
-    window.clearInterval(window.iid)
-    $("#battle-log").text("Turn 1")
-    window.turn = 0
-    window.currentUnit = 0
-    window.phase = "target"
-
+  window.replayPlaying = true
+  window.paused = false
+  setupUnits()
+  window.clearInterval(window.iid)
+  $("#battle-log").text("Turn 1")
+  window.turn = 0
+  window.currentUnit = 0
+  window.phase = "target"
   window.iid = window.setInterval(nextTick, 1000)
   
 setupUnits = ->
   $("#board").addClass("battle-start")
-  $(".tile").html("")
+  $(".tile").html("").removeClass("path").removeClass("current")
   for id, unit of window.BattleLog.participants
     tile = getTile(unit.spawn_point)
     tile.html("<span class='unit-icon team-#{unit.team}-unit'></span>")
@@ -27,8 +25,14 @@ pauseReplay = ->
   window.clearInterval(window.iid)
   window.paused = true
 
+continueReplay = ->
+  window.paused = false
+  window.iid = window.setInterval(nextTick, 1000)
+
 stopReplay = ->
   window.clearInterval(window.iid)
+  window.replayPlaying = false
+  $("#play-icon").removeClass("glyphicon-pause").addClass("glyphicon-play")
 
 nextTick = ->
   if window.phase == "target"
@@ -133,9 +137,15 @@ moveUnit = (source, dest, unit) ->
   currentUnit().location = dest
 
 $("#play").click ->
-  replayBattle()
+  if window.replayPlaying? && window.replayPlaying
+    if window.paused
+      $("#play-icon").removeClass("glyphicon-play").addClass("glyphicon-pause")
+      continueReplay()
+    else
+      $("#play-icon").removeClass("glyphicon-pause").addClass("glyphicon-play")
+      pauseReplay()
+  else
+    $("#play-icon").removeClass("glyphicon-play").addClass("glyphicon-pause")
+    replayBattle()
   false
 
-$("#pause").click ->
-  pauseReplay()
-  false

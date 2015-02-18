@@ -22,7 +22,11 @@ footer, .footer {
 }
 
 .board-container {
+  margin-bottom: 10px;
   table {
+    /*background: #ddd;*/
+    padding: 10px;
+    margin: auto;
     border-spacing: 3px;
     border-collapse: separate;
     td {
@@ -30,12 +34,15 @@ footer, .footer {
       font-size: 200%;
       padding: 10px;
       border: 1px gray solid;
+      background: white;
     }
     td.extra {
       border: none;
+      background: transparent;
     }
     td.wall {
       border: none;
+      background: transparent;
     }
     td.team-a {
       background: lightyellow;
@@ -69,6 +76,7 @@ footer, .footer {
   table.small {
     th {
       width: 50px;
+      line-height: 1px;
     }
     td.tile {
       height: 100px;
@@ -77,6 +85,7 @@ footer, .footer {
   table.medium {
     th {
       width: 30px;
+      line-height: 1px;
     }
     td.tile {
       height: 60px;
@@ -99,12 +108,16 @@ footer, .footer {
   }
   table.battle-start {
     td.team-a, td.team-x {
-      background: none;
+      background: white;
     }
-  }
-  #battle-log {
-    margin-top: 10px;
   }
 }
 
+#board-controls {
+  margin-top: 10px;
+  text-align: center;
+}
 
+#battle-log {
+  margin-top: 10px;
+}
