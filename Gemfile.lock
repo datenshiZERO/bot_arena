@@ -302,6 +302,7 @@ DEPENDENCIES
   guard-livereload
   guard-puma
   guard-rspec
+  haml
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails

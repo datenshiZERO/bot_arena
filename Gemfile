@@ -12,11 +12,12 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'rails_admin'
 gem 'bootstrap-sass'
-gem 'haml-rails'
 gem 'devise'
 gem 'simple_form'
+gem 'haml'
 
 group :development, :test do
+  gem 'haml-rails'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
