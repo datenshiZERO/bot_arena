@@ -28,3 +28,7 @@ group :development, :test do
   gem 'guard-rspec'
 end
 
+group :development do
+  gem 'mina'
+end
+
