@@ -16,12 +16,14 @@ replayBattle = ->
   
 setupUnits = ->
   $("#board").addClass("battle-start")
-  $(".tile").html("").removeClass("path current enemy")
+  $(".tile").html("").removeClass("path current enemy").removeData("unitId")
   clearUnitInfoBoxes()
   for id, unit of window.BattleLog.participants
     unit.currentHP = unit.hp
     tile = getTile(unit.spawn_point)
     tile.html("<span class='unit-icon team-#{unit.team}-unit'></span>")
+    tile.data("unitId", id)
+    unit.id = id
     unit.location = unit.spawn_point
 
 pauseReplay = ->
@@ -80,8 +82,9 @@ displayMove = ->
     highlightPath(path)
     log "#{currentUnit().name} moved to #{path[path.length - 1]}."
 
-
 displayAttack = ->
+  highlightCurrent()
+  highlightTarget()
   target = getUnit(currentUnit().target)
   attack = currentUnitLog().attack
   if attack?
@@ -158,7 +161,6 @@ clearUnitInfoBoxes = ->
     $("#{id} .info-hp").html("")
     $("#{id} .other-info").html("")
 
-
 highlightPath = (path) ->
   for qr in path
     $("#tile-#{qr[0]}-#{qr[1]}").addClass("path")
@@ -174,7 +176,8 @@ getTile = (qr) ->
 moveUnit = (source, dest, unit) ->
   tile = getTile(dest)
   tile.html("<span class='unit-icon team-#{unit.team}-unit'></span>")
-  getTile(source).html("")
+  tile.data("unitId", unit.id)
+  getTile(source).html("").removeData("unitId")
   currentUnit().location = dest
 
 $("#play").click ->
@@ -204,4 +207,26 @@ $("#faster").click ->
     window.iid = window.setInterval(nextTick, window.replaySpeed)
   false
 
+$(".tile").click( ->
+  id = $(this).data("unitId")
+  showDetails(id) if id?
+)
 
+showDetails = (id) ->
+  $(".current").removeClass("current")
+  $(".target").removeClass("target")
+  $(".path").removeClass("path")
+  $(".enemy").removeClass("enemy")
+  $(".hit").removeClass("hit")
+  unit = getUnit(id)
+  qr = unit.location
+  $("#tile-#{qr[0]}-#{qr[1]}").addClass("current")
+
+  clearUnitInfoBoxes()
+  updateUnitInfoBox(unit, true)
+  if unit.target?
+    target = getUnit(unit.target)
+    qr = target.location
+    $("#tile-#{qr[0]}-#{qr[1]}").addClass("enemy")
+    updateUnitInfoBox(target, false)
+  
