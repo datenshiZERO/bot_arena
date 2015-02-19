@@ -13,6 +13,10 @@ module HexMap
       @path = path
     end
 
+    def log_new_target(new_target)
+      @new_target = new_target
+    end
+
     def log_attack(hit, damage, kill)
       @attacked = true
       @hit = hit
@@ -34,6 +38,9 @@ module HexMap
           damage: @damage,
           kill: @kill
         }
+        unless @new_target.nil?
+          log[:attack][:new_target] = @new_target.id
+        end
       end
       log
     end

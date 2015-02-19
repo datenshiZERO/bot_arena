@@ -85,7 +85,14 @@ displayAttack = ->
   target = getUnit(currentUnit().target)
   attack = currentUnitLog().attack
   if attack?
-    log "#{currentUnit().name} attacked #{target.name}."
+    if attack.new_target?
+      new_target = getUnit(attack.new_target)
+      log "#{currentUnit().name} is too far from #{target.name}. Attacking #{new_target.name} instead."
+      target = new_target
+      currentUnit().target = attack.new_target
+      highlightTarget()
+    else
+      log "#{currentUnit().name} attacked #{target.name}."
     if attack.hit
       log "Hit for #{attack.damage}!"
       target.currentHP -= attack.damage

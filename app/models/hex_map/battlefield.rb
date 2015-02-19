@@ -228,14 +228,30 @@ module HexMap
     end
 
     def attack(unit, log)
-      # TODO if out of range, check if there is a new target within range
-      #   set as new target
-      
       target_distance = HexMap::Utils.distance(unit.tile, unit.target.tile)
       
       Rails.logger.debug "#{unit.tile.q},#{unit.tile.r} - #{unit.target.tile.q},#{unit.target.tile.r} #{target_distance}"
 
-      return unless (unit.range_min..unit.range_max).include? target_distance 
+      unless (unit.range_min..unit.range_max).include? target_distance
+        # if out of range, check if there is a new target within range then set as new target
+        all_enemies = @all_units - @team_assignments[unit.team]
+        new_targets = all_enemies.select { |t| t.alive? }.map do |enemy|
+          [enemy, HexMap::Utils.distance(unit.tile, enemy.tile)]
+        end.select do |u| 
+          (unit.range_min..unit.range_max).include? u[1] 
+        end.sort_by { |u| u[1] }
+
+        new_targets.each do |n|
+          Rails.logger.debug "nt #{n[0].id} - d #{n[1]}"
+        end
+
+        # if there isn't, cancel attack
+        return if new_targets.empty?
+
+        # set farthest target within range as new target
+        unit.target = new_targets.last[0]
+        log.log_new_target(unit.target)
+      end
 
       chance = unit.accuracy - unit.target.evade
 
