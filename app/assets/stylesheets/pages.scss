@@ -27,6 +27,14 @@ footer, .footer {
   background-position: -64px 0;
 }
 
+.unit-icon.team-B-unit {
+  background-position: 0 -64px;
+}
+
+.unit-icon.team-C-unit {
+  background-position: -64px -64px;
+}
+
 .board-container {
   margin-bottom: 10px;
   table {
@@ -53,21 +61,30 @@ footer, .footer {
     td.team-a {
       background: lightyellow;
     }
+    td.team-b {
+      background: lavender;
+    }
+    td.team-c {
+      background: lightblue;
+    }
     td.team-x {
       background: lightgray;
     }
     td.current {
       background: lightgreen !important;
     }
-    .enemy {
-      border: 1px salmon solid !important;
+    td.enemy {
+      background: salmon !important;
+    }
+    td.enemy.hit {
+      background: red !important;
     }
     td.path {
       background: #fd8 !important;
     }
 
     .unit-icon.team-X-unit, .unit-icon.team-A-unit {
-      border: 1px solid transparent;
+      /*border: 1px solid transparent;*/
     }
 
     .glyphicon-remove {
@@ -85,11 +102,11 @@ footer, .footer {
   }
   table.medium {
     th {
-      width: 30px;
+      width: 25px;
       line-height: 1px;
     }
     td.tile {
-      height: 60px;
+      height: 50px;
     }
     td {
       font-size: 100%;
@@ -106,9 +123,15 @@ footer, .footer {
     .unit-icon.team-A-unit {
       background-position: -288px 0;
     }
+    .unit-icon.team-B-unit {
+      background-position: -256px -32px;
+    }
+    .unit-icon.team-C-unit {
+      background-position: -288px -32px;
+    }
   }
   table.battle-start {
-    td.team-a, td.team-x {
+    td.team-a, td.team-b, td.team-c, td.team-x {
       background: white;
     }
   }

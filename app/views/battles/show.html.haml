@@ -30,6 +30,13 @@
     %p
       = link_to "#", :class => "btn btn-default btn-lg", :id => "play" do
         %span#play-icon.glyphicon.glyphicon-play
+      &nbsp;
+      %span.btn-group
+        = link_to "#", :class => "btn btn-default btn-lg", :id => "slower" do
+          %span#slower-icon.glyphicon.glyphicon-minus
+        = link_to "#", :class => "btn btn-default btn-lg", :id => "faster" do
+          %span#faster-icon.glyphicon.glyphicon-plus
+
 .row
   .col-md-6
     #selected-unit
@@ -46,3 +53,24 @@
     %form
       .form-group
         %textarea.form-control#battle-log{readonly: true, rows: 5}
+
+.row
+  .col-md-12
+    %h3 Battle Results
+
+    %p
+      %strong= @battle.outcome
+
+    - @battle.unit_battle_outcomes.each do |outcome|
+      %p
+        %strong= outcome.unit.name
+        = outcome.outcome
+        %br
+        Kills: 
+        = outcome.kills
+        %br
+        Assists: 
+        = outcome.assists
+
+
+

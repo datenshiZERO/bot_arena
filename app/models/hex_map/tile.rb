@@ -47,8 +47,8 @@ module HexMap
       end.flatten.compact 
     end
 
-    def landable_tiles_at_range(range)
-      tiles_at_range(range).select { |t| t.empty_space? }
+    def landable_tiles_at_range(range, unit)
+      tiles_at_range(range).select { |t| t.empty_space? || t.unit == unit }
     end
 
     def passable_neighbors(unit)

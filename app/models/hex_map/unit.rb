@@ -86,7 +86,7 @@ module HexMap
 
     def name
       if @unit.is_a? BattleBot
-        "Bot#{@id}"
+        "#{Faker::Name.first_name} #{Faker::Name.last_name} (bot#{@id})"
       else
         @unit.name
       end

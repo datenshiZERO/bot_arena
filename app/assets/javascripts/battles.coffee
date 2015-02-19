@@ -4,6 +4,7 @@
 
 replayBattle = ->
   window.replayPlaying = true
+  window.replaySpeed ?= 1000
   window.paused = false
   setupUnits()
   window.clearInterval(window.iid)
@@ -11,11 +12,12 @@ replayBattle = ->
   window.turn = 0
   window.currentUnit = 0
   window.phase = "target"
-  window.iid = window.setInterval(nextTick, 1000)
+  window.iid = window.setInterval(nextTick, window.replaySpeed)
   
 setupUnits = ->
   $("#board").addClass("battle-start")
-  $(".tile").html("").removeClass("path").removeClass("current")
+  $(".tile").html("").removeClass("path current enemy")
+  clearUnitInfoBoxes()
   for id, unit of window.BattleLog.participants
     unit.currentHP = unit.hp
     tile = getTile(unit.spawn_point)
@@ -28,7 +30,7 @@ pauseReplay = ->
 
 continueReplay = ->
   window.paused = false
-  window.iid = window.setInterval(nextTick, 1000)
+  window.iid = window.setInterval(nextTick, window.replaySpeed)
 
 stopReplay = ->
   window.clearInterval(window.iid)
@@ -88,7 +90,7 @@ displayAttack = ->
       log "Hit for #{attack.damage}!"
       target.currentHP -= attack.damage
       target.currentHP = 0 if target.hp < 0
-      highlightTarget()
+      highlightHit()
       if attack.kill
         log "#{currentUnit().name} killed #{target.name}."
         getTile(target.location).html("<span class='glyphicon glyphicon-remove'></span>")
@@ -111,30 +113,44 @@ highlightCurrent = ->
   $(".current").removeClass("current")
   $(".target").removeClass("target")
   $(".path").removeClass("path")
+  $(".enemy").removeClass("enemy")
+  $(".hit").removeClass("hit")
   unit = currentUnit()
   qr = unit.location
   $("#tile-#{qr[0]}-#{qr[1]}").addClass("current")
 
-  header = $("<p>").html("<span class='unit-icon team-#{unit.team}-unit'></span> <span class='unit-name'>#{unit.name}</span>")
-  $("#selected-unit .info-header").html("").append(header)
-
-  $("#selected-unit .info-hp").html("<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' style='width: #{unit.currentHP / unit.hp * 100}%'>#{unit.currentHP}</div></div>")
-  $("#selected-unit .other-info").html("<p>Max HP: #{unit.hp} EV: #{unit.evade} DEF: #{unit.defense} MV: #{unit.move} | DMG: #{unit.damage} ACC: #{unit.accuracy} Range: #{unit.range_min}-#{unit.range_max}</p>")
+  updateUnitInfoBox(unit, true)
 
 highlightTarget = ->
   $(".enemy").removeClass("enemy")
   target = currentUnit().target
-  #console.log target
   if target?
     unit = getUnit(target)
     qr = unit.location
-    $("#tile-#{qr[0]}-#{qr[1]} span").addClass("enemy")
+    $("#tile-#{qr[0]}-#{qr[1]}").addClass("enemy")
+    updateUnitInfoBox(unit, false)
 
-    header = $("<p>").html("<span class='unit-icon team-#{unit.team}-unit'></span> <span class='unit-name'>#{unit.name}</span>")
-    $("#targeted-unit .info-header").html("").append(header)
+highlightHit = ->
+  unit = getUnit(currentUnit().target)
+  qr = unit.location
+  $("#tile-#{qr[0]}-#{qr[1]}").addClass("hit")
+  updateUnitInfoBox(unit, false)
 
-    $("#targeted-unit .info-hp").html("<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' style='width: #{unit.currentHP / unit.hp * 100}%'>#{unit.currentHP}</div></div>")
-    $("#targeted-unit .other-info").html("<p>Max HP: #{unit.hp} EV: #{unit.evade} DEF: #{unit.defense} MV: #{unit.move} | DMG: #{unit.damage} ACC: #{unit.accuracy} Range: #{unit.range_min}-#{unit.range_max}</p>")
+updateUnitInfoBox = (unit, isCurrent) ->
+  id = if isCurrent then "#selected-unit" else "#targeted-unit"
+
+  $("#{id} .info-header").html("<p><span class='unit-icon team-#{unit.team}-unit'></span> <span class='unit-name'>#{unit.name}</span></p>")
+
+  $("#{id} .info-hp").html("<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' style='width: #{unit.currentHP / unit.hp * 100}%'>#{unit.currentHP}</div></div>")
+  $("#{id} .other-info").html("<p>Max HP: #{unit.hp} EV: #{unit.evade} DEF: #{unit.defense} MV: #{unit.move} | DMG: #{unit.damage} ACC: #{unit.accuracy} Range: #{unit.range_min}-#{unit.range_max}</p>")
+
+clearUnitInfoBoxes = ->
+  for id in ["#selected-unit", "#targeted-unit"]
+    $("#{id} .info-header").html("")
+
+    $("#{id} .info-hp").html("")
+    $("#{id} .other-info").html("")
+
 
 highlightPath = (path) ->
   for qr in path
@@ -166,4 +182,19 @@ $("#play").click ->
     $("#play-icon").removeClass("glyphicon-play").addClass("glyphicon-pause")
     replayBattle()
   false
+
+$("#slower").click ->
+  if window.replayPlaying
+    window.replaySpeed *= 2
+    window.clearInterval(window.iid)
+    window.iid = window.setInterval(nextTick, window.replaySpeed)
+  false
+
+$("#faster").click ->
+  if window.replayPlaying
+    window.replaySpeed /= 2
+    window.clearInterval(window.iid)
+    window.iid = window.setInterval(nextTick, window.replaySpeed)
+  false
+
 

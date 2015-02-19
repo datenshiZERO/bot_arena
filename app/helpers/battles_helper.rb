@@ -13,7 +13,7 @@ module BattlesHelper
     case [arena.columns, arena.rows].max
     when 1..4
       "small"
-    when 5..10
+    when 5..11
       "medium"
     else
       "large"
