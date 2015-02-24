@@ -37,5 +37,5 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.logger = Logger.new("#{Rails.root}/log/#{ENV['RAILS_ENV']}.log", 10, 2048576)
+  config.logger = ActiveSupport::Logger.new("#{Rails.root}/log/#{ENV['RAILS_ENV']}.log", 10, 2048576)
 end
