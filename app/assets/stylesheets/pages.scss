@@ -84,11 +84,11 @@ footer, .footer {
     }
 
     .hp-box {
-      height: 5px;
+      height: 7px;
       border: 1px solid rgba(128, 128, 128, 0.8);
       div {
         background: rgba(0, 128, 0, 0.8);
-        height: 3px;
+        height: 5px;
       }
     }
     .unit-icon.team-X-unit, .unit-icon.team-A-unit {
@@ -119,6 +119,12 @@ footer, .footer {
     td {
       font-size: 100%;
       padding: 4px;
+    }
+    .hp-box {
+      height: 5px;
+      div {
+        height: 3px;
+      }
     }
     .unit-icon {
       width: 32px;
