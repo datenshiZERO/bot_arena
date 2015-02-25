@@ -83,6 +83,14 @@ footer, .footer {
       background: #fd8 !important;
     }
 
+    .hp-box {
+      height: 5px;
+      border: 1px solid rgba(128, 128, 128, 0.8);
+      div {
+        background: rgba(0, 128, 0, 0.8);
+        height: 3px;
+      }
+    }
     .unit-icon.team-X-unit, .unit-icon.team-A-unit {
       /*border: 1px solid transparent;*/
     }
@@ -110,7 +118,7 @@ footer, .footer {
     }
     td {
       font-size: 100%;
-      padding: 5px;
+      padding: 4px;
     }
     .unit-icon {
       width: 32px;

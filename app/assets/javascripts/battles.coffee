@@ -21,8 +21,7 @@ setupUnits = ->
   for id, unit of window.BattleLog.participants
     unit.currentHP = unit.hp
     tile = getTile(unit.spawn_point)
-    tile.html("<span class='unit-icon team-#{unit.team}-unit'></span>")
-    tile.data("unitId", id)
+    putUnitOnTile(unit, tile)
     unit.id = id
     unit.location = unit.spawn_point
 
@@ -144,6 +143,7 @@ highlightHit = ->
   unit = getUnit(currentUnit().target)
   qr = unit.location
   $("#tile-#{qr[0]}-#{qr[1]}").addClass("hit")
+  $("#tile-#{qr[0]}-#{qr[1]} div.hp-box div").attr("style", "width:#{unit.currentHP / unit.hp * 100}%")
   updateUnitInfoBox(unit, false)
 
 updateUnitInfoBox = (unit, isCurrent) ->
@@ -175,10 +175,14 @@ getTile = (qr) ->
 
 moveUnit = (source, dest, unit) ->
   tile = getTile(dest)
-  tile.html("<span class='unit-icon team-#{unit.team}-unit'></span>")
-  tile.data("unitId", unit.id)
+  putUnitOnTile(unit, tile)
   getTile(source).html("").removeData("unitId")
   currentUnit().location = dest
+
+putUnitOnTile = (unit, tile) ->
+  tile.html("<div class='hp-box'><div style='width:#{unit.currentHP / unit.hp * 100}%'></div></div><span class='unit-icon team-#{unit.team}-unit'></span>")
+  tile.data("unitId", unit.id)
+
 
 $("#play").click ->
   if window.replayPlaying? && window.replayPlaying
