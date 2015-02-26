@@ -35,6 +35,33 @@ footer, .footer {
   background-position: -64px -64px;
 }
 
+.item-icon {
+  background-image: image-url("sprites.png");
+  background-position: top left;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  vertical-align: text-bottom;
+}
+.item-icon.item-undefined {
+  background-position: 0px -256px;
+}
+.item-icon.item-dagger {
+  background-position: -256px -128px;
+}
+.item-icon.item-shuriken {
+  background-position: -288px -128px;
+}
+.item-icon.item-clothes {
+  background-position: -320px -128px;
+}
+.item-icon.item-boots {
+  background-position: -352px -128px;
+}
+
+
 .board-container {
   margin-bottom: 10px;
   table {
@@ -171,6 +198,11 @@ footer, .footer {
   .unit-name {
     font-size: 200%;
     font-weight: bold;
-    margin-top: 20px;
+  }
+  .progress {
+    margin-bottom: 10px;
+  }
+  .item-icon {
+    vertical-align: -25%;
   }
 }

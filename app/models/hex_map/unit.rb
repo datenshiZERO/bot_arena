@@ -59,7 +59,7 @@ module HexMap
     end
 
     def details
-      {
+      hash = {
         name: name,
         team: @team,
         template: @unit.unit_template.name,
@@ -75,6 +75,15 @@ module HexMap
         spawn_point: [@spawn_point.q, @spawn_point.r]
       }
 
+      if @weapon.present?
+        hash[:weapon_icon] = @weapon.icon_class
+      end
+      if @armor.present?
+        hash[:armor_icon] = @armor.icon_class
+      end
+      if @mobility.present?
+        hash[:mobility_icon] = @mobility.icon_class
+      end
       # if present, merge
         #weapon: weapon name,
         #weapon_id: weapon.id,
@@ -82,6 +91,7 @@ module HexMap
         #armor_id: armor.id,
         #mobility: mobility,
         #mobility_id: mobility.id,
+      hash
     end
 
     def name
