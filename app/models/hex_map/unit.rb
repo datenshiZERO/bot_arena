@@ -23,10 +23,7 @@ module HexMap
         else
           # unit is a player unit
           [
-            false,
-            unit.weapons.empty? ? nil : unit.weapons.first,
-            unit.armors.empty? ? nil : unit.armors.first,
-            unit.mobility_items.empty? ? nil : unit.mobility_items.first
+            false, unit.weapon, unit.armor, unit.mobility_item
           ]
         end
                                   
@@ -62,8 +59,7 @@ module HexMap
       hash = {
         name: name,
         team: @team,
-        template: @unit.unit_template.name,
-        template_id: @unit.unit_template.id,
+        template_slug: @unit.template_slug,
         hp: @hp_max,
         evade: @evade,
         move: @move,

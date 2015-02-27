@@ -1,4 +1,7 @@
 class BattleBot < ActiveRecord::Base
   belongs_to :arena
-  belongs_to :unit_template
+
+  def unit_template
+    UnitTemplate.find(template_slug)
+  end
 end

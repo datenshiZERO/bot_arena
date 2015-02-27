@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225112454) do
+ActiveRecord::Schema.define(version: 20150227102404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,15 +65,14 @@ ActiveRecord::Schema.define(version: 20150225112454) do
 
   create_table "battle_bots", force: :cascade do |t|
     t.integer  "arena_id"
-    t.integer  "unit_template_id"
-    t.boolean  "filler",           default: false
-    t.integer  "count",            default: 0
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.boolean  "filler",        default: false
+    t.integer  "count",         default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "template_slug"
   end
 
   add_index "battle_bots", ["arena_id"], name: "index_battle_bots_on_arena_id", using: :btree
-  add_index "battle_bots", ["unit_template_id"], name: "index_battle_bots_on_unit_template_id", using: :btree
 
   create_table "battles", force: :cascade do |t|
     t.integer  "arena_id"
@@ -84,33 +83,6 @@ ActiveRecord::Schema.define(version: 20150225112454) do
   end
 
   add_index "battles", ["arena_id"], name: "index_battles_on_arena_id", using: :btree
-
-  create_table "equipment", force: :cascade do |t|
-    t.string   "name"
-    t.string   "slug"
-    t.string   "slot"
-    t.integer  "accuracy"
-    t.integer  "damage"
-    t.integer  "range_min"
-    t.integer  "range_max"
-    t.integer  "bonus_hp",            default: 0
-    t.integer  "bonus_evade",         default: 0
-    t.integer  "bonus_move",          default: 0
-    t.integer  "bonus_defense",       default: 0
-    t.integer  "bonus_accuracy",      default: 0
-    t.integer  "price",               default: 0
-    t.integer  "points",              default: 1
-    t.integer  "kill_requirement",    default: 0
-    t.integer  "mission_requirement", default: 0
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.boolean  "active",              default: false
-    t.string   "icon_class"
-  end
-
-  add_index "equipment", ["active"], name: "index_equipment_on_active", using: :btree
-  add_index "equipment", ["name"], name: "index_equipment_on_name", using: :btree
-  add_index "equipment", ["slug"], name: "index_equipment_on_slug", unique: true, using: :btree
 
   create_table "unit_battle_outcomes", force: :cascade do |t|
     t.integer  "battle_id"
@@ -128,64 +100,32 @@ ActiveRecord::Schema.define(version: 20150225112454) do
   add_index "unit_battle_outcomes", ["battle_id"], name: "index_unit_battle_outcomes_on_battle_id", using: :btree
   add_index "unit_battle_outcomes", ["unit_id"], name: "index_unit_battle_outcomes_on_unit_id", using: :btree
 
-  create_table "unit_templates", force: :cascade do |t|
-    t.string   "name"
-    t.string   "slug"
-    t.integer  "price",               default: 0
-    t.integer  "kill_requirement",    default: 0
-    t.integer  "mission_requirement", default: 0
-    t.integer  "hp",                  default: 1
-    t.integer  "evade",               default: 10
-    t.integer  "move",                default: 3
-    t.integer  "defense",             default: 0
-    t.integer  "weapon_default_id"
-    t.integer  "weapon_pt_limit",     default: 1
-    t.integer  "armor_default_id"
-    t.integer  "armor_pt_limit",      default: 1
-    t.integer  "mobility_default_id"
-    t.integer  "mobility_pt_limit",   default: 1
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "points",              default: 3
-    t.boolean  "active",              default: false
-    t.string   "icon_class"
-  end
-
-  add_index "unit_templates", ["active"], name: "index_unit_templates_on_active", using: :btree
-  add_index "unit_templates", ["armor_default_id"], name: "index_unit_templates_on_armor_default_id", using: :btree
-  add_index "unit_templates", ["mobility_default_id"], name: "index_unit_templates_on_mobility_default_id", using: :btree
-  add_index "unit_templates", ["name"], name: "index_unit_templates_on_name", using: :btree
-  add_index "unit_templates", ["slug"], name: "index_unit_templates_on_slug", unique: true, using: :btree
-  add_index "unit_templates", ["weapon_default_id"], name: "index_unit_templates_on_weapon_default_id", using: :btree
-
   create_table "units", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
     t.integer  "user_id"
-    t.integer  "unit_template_id"
     t.integer  "arena_id"
     t.string   "attack_strategy"
     t.string   "move_strategy"
-    t.integer  "xp",               default: 0
-    t.integer  "kills",            default: 0
-    t.integer  "missions",         default: 0
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "xp",              default: 0
+    t.integer  "kills",           default: 0
+    t.integer  "missions",        default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "template_slug"
   end
 
   add_index "units", ["arena_id"], name: "index_units_on_arena_id", using: :btree
-  add_index "units", ["unit_template_id"], name: "index_units_on_unit_template_id", using: :btree
   add_index "units", ["user_id"], name: "index_units_on_user_id", using: :btree
 
   create_table "user_equipments", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "equipment_id"
     t.integer  "unit_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "equipment_slug"
   end
 
-  add_index "user_equipments", ["equipment_id"], name: "index_user_equipments_on_equipment_id", using: :btree
   add_index "user_equipments", ["unit_id"], name: "index_user_equipments_on_unit_id", using: :btree
   add_index "user_equipments", ["user_id"], name: "index_user_equipments_on_user_id", using: :btree
 
@@ -215,14 +155,11 @@ ActiveRecord::Schema.define(version: 20150225112454) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "battle_bots", "arenas"
-  add_foreign_key "battle_bots", "unit_templates"
   add_foreign_key "battles", "arenas"
   add_foreign_key "unit_battle_outcomes", "battles"
   add_foreign_key "unit_battle_outcomes", "units"
   add_foreign_key "units", "arenas"
-  add_foreign_key "units", "unit_templates"
   add_foreign_key "units", "users"
-  add_foreign_key "user_equipments", "equipment"
   add_foreign_key "user_equipments", "units"
   add_foreign_key "user_equipments", "users"
 end
