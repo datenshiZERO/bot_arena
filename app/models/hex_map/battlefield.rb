@@ -302,40 +302,44 @@ module HexMap
     end
 
     def process_outcome
+      # summarize everything in battle log
+
+      battle = Battle.new(arena: @arena)
+
+      winning_team = nil
+      # bots win, team win, draw TODO survived
+      if remaining_teams.count == 1
+        winning_team = remaining_teams.first[0]
+        if winning_team == "X"
+          battle.outcome = "Bots Win"
+        else
+          battle.outcome = "Team #{winning_team} Wins"
+        end
+      else
+        battle.outcome = "Draw"
+      end
+      battle.winning_team = winning_team
 
       outcomes = @units.reject { |u| u.bot }.map do |unit|
         #   remove non-killed units from assist
         unit.assists.reject! { |t| t.alive? }
         #   create unit battle outcome
         outcome = UnitBattleOutcome.new(unit_id: unit.real_id)
+        outcome.team = unit.team
         outcome.outcome = (unit.alive? ? "survived" : "killed")
         outcome.kills = unit.kills.count
         outcome.assists = unit.assists.count
         outcome.xp = 
           @arena.xp_join +
           @arena.xp_kill * (outcome.kills + outcome.assists / 5) +
-          (unit.alive? ? @arena.xp_win + @arena.xp_survive : 0)
+          (unit.alive? ? @arena.xp_survive : 0) +
+          (unit.team == winning_team ? @arena.xp_win : 0)
         outcome.credits = 
           @arena.credits_kill * outcome.kills +
-          (unit.alive? ? @arena.credits_win + @arena.credits_survive : 0)
+          (unit.alive? ? @arena.credits_survive : 0) +
+          (unit.team == winning_team ? @arena.credits_win : 0)
         outcome
       end
-
-      # summarize everything in battle log
-
-      battle = Battle.new(arena: @arena)
-
-      # bots win, team win, draw TODO survived
-      if remaining_teams.count == 1
-        if remaining_teams.first[0] == "X"
-          battle.outcome = "Bots Win"
-        else
-          battle.outcome = "Team #{remaining_teams.first[0]} Wins"
-        end
-      else
-        battle.outcome = "Draw"
-      end
-
 
       battle.battle_log = JSON.generate({ 
         participants: @all_units.inject({}) do |p, unit| 

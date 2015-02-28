@@ -47,7 +47,7 @@ class Equipment
       slot: "weapon",
       points: 2,
       price: 10,
-      accuracy: 10,
+      accuracy: 8,
       damage: 1,
       range_min: 1,
       range_max: 2

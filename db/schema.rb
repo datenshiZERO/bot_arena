@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228110643) do
+ActiveRecord::Schema.define(version: 20150228113902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,8 +78,9 @@ ActiveRecord::Schema.define(version: 20150228110643) do
     t.integer  "arena_id"
     t.string   "outcome"
     t.text     "battle_log"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "winning_team"
   end
 
   add_index "battles", ["arena_id"], name: "index_battles_on_arena_id", using: :btree
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150228110643) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "assists",    default: 0
+    t.string   "team"
   end
 
   add_index "unit_battle_outcomes", ["battle_id"], name: "index_unit_battle_outcomes_on_battle_id", using: :btree

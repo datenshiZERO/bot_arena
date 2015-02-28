@@ -1,0 +1,11 @@
+%h1 Hello
+
+- if user_signed_in?
+  %h2 Latest Battles
+  - current_user.latest_battles.each do |outcome|
+    %p
+      = link_to outcome.battle.arena.name, outcome.battle
+      \-
+      = outcome.outcome
+      \-
+      = outcome.battle.outcome

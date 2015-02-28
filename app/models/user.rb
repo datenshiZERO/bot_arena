@@ -36,4 +36,7 @@ class User < ActiveRecord::Base
     (current_level * 3) + (current_level / 2) 
   end
 
+  def latest_battles
+    UnitBattleOutcome.joins(unit: :user).includes(battle: :arena).where("users.id = ?", id).order("created_at desc").limit(5)
+  end
 end
