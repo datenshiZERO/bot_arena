@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   def current_level
     (XP_TABLE.length - 1).times do |i|
-      if XP_TABLE[i] >= total_xp && total_xp < XP_TABLE[i + 1]
+      if XP_TABLE[i] <= total_xp && total_xp < XP_TABLE[i + 1]
         return i + 1 # levels start at 1
       end
     end

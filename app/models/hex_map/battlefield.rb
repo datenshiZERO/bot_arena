@@ -91,7 +91,9 @@ module HexMap
         break if battle_ended?
         @turns += 1
       end
-      process_outcome
+      Battle.transaction do
+        process_outcome
+      end
     end
 
     def set_target(unit, log)
@@ -309,6 +311,13 @@ module HexMap
         outcome.outcome = (unit.alive? ? "survived" : "killed")
         outcome.kills = unit.kills.count
         outcome.assists = unit.assists.count
+        outcome.xp = 
+          @arena.xp_join +
+          @arena.xp_kill * (outcome.kills + outcome.assists / 5) +
+          (unit.alive? ? @arena.xp_win + @arena.xp_survive : 0)
+        outcome.credits = 
+          @arena.credits_kill * outcome.kills +
+          (unit.alive? ? @arena.credits_win + @arena.credits_survive : 0)
         outcome
       end
 
@@ -337,6 +346,15 @@ module HexMap
       })
       battle.unit_battle_outcomes = outcomes
       battle.save
+
+      # update xp/kills
+      outcomes.each do |outcome|
+        user = outcome.unit.user
+        user.total_missions += 1
+        user.total_xp += outcome.xp
+        user.credits += outcome.credits
+        user.save
+      end
 
     end
 
