@@ -12,6 +12,8 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'rails_admin'
 gem 'bootstrap-sass'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 gem 'devise'
 gem 'simple_form'
 gem 'haml'

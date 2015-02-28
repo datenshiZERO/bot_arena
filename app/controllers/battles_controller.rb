@@ -1,6 +1,6 @@
 class BattlesController < ApplicationController
   def index
-    @battles = Battle.order("updated_at desc").includes(:arena).all
+    @battles = Battle.order("updated_at desc").includes(:arena).page params[:page]
   end
 
   def show
