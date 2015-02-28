@@ -1,0 +1,40 @@
+%h2 Latest Battles
+%table.table.table-striped.table-condensed
+  %tr
+    %th Battle ID
+    %th Unit
+    %th Unit Team
+    %th Unit Outcome
+    %th Battle Outcome
+    %th.text-right Time
+  - current_user.latest_battles.each do |outcome|
+    %tr
+      %td= link_to outcome.battle.battle_id, outcome.battle
+      %td= outcome.unit.name
+      %td= outcome.team
+      %td= outcome.outcome
+      %td= outcome.battle.outcome
+      %td.text-right
+        = time_ago_in_words outcome.created_at
+        ago
+
+%p.text-center= link_to "View previous battles &raquo;".html_safe, "#", :class => "btn btn-default btn-lg"
+
+%h2 Barracks
+
+.row
+  - current_user.units.each do |unit|
+    #selected-unit.col-md-6
+      .info-header
+        %span{ :class => "unit-icon team-A-unit #{unit.icon_class}" }
+        %span.unit-name= unit.name
+      %hr  
+      .other-info
+        %span{ :class => "item-icon item-#{unit.weapon.icon_class}" }
+        %span{ :class => "item-icon item-#{unit.armor.icon_class}" }
+        %span{ :class => "item-icon item-#{unit.mobility_item.icon_class}" }
+        = "HP: #{unit.max_hp}" # MV:#{unit.move} EV:#{unit.evade} DEF:#{unit.defense} | DMG:#{unit.damage} ACC:#{unit.accuracy} Range:#{unit.range_min}-#{unit.range_max}"
+
+%p.text-center= link_to "Manage barracks &raquo;".html_safe, "#", :class => "btn btn-default btn-lg"
+
+%h2 Armory

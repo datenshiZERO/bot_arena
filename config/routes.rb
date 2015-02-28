@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+  authenticated :user do
+    root 'pages#dashboard', as: :user_root
+  end
   root 'pages#index'
 
   resources :battles

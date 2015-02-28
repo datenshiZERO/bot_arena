@@ -32,5 +32,13 @@ class Unit < ActiveRecord::Base
     [unit_template, weapon, armor, mobility_item].compact.sum(&:points)
   end
 
+  def max_hp
+    unit_template.hp + 
+      [weapon, armor, mobility_item].compact.sum(&:bonus_hp)
+  end
+
+  def icon_class
+    ""
+  end
 
 end
