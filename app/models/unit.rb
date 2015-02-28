@@ -28,4 +28,9 @@ class Unit < ActiveRecord::Base
     mobility_items.first
   end
 
+  def total_points
+    [unit_template, weapon, armor, mobility_item].compact.sum(&:points)
+  end
+
+
 end
