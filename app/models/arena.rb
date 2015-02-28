@@ -53,29 +53,37 @@ class Arena < ActiveRecord::Base
   end
 
   def self.schedule_battles
-    # called at start of hour
+    # called at start of hour via cron
     # get all queueable arenas (ie. with bots)
-    # queue intervals for each
-  end
-
-  def prepare_battles
-    groups = group_participants
-    groups.each do |unit_ids|
-      PrepareBattlesJob.perform_later(self, unit_ids)
+    Arena.includes(:units, :battle_bots).each do |arena|
+      if arena.valid?
+      # queue intervals for each
+        times_per_hour = 60 / arena.minutes_interval
+        this_hour = DateTime.now.change(min: 0, seconds: 0)
+        times_per_hour.times do |minute|
+          target_time = this_hour.change(min: minute * arena.minutes_interval)
+          PrepareBattlesJob.set(wait_until: target_time).perform_later(arena)
+        end
+      end
     end
   end
 
-  def group_participants
-    # find all current participants
-    # shuffle them into groups
-    # return array of id arrays
+  def prepare_battles
+    # shuffle participants into groups
+    unit_ids.shuffle.each_slice(players_max) do |selected_unit_ids|
+      CommenceBattleJob.perform_later(self, selected_unit_ids)
+    end
   end
 
   def commence_battle(unit_ids)
+    #Rails.logger.error self.inspect
+    #Rails.logger.error "#{points_min} #{points_max} #{id}"
     units = Unit.where(id: unit_ids)
     valid_units = []
     units.each do |unit|
-      if unit.total_points < points_min || points_max < unit.total_points
+      #Rails.logger.error "e #{unit.arena_id} #{id}"
+      if unit.total_points < points_min || points_max < unit.total_points ||
+          unit.arena_id != id
         # Eject from arena
         unit.arena = nil
         unit.save
@@ -83,11 +91,12 @@ class Arena < ActiveRecord::Base
         valid_units << unit
       end
     end
-    return false if valid_units.empty?
+    #Rails.logger.error valid_units
 
-    battlefield = HexMap::Battlefield.new(self, valid_units)
-    battlefield.process_battle
-
+    unless valid_units.empty?
+      battlefield = HexMap::Battlefield.new(self, valid_units)
+      battlefield.process_battle
+    end
     true
   end
 end

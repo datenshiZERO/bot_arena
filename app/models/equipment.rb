@@ -48,9 +48,9 @@ class Equipment
       points: 2,
       price: 10,
       accuracy: 10,
-      damage: 2,
+      damage: 1,
       range_min: 1,
-      range_max: 1
+      range_max: 2
     ),
     self.new(
       name: "Clothes", 

@@ -17,6 +17,8 @@ gem 'simple_form'
 gem 'haml'
 gem 'faker'
 
+gem 'sidekiq'
+
 group :development, :test do
   gem 'haml-rails'
   gem 'byebug'

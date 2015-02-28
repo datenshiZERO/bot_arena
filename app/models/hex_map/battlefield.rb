@@ -71,6 +71,9 @@ module HexMap
     end
 
     def process_battle
+      # set to 0 to see full log
+      Rails.logger.level = 1
+
       @battle_log = []
       @turns = 1
       while @turns <= @arena.turn_limit

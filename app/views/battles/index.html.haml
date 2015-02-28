@@ -4,7 +4,7 @@
   - @battles.each do |battle|
     %tr
       %td
-        = link_to battle.arena.name, battle
+        = link_to "#{battle.arena.name}##{battle.id}", battle
       %td.text-right
         = battle.updated_at
 
