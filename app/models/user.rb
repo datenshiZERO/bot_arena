@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
   def max_equipment
     # 3 per level + 1 per 2 levels
-    (current_level * 3) + (current_level / 2) 
+    (current_level * 3) + (current_level / 2) + 1
   end
 
   def latest_battles

@@ -22,19 +22,96 @@
 
 %h2 Barracks
 
-.row
+%table.table.table-striped.table-condensed.unit-table
+  %tr
+    %th Unit
+    %th Equipment
+    %th Name
+    %th Type
+    %th Stats
+    %th Status
+    %th Actions
   - current_user.units.each do |unit|
-    #selected-unit.col-md-6
-      .info-header
+    %tr
+      %td
         %span{ :class => "unit-icon team-A-unit #{unit.icon_class}" }
-        %span.unit-name= unit.name
-      %hr  
-      .other-info
+      %td
         %span{ :class => "item-icon item-#{unit.weapon.icon_class}" }
         %span{ :class => "item-icon item-#{unit.armor.icon_class}" }
         %span{ :class => "item-icon item-#{unit.mobility_item.icon_class}" }
-        = "HP: #{unit.max_hp}" # MV:#{unit.move} EV:#{unit.evade} DEF:#{unit.defense} | DMG:#{unit.damage} ACC:#{unit.accuracy} Range:#{unit.range_min}-#{unit.range_max}"
+      %td= unit.name
+      %td= unit.unit_template.name
+      %td<
+        = unit.eff_hp
+        %span.fa.fa-heart
+        = unit.eff_move
+        %span.fa.fa-arrows
+        = "#{unit.eff_evade}/#{unit.eff_defense}"
+        %span.fa.fa-shield
+        = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
+        %span.fa.fa-crosshairs
+      %td
+        - if unit.arena.present?
+          Queued for 
+          = link_to unit.arena.name, "#"
+        - else
+          Unassigned
+      %td
+        = link_to "Manage Unit &raquo;".html_safe, "#", :class => "btn btn-default"
+  - (current_user.max_units - current_user.units.count).times do
+    %tr
+      %td.text-center{colspan: 6}
+        Empty slot
+      %td
+        = link_to "Hire Unit &raquo;".html_safe, "#", :class => "btn btn-default"
+
 
 %p.text-center= link_to "Manage barracks &raquo;".html_safe, "#", :class => "btn btn-default btn-lg"
 
 %h2 Armory
+
+%table.table.table-striped.table-condensed.item-table
+  %tr
+    %th Equipment
+    %th Name
+    %th Type
+    %th Weapon Stats
+    %th Stat Bonus
+    %th Equiped by
+    %th Actions
+  - current_user.user_equipment.each do |item|
+    %tr
+      %td
+        %span{ :class => "item-icon item-#{item.icon_class}" }
+      %td= item.name
+      %td= item.slot.capitalize
+      %td
+        - if item.slot == "weapon"
+          = "#{item.damage}/#{item.accuracy}/#{item.range_min}-#{item.range_max}"
+          %span.fa.fa-crosshairs
+      %td
+        = item.bonus_hp
+        %span.fa.fa-heart
+        = item.bonus_move
+        %span.fa.fa-arrows
+        = "#{item.bonus_evade}/#{item.bonus_defense}"
+        %span.fa.fa-shield
+        = "#{item.bonus_accuracy}"
+        %span.fa.fa-crosshairs
+      %td
+        - if item.unit.present?
+          = item.unit.name
+        - else
+          not equipped
+      %td
+        = link_to "Manage Item &raquo;".html_safe, "#", :class => "btn btn-default"
+  - (current_user.max_equipment - current_user.user_equipment.count).times do
+    %tr
+      %td.text-center{colspan: 6}
+        Empty slot
+      %td
+        = link_to "Buy Item &raquo;".html_safe, "#", :class => "btn btn-default"
+
+%p.text-center= link_to "Manage armory &raquo;".html_safe, "#", :class => "btn btn-default btn-lg"
+
+
