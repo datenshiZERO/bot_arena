@@ -156,7 +156,7 @@ updateUnitInfoBox = (unit, isCurrent) ->
   $("#{id} .other-info").append("<span class='item-icon item-#{unit.weapon_icon}'></span> ")
   $("#{id} .other-info").append("<span class='item-icon item-#{unit.armor_icon}'></span> ")
   $("#{id} .other-info").append("<span class='item-icon item-#{unit.mobility_icon}'></span> ")
-  $("#{id} .other-info").append("&nbsp; MV:#{unit.move} EV:#{unit.evade} DEF:#{unit.defense} | DMG:#{unit.damage} ACC:#{unit.accuracy} Range:#{unit.range_min}-#{unit.range_max}")
+  $("#{id} .other-info").append("&nbsp; #{unit.move} <span class='fa fa-arrows'></span> #{unit.evade}/#{unit.defense} <span class='fa fa-shield'></span> #{unit.damage}/#{unit.accuracy}/#{unit.range_min}-#{unit.range_max} <span class='fa fa-crosshairs'></span>")
 
 clearUnitInfoBoxes = ->
   for id in ["#selected-unit", "#targeted-unit"]
