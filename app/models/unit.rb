@@ -41,4 +41,5 @@ class Unit < ActiveRecord::Base
     ""
   end
 
+  include BattleUnit
 end

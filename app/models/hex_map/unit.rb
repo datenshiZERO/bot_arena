@@ -5,53 +5,21 @@ module HexMap
 
     def initialize(unit)
       @unit = unit
-      @hp = unit.unit_template.hp
-      @evade = unit.unit_template.evade
-      @move = unit.unit_template.move
-      @defense = unit.unit_template.defense
-      @damage = 0
-      @accuracy = 0
-      @range_min = 0
-      @range_max = 0
+      @hp = unit.eff_hp
+      @evade = unit.eff_evade
+      @move = unit.eff_move
+      @defense = unit.eff_defense
+      @damage = unit.eff_damage
+      @accuracy = unit.eff_accuracy
+      @range_min = unit.eff_range_min
+      @range_max = unit.eff_range_max
+      @weapon = unit.weapon
+      @armor = unit.armor
+      @mobility = unit.mobility_item
       @kills = []
       @assists = []
-
-      @bot, @weapon, @armor, @mobility = 
-        if unit.is_a? BattleBot
-          template = unit.unit_template
-          [true, template.weapon_default, template.armor_default, template.mobility_default]
-        else
-          # unit is a player unit
-          [
-            false, unit.weapon, unit.armor, unit.mobility_item
-          ]
-        end
+      @bot = unit.is_a? BattleBot
                                   
-      if @weapon.present?
-        @damage = @weapon.damage
-        @accuracy = @weapon.accuracy
-        @range_min = @weapon.range_min
-        @range_max = @weapon.range_max
-        @hp += @weapon.bonus_hp
-        @evade += @weapon.bonus_evade
-        @move += @weapon.bonus_move
-        @defense += @weapon.bonus_defense
-        @accuracy += @weapon.bonus_accuracy
-      end
-      if @armor.present?
-        @hp += @armor.bonus_hp
-        @evade += @armor.bonus_evade
-        @move += @armor.bonus_move
-        @defense += @armor.bonus_defense
-        @accuracy += @armor.bonus_accuracy
-      end
-      if @mobility.present?
-        @hp += @mobility.bonus_hp
-        @evade += @mobility.bonus_evade
-        @move += @mobility.bonus_move
-        @defense += @mobility.bonus_defense
-        @accuracy += @mobility.bonus_accuracy
-      end
       @hp_max = @hp
     end
 
