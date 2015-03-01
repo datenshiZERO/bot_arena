@@ -4,7 +4,7 @@
     %meta{:charset => "utf-8"}/
     %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %title Bot Arena
+    %title Tactics?!?
     -#= display_meta_tags :site => ENV['title'], :reverse => true
     = csrf_meta_tags
     / Le HTML5 shim, for IE6-8 support of HTML elements
@@ -21,11 +21,16 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to "Bot Arena", root_url, :class => "navbar-brand"
+          = link_to "Tactics?!?", root_url, :class => "navbar-brand"
         .navbar-collapse.collapse
           %ul.nav.navbar-nav
             -#%li{ :class => (action_name == "podcasts" ? "active" : "") }= link_to "Podcasts", podcasts_url
-            %li{ :class => ((action_name == "index" && controller_name == "pages") ? "active" : "") }= link_to "Home", root_url
+            %li{ :class => (((action_name == "index" || action_name == "dashboard") && controller_name == "pages") ? "active" : "") }= link_to "Home", root_url
+            - if user_signed_in?
+              %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "Roster", my_battles_url
+              %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "Armory", my_battles_url
+              %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "My Battles", my_battles_url
+            %li{ :class => ((controller_name == "battles") ? "active" : "") }= link_to "All Battles", battles_url
             -#%li{ :class => (controller_name == "Units" ? "active" : "") }= link_to "Stocks", securities_url
           -#= form_tag search_path, method: :get, class: "navbar-form navbar-right" do
             -#.form-group
@@ -39,10 +44,12 @@
               -#%li.divider
               %li
                 = link_to "#" do
-                  = "Level: #{current_user.current_level}"
+                  = current_user.email
+                  &nbsp;
+                  = "Lvl: #{current_user.current_level}"
                   = "(#{number_with_delimiter current_user.total_xp}/#{number_with_delimiter current_user.xp_for_next_level})"
-              %li= link_to "Gold: #{number_with_delimiter current_user.credits}", "#"
-              %li= link_to current_user.email, "#"
+                  &nbsp;
+                  = "Gold: #{number_with_delimiter current_user.credits}"
               %li= link_to 'Sign out', logout_path, :method => :delete
             - else
               %li= link_to 'Sign up', new_user_registration_path
