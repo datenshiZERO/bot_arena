@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   end
   root 'pages#index'
 
+  get 'my_battles' => 'pages#my_battles', as: 'my_battles'
   resources :battles
 end

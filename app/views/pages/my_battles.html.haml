@@ -1,0 +1,25 @@
+%h2 My Battles
+%table.table.table-striped.table-condensed
+  %tr
+    %th Battle ID
+    %th Unit
+    %th Unit Team
+    %th Unit Outcome
+    %th Battle Outcome
+    %th.text-right XP
+    %th.text-right Gold
+    %th.text-right Time
+  - @outcomes.each do |outcome|
+    %tr
+      %td= link_to outcome.battle.battle_id, outcome.battle
+      %td= outcome.unit.name
+      %td= outcome.team
+      %td= outcome.outcome
+      %td= outcome.battle.outcome
+      %td.text-right= "+#{outcome.xp}"
+      %td.text-right= "+#{outcome.credits}"
+      %td.text-right
+        = time_ago_in_words outcome.created_at
+        ago
+
+= paginate @outcomes, theme: 'twitter-bootstrap-3'

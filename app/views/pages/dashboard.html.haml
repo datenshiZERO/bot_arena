@@ -6,6 +6,8 @@
     %th Unit Team
     %th Unit Outcome
     %th Battle Outcome
+    %th.text-right XP
+    %th.text-right Gold
     %th.text-right Time
   - current_user.latest_battles.each do |outcome|
     %tr
@@ -14,11 +16,13 @@
       %td= outcome.team
       %td= outcome.outcome
       %td= outcome.battle.outcome
+      %td.text-right= "+#{number_with_delimiter outcome.xp}"
+      %td.text-right= "+#{number_with_delimiter outcome.credits}"
       %td.text-right
         = time_ago_in_words outcome.created_at
         ago
 
-%p.text-center= link_to "View previous battles &raquo;".html_safe, "#", :class => "btn btn-default btn-lg"
+%p.text-center= link_to "View previous battles &raquo;".html_safe, my_battles_path, :class => "btn btn-default btn-lg"
 
 %h2 Barracks
 
@@ -41,7 +45,7 @@
         %span{ :class => "item-icon item-#{unit.mobility_item.icon_class}" }
       %td= unit.name
       %td= unit.unit_template.name
-      %td<
+      %td
         = unit.eff_hp
         %span.fa.fa-heart
         = unit.eff_move
