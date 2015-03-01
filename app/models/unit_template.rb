@@ -55,4 +55,5 @@ class UnitTemplate
   def mobility_default
     Equipment.find(@mobility_default)
   end
+
 end

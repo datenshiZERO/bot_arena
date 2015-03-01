@@ -35,7 +35,7 @@
     %th Stats
     %th Status
     %th Actions
-  - current_user.units.each do |unit|
+  - current_user.active_units.each do |unit|
     %tr
       %td
         %span{ :class => "unit-icon team-A-unit #{unit.icon_class}" }
@@ -62,7 +62,7 @@
           Unassigned
       %td
         = link_to "Manage Unit &raquo;".html_safe, "#", :class => "btn btn-default"
-  - (current_user.max_units - current_user.units.count).times do
+  - (current_user.available_unit_slots).times do
     %tr
       %td.text-center{colspan: 6}
         Empty slot

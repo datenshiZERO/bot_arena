@@ -39,4 +39,19 @@ class User < ActiveRecord::Base
   def latest_battles
     UnitBattleOutcome.joins(unit: :user).includes(battle: :arena).where("users.id = ?", id).order("created_at desc").limit(5)
   end
+
+  def active_units
+    units
+  end
+
+  def available_unit_slots
+    max_units - active_units.count
+  end
+
+  def can_hire?(template)
+    available_unit_slots > 0 && 
+      credits >= template.price &&
+      total_kills >= template.kill_requirement &&
+      total_missions >= template.mission_requirement
+  end
 end

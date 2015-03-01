@@ -1,0 +1,81 @@
+%h1
+  %span{ :class => "unit-icon team-A-unit #{@unit.icon_class}" }
+  = @unit.name
+
+.row 
+  .col-md-6
+    %h2 Base Stats
+
+    %table.table.table-condensed.table-striped
+      %tr
+        %th Points
+        %th HP
+        %th Movement
+        %th Evade
+        %th Defense
+      %tr
+        %td
+          = @unit.points
+        %td
+          = @unit.hp
+        %td
+          = @unit.move
+        %td
+          = @unit.evade
+        %td
+          = @unit.defense
+
+  .col-md-6
+    %h2 Hiring Requirements
+
+    %table.table.table-condensed.table-striped
+      %tr
+        %th Missions
+        %th Kills
+        %th Gold
+        %th Gold (fully equipped)
+      %tr
+        %td
+          = @unit.mission_requirement
+        %td
+          = @unit.kill_requirement
+        %td
+          = @unit.price
+.row
+  .col-md-12
+    %h2 Recommended Equipment
+    %p
+      %span{ :class => "item-icon item-#{@unit.weapon_default.icon_class}" }
+      %span{ :class => "item-icon item-#{@unit.armor_default.icon_class}" }
+      %span{ :class => "item-icon item-#{@unit.mobility_default.icon_class}" }
+    
+    %h3 Stats upon equipping recommended items
+    %table.table.table-condensed.table-striped
+      %tr
+        %th Points
+        %th HP
+        %th Movement
+        %th Evade
+        %th Defense
+        %th Damage
+        %th Accuracy
+        %th Range
+      %tr
+        %td
+          = @unit.points
+        %td
+          = @unit.hp
+        %td
+          = @unit.move
+        %td
+          = @unit.evade
+        %td
+          = @unit.defense
+%p
+  = link_to "Back to list", unit_templates_path, :class => "btn btn-default"
+  - if user_signed_in? 
+    - if current_user.can_hire?(@unit)
+      = link_to "Hire Unit".html_safe, "#", :class => "btn btn-default"
+    - else
+      %button.btn.btn-default{ disabled: "disabled" } Hire Unit
+  %button.btn.btn-default{ disabled: "disabled" } Hire Fully Equipped Unit

@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   get 'my_battles' => 'pages#my_battles', as: 'my_battles'
   resources :battles
+
+  resources :unit_templates
 end

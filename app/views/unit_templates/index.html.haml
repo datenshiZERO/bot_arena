@@ -1,0 +1,52 @@
+%h1 Units for Hire
+
+- if user_signed_in? 
+  %p
+    Your units have completed
+    %strong= pluralize current_user.total_missions, "mission"
+    and have amassed a total of
+    %strong= "#{pluralize current_user.total_kills, "kill"}."
+
+%table.table.table-striped.table-condensed.unit-table
+  %tr
+    %th{ colspan: 5 }
+    %th.text-center{ colspan: 2 } Requirements
+    %th{ colspan: 2 }
+  %tr
+    %th Unit
+    %th Recommended
+    %th Name
+    %th.text-right Points
+    %th.text-right Base Stats
+    %th.text-right Kills
+    %th.text-right Missions
+    %th.text-right Price
+    %th Actions
+  - @units.each do |unit|
+    %tr
+      %td
+        %span{ :class => "unit-icon team-A-unit #{unit.icon_class}" }
+      %td
+        %span{ :class => "item-icon item-#{unit.weapon_default.icon_class}" }
+        %span{ :class => "item-icon item-#{unit.armor_default.icon_class}" }
+        %span{ :class => "item-icon item-#{unit.mobility_default.icon_class}" }
+      %td= unit.name
+      %td.text-right= unit.points
+      %td.text-right
+        = unit.hp
+        %span.fa.fa-heart
+        = unit.move
+        %span.fa.fa-arrows
+        = "#{unit.evade}/#{unit.defense}"
+        %span.fa.fa-shield
+      %td.text-right= unit.kill_requirement
+      %td.text-right= unit.mission_requirement
+      %td.text-right= unit.price
+      %td
+        = link_to "View Unit".html_safe, unit_template_path(unit.slug), :class => "btn btn-default"
+        - if user_signed_in? 
+          - if current_user.can_hire?(unit)
+            = link_to "Hire Unit".html_safe, "#", :class => "btn btn-default"
+          - else
+            %button.btn.btn-default{ disabled: "disabled" } Hire Unit
+
