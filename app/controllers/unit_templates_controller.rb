@@ -41,7 +41,7 @@ class UnitTemplatesController < ApplicationController
       end
       redirect_to @unit, notice: "Unit hired"
     else
-      redirect_to unit_template_path(@template.slug), notice: "You cannot hire this unit yet"
+      redirect_to unit_template_path(@template.slug), error: "You cannot hire this unit yet"
     end
   end
 end

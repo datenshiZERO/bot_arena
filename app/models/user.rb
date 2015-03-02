@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def active_units
-    units
+    units.where(fired: false)
   end
 
   def available_unit_slots

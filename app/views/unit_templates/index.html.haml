@@ -44,13 +44,5 @@
       %td.text-right= "#{number_with_delimiter unit.price}/#{number_with_delimiter unit.full_price}"
       %td
         = link_to "View Unit".html_safe, unit_template_path(unit.slug), :class => "btn btn-default"
-        - if user_signed_in? 
-          - if current_user.can_hire?(unit, false)
-            = link_to "Hire Unit".html_safe, "#", :class => "btn btn-default"
-            - if current_user.can_hire?(unit, true)
-              = link_to "Hire Fully Equipped".html_safe, "#", :class => "btn btn-default"
-            - else
-              %button.btn.btn-default{ disabled: "disabled" } Hire Fully Equipped
-          - else
-            %button.btn.btn-default{ disabled: "disabled" } Hire Unit
+        = render partial: "hire_buttons", locals: { unit: unit }
 

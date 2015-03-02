@@ -116,9 +116,10 @@
       - else
         Unassigned
 
-    - if user_signed_in?
+    - if user_signed_in? && @unit.user == current_user
       %p
         = link_to "Manage Unit", units_path, :class => "btn btn-default"
+        = link_to "Fire Unit", @unit, :class => "btn btn-danger", :method => :delete, :data => { :confirm => "Are you sure you want to fire this unit? (Equipped items remain in your armory)" }
 
 .row
   .col-md-12

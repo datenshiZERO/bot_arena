@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302095147) do
+ActiveRecord::Schema.define(version: 20150302100740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,9 +111,10 @@ ActiveRecord::Schema.define(version: 20150302095147) do
     t.integer  "xp",              default: 0
     t.integer  "kills",           default: 0
     t.integer  "missions",        default: 0
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "template_slug"
+    t.boolean  "fired",           default: false
   end
 
   add_index "units", ["arena_id"], name: "index_units_on_arena_id", using: :btree

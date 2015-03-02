@@ -42,15 +42,15 @@ class Unit < ActiveRecord::Base
   end
 
   def weapon_icon_class
-    weapon.present? ? weapon.icon_class : ""
+    weapon.present? ? weapon.icon_class : "undefined"
   end
 
   def armor_icon_class
-    armor.present? ? armor.icon_class : ""
+    armor.present? ? armor.icon_class : "undefined"
   end
 
   def mobility_icon_class
-    mobility_item.present? ? mobility_item.icon_class : ""
+    mobility_item.present? ? mobility_item.icon_class : "undefined"
   end
 
   include BattleUnit
