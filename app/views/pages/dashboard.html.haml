@@ -40,9 +40,9 @@
       %td
         %span{ :class => "unit-icon team-A-unit #{unit.icon_class}" }
       %td
-        %span{ :class => "item-icon item-#{unit.weapon.icon_class}" }
-        %span{ :class => "item-icon item-#{unit.armor.icon_class}" }
-        %span{ :class => "item-icon item-#{unit.mobility_item.icon_class}" }
+        %span{ :class => "item-icon item-#{unit.weapon_icon_class}" }
+        %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
+        %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
       %td= unit.name
       %td= unit.unit_template.name
       %td
@@ -110,7 +110,7 @@
           not equipped
       %td
         = link_to "Manage Item", "#", :class => "btn btn-default"
-  - (current_user.max_equipment - current_user.user_equipment.count).times do
+  - current_user.available_equipment_slots.times do
     %tr
       %td.text-center{colspan: 6}
         Empty slot

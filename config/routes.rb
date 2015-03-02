@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   get 'my_battles' => 'pages#my_battles', as: 'my_battles'
   resources :battles
 
-  resources :unit_templates
+  resources :unit_templates do
+    member do
+      post :hire
+      post :hire_equipped
+    end
+  end
   resources :units
 end

@@ -72,10 +72,13 @@
         %td
           = @unit.defense
 %p
-  = link_to "Back to list", unit_templates_path, :class => "btn btn-default"
   - if user_signed_in? 
-    - if current_user.can_hire?(@unit)
-      = link_to "Hire Unit".html_safe, "#", :class => "btn btn-default"
+    - if current_user.can_hire?(@unit, false)
+      = link_to "Hire Unit", hire_unit_template_path(@unit.slug), :class => "btn btn-default", :method => :post
+      - if current_user.can_hire?(@unit, true)
+        = link_to "Hire Fully Equipped", hire_equipped_unit_template_path(@unit.slug), :class => "btn btn-default", :method => :post
+      - else
+        %button.btn.btn-default{ disabled: "disabled" } Hire Fully Equipped
     - else
       %button.btn.btn-default{ disabled: "disabled" } Hire Unit
-  %button.btn.btn-default{ disabled: "disabled" } Hire Fully Equipped Unit
+  = link_to "Back to list", unit_templates_path, :class => "btn btn-default"

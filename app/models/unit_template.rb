@@ -56,4 +56,9 @@ class UnitTemplate
     Equipment.find(@mobility_default)
   end
 
+  def full_price
+    [weapon_default, armor_default, mobility_default].compact.sum(&:price) + price
+  end
+
+
 end

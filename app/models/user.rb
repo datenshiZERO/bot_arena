@@ -48,10 +48,22 @@ class User < ActiveRecord::Base
     max_units - active_units.count
   end
 
-  def can_hire?(template)
-    available_unit_slots > 0 && 
-      credits >= template.price &&
-      total_kills >= template.kill_requirement &&
-      total_missions >= template.mission_requirement
+  def available_equipment_slots
+    max_equipment - user_equipment.count
+  end
+
+  def can_hire?(template, equipped)
+    if equipped
+      available_unit_slots > 0 && 
+        credits >= template.full_price &&
+        total_kills >= template.kill_requirement &&
+        total_missions >= template.mission_requirement &&
+        available_equipment_slots >= 3
+    else
+      available_unit_slots > 0 && 
+        credits >= template.price &&
+        total_kills >= template.kill_requirement &&
+        total_missions >= template.mission_requirement
+    end
   end
 end
