@@ -27,10 +27,10 @@
             -#%li{ :class => (action_name == "podcasts" ? "active" : "") }= link_to "Podcasts", podcasts_url
             %li{ :class => (((action_name == "index" || action_name == "dashboard") && controller_name == "pages") ? "active" : "") }= link_to "Home", root_url
             - if user_signed_in?
-              %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "Roster", my_battles_url
-              %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "Armory", my_battles_url
+              %li{ :class => (controller_name == "user_equipment" ? "active" : "") }= link_to "Armory", user_equipment_index_path
               %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "My Battles", my_battles_url
             %li{ :class => ((controller_name == "battles") ? "active" : "") }= link_to "All Battles", battles_url
+            %li{ :class => (controller_name == "arenas" ? "active" : "") }= link_to "Arenas", arenas_path
             -#%li{ :class => (controller_name == "Units" ? "active" : "") }= link_to "Stocks", securities_url
           -#= form_tag search_path, method: :get, class: "navbar-form navbar-right" do
             -#.form-group

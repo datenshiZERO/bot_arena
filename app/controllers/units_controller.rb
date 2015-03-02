@@ -40,7 +40,7 @@ class UnitsController < ApplicationController
   def destroy
     @unit = Unit.find(params[:id])
     if @unit.user != current_user
-      redirect_to root_url, error: "Invalid action"
+      redirect_to root_url, alert: "Invalid action"
     else
       @unit.fired = true
       @unit.arena = nil

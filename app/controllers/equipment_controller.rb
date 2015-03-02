@@ -19,7 +19,7 @@ class EquipmentController < ApplicationController
       current_user.save
       redirect_to user_equipment_index_path, notice: "Equipment bought"
     else
-      redirect_to equipment_path(@item.slug), error: "You cannot buy this"
+      redirect_to equipment_path(@item.slug), alert: "You cannot buy this"
     end
   end
 end

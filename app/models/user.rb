@@ -71,4 +71,10 @@ class User < ActiveRecord::Base
     available_equipment_slots > 0 &&
       credits >= equipment.price
   end
+
+  def assignable_units(arena)
+    units.includes(:user_equipments).select do |u|
+      arena.points_min <= u.total_points && u.total_points <= arena.points_max
+    end
+  end
 end

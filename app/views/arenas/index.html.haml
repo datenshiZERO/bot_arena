@@ -1,0 +1,35 @@
+%h1 Arenas
+
+%table.table.table-condensed.table-striped
+  %tr
+    %th{ colspan: 3 }
+    %th{ colspan: 4 } XP reward for
+    %th{ colspan: 3 } Gold reward for
+    %th
+  %tr
+    %th Name
+    %th Points Min/Max
+    %th Mode
+    %th joining
+    %th kills
+    %th winning
+    %th surviving
+    %th kills
+    %th winning
+    %th surviving
+    %th Schedule
+  - @arenas.each do |arena|
+    %tr
+      %td= link_to arena.name, arena
+      %td= "#{arena.points_min}/#{arena.points_max}"
+      %td= arena.mode
+      %td= arena.xp_join
+      %td= arena.xp_kill
+      %td= arena.xp_win
+      %td= arena.xp_survive
+      %td= arena.credits_kill
+      %td= arena.credits_win
+      %td= arena.credits_survive
+      %td= "every #{pluralize arena.minutes_interval, "minute"}"
+
+

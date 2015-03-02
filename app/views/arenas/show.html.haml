@@ -1,0 +1,64 @@
+%h1 
+  = "#{@arena.name}"
+
+.row
+  .col-md-12.board-container
+    %table#board{ :class => board_class(@arena) }
+      %tr
+        - (@arena.columns * 2 + 1).times do
+          %th &nbsp;
+      - @arena.processed_layout.each_with_index do |row, r|
+        %tr
+          - if r.odd?
+            %td.extra 
+          - row.each_with_index do |cell, q|
+            %td.tile{ :colspan => 2, :id => "tile-#{q}-#{r}", :class => tile_class(cell) } 
+          - if r.even?
+            %td.extra 
+
+%h3 Assign Units
+- if user_signed_in?
+  - if current_user.assignable_units(@arena).empty?
+    %p All of your units failed to meet the point requirements of this arena.
+  - else
+    = form_tag @arena, method: :put do 
+      %table.table.table-striped.table-condensed.unit-table
+        %tr
+          %th 
+          %th Unit
+          %th Equipment
+          %th Name
+          %th Points
+          %th Stats
+          %th Status
+        - current_user.assignable_units(@arena).each do |unit|
+          %tr
+            %td= check_box_tag "unit_ids[]", unit.id
+            %td
+              %span{ :class => "unit-icon team-A-unit #{unit.icon_class}" }
+            %td
+              %span{ :class => "item-icon item-#{unit.weapon_icon_class}" }
+              %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
+              %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
+            %td= unit.name
+            %td= unit.total_points
+            %td
+              = unit.eff_hp
+              %span.fa.fa-heart
+              = unit.eff_move
+              %span.fa.fa-arrows
+              = "#{unit.eff_evade}/#{unit.eff_defense}"
+              %span.fa.fa-shield
+              = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
+              %span.fa.fa-crosshairs
+            %td
+              - if unit.arena.present?
+                Queued for 
+                = link_to unit.arena.name, unit.arena
+              - else
+                Unassigned
+      = submit_tag "Assign selected units to this arena", class: "btn btn-primary"
+
+%hr
+
+%p= link_to "Back to arena list", arenas_path, class: "btn btn-default"

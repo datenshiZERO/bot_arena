@@ -31,4 +31,5 @@ Rails.application.routes.draw do
     end
   end
   resources :user_equipment
+  resources :arenas
 end
