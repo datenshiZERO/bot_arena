@@ -1,6 +1,8 @@
 %h1
   %span{ :class => "unit-icon team-A-unit #{@unit.icon_class}" }
   = @unit.name
+  - if @unit.fired
+    %span.label.label-danger Fired
 
 .row 
   .col-md-6
@@ -105,21 +107,21 @@
         %td
           = "#{@unit.eff_range_min}-#{@unit.eff_range_max}"
 
-  .col-md-6
-    %h2 Other Info
-
-    %p
-      %strong Arena:
-      - if @unit.arena.present?
-        Queued for 
-        = link_to @unit.arena.name, "#"
-      - else
-        Unassigned
-
-    - if user_signed_in? && @unit.user == current_user
+  - unless @unit.fired
+    .col-md-6
+      %h2 Other Info
       %p
-        = link_to "Manage Unit", units_path, :class => "btn btn-default"
-        = link_to "Fire Unit", @unit, :class => "btn btn-danger", :method => :delete, :data => { :confirm => "Are you sure you want to fire this unit? (Equipped items remain in your armory)" }
+        %strong Status:
+        - if @unit.arena.present?
+          Queued for 
+          = link_to @unit.arena.name, "#"
+        - else
+          Unassigned
+
+      - if user_signed_in? && @unit.user == current_user
+        %p
+          = link_to "Manage Unit", units_path, :class => "btn btn-default"
+          = link_to "Fire Unit", @unit, :class => "btn btn-danger", :method => :delete, :data => { :confirm => "Are you sure you want to fire this unit? (Equipped items remain in your armory)" }
 
 .row
   .col-md-12
@@ -146,6 +148,6 @@
             ago
     = paginate @outcomes, theme: 'twitter-bootstrap-3'
 
-    - if user_signed_in?
+    - if user_signed_in? && @unit.user == current_user
       %p
         = link_to "Back to roster", units_path, :class => "btn btn-default"
