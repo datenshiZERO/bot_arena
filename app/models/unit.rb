@@ -1,7 +1,7 @@
 class Unit < ActiveRecord::Base
   belongs_to :user
   belongs_to :arena
-  has_many :unit_battle_outcome
+  has_many :unit_battle_outcomes
 
   #TODO limit to one weapon/armor/mobility
   has_many :user_equipments

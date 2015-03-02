@@ -22,7 +22,7 @@
         = time_ago_in_words outcome.created_at
         ago
 
-%p.text-center= link_to "View previous battles &raquo;".html_safe, my_battles_path, :class => "btn btn-default btn-lg"
+%p.text-center= link_to "View previous battles", my_battles_path, :class => "btn btn-default btn-lg"
 
 %h2 Roster
 
@@ -61,16 +61,17 @@
         - else
           Unassigned
       %td
-        = link_to "Manage Unit &raquo;".html_safe, "#", :class => "btn btn-default"
+        = link_to "View Unit", unit, :class => "btn btn-default"
+        = link_to "Manage Unit", "#", :class => "btn btn-default"
   - (current_user.available_unit_slots).times do
     %tr
       %td.text-center{colspan: 6}
         Empty slot
       %td
-        = link_to "Hire Unit &raquo;".html_safe, "#", :class => "btn btn-default"
+        = link_to "Hire Unit", "#", :class => "btn btn-default"
 
 
-%p.text-center= link_to "Manage roster &raquo;".html_safe, "#", :class => "btn btn-default btn-lg"
+%p.text-center= link_to "Manage roster", "#", :class => "btn btn-default btn-lg"
 
 %h2 Armory
 
@@ -108,14 +109,14 @@
         - else
           not equipped
       %td
-        = link_to "Manage Item &raquo;".html_safe, "#", :class => "btn btn-default"
+        = link_to "Manage Item", "#", :class => "btn btn-default"
   - (current_user.max_equipment - current_user.user_equipment.count).times do
     %tr
       %td.text-center{colspan: 6}
         Empty slot
       %td
-        = link_to "Buy Item &raquo;".html_safe, "#", :class => "btn btn-default"
+        = link_to "Buy Item", "#", :class => "btn btn-default"
 
-%p.text-center= link_to "Manage armory &raquo;".html_safe, "#", :class => "btn btn-default btn-lg"
+%p.text-center= link_to "Manage armory", "#", :class => "btn btn-default btn-lg"
 
 

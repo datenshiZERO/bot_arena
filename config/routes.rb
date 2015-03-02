@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   resources :battles
 
   resources :unit_templates
+  resources :units
 end

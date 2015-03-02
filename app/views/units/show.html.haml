@@ -1,0 +1,150 @@
+%h1
+  %span{ :class => "unit-icon team-A-unit #{@unit.icon_class}" }
+  = @unit.name
+
+.row 
+  .col-md-6
+    %h2 Stats
+
+    %table.table.table-condensed.table-striped
+      %tr
+        %th 
+        %th Points
+        %th HP
+        %th Movement
+        %th Evade
+        %th Defense
+        %th Damage
+        %th Accuracy
+        %th Range
+      %tr
+        %td
+          %strong Base
+        %td
+          = @unit.unit_template.points
+        %td
+          = @unit.unit_template.hp
+        %td
+          = @unit.unit_template.move
+        %td
+          = @unit.unit_template.evade
+        %td
+          = @unit.unit_template.defense
+        %td
+        %td
+        %td
+      - if @unit.weapon.present?
+        %tr
+          %td
+            %span{ :class => "item-icon item-#{@unit.weapon.icon_class}" }
+          %td
+            = @unit.weapon.points
+          %td
+          %td
+          %td
+          %td
+          %td
+            = @unit.weapon.damage
+          %td
+            = @unit.weapon.accuracy
+          %td
+            = "#{@unit.weapon.range_min}-#{@unit.weapon.range_max}"
+      - if @unit.armor.present?
+        %tr
+          %td
+            %span{ :class => "item-icon item-#{@unit.armor.icon_class}" }
+          %td
+            = @unit.armor.points
+          %td
+            = @unit.armor.bonus_hp
+          %td
+            = @unit.armor.bonus_move
+          %td
+            = @unit.armor.bonus_evade
+          %td
+            = @unit.armor.bonus_defense
+          %td
+          %td
+            = @unit.armor.bonus_accuracy
+          %td
+      - if @unit.mobility_item.present?
+        %tr
+          %td
+            %span{ :class => "item-icon item-#{@unit.mobility_item.icon_class}" }
+          %td
+            = @unit.mobility_item.points
+          %td
+            = @unit.mobility_item.bonus_hp
+          %td
+            = @unit.mobility_item.bonus_move
+          %td
+            = @unit.mobility_item.bonus_evade
+          %td
+            = @unit.mobility_item.bonus_defense
+          %td
+          %td
+            = @unit.mobility_item.bonus_accuracy
+          %td
+      %tr
+        %td
+          %strong Total
+        %td
+          = @unit.total_points
+        %td
+          = @unit.eff_hp
+        %td
+          = @unit.eff_move
+        %td
+          = @unit.eff_evade
+        %td
+          = @unit.eff_defense
+        %td
+          = @unit.eff_damage
+        %td
+          = @unit.eff_accuracy
+        %td
+          = "#{@unit.eff_range_min}-#{@unit.eff_range_max}"
+
+  .col-md-6
+    %h2 Other Info
+
+    %p
+      %strong Arena:
+      - if @unit.arena.present?
+        Queued for 
+        = link_to @unit.arena.name, "#"
+      - else
+        Unassigned
+
+    - if user_signed_in?
+      %p
+        = link_to "Manage Unit", units_path, :class => "btn btn-default"
+
+.row
+  .col-md-12
+    %h2 Latest Battles
+    %table.table.table-striped.table-condensed
+      %tr
+        %th Battle ID
+        %th Unit Team
+        %th Unit Outcome
+        %th Battle Outcome
+        %th.text-right XP
+        %th.text-right Gold
+        %th.text-right Time
+      - @outcomes.order("created_at desc").each do |outcome|
+        %tr
+          %td= link_to outcome.battle.battle_id, outcome.battle
+          %td= outcome.team
+          %td= outcome.outcome
+          %td= outcome.battle.outcome
+          %td.text-right= "+#{number_with_delimiter outcome.xp}"
+          %td.text-right= "+#{number_with_delimiter outcome.credits}"
+          %td.text-right
+            = time_ago_in_words outcome.created_at
+            ago
+    = paginate @outcomes, theme: 'twitter-bootstrap-3'
+
+    - if user_signed_in?
+      %p
+        = link_to "Back to roster", units_path, :class => "btn btn-default"
