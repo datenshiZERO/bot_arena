@@ -1,12 +1,17 @@
-%h1
+%h1 Manage Unit
+%p
   %span{ :class => "unit-icon team-A-unit #{@unit.icon_class}" }
-  = @unit.name
-  - if @unit.fired
-    %span.label.label-danger Fired
+.row
+  .col-md-4
+    = simple_form_for @unit do |f|
+      = f.input :name
+      = f.input :weapon_id, label: "Weapon", collection: @weapons, include_blank: "no weapon", label_method: :name
+      = f.input :armor_id, label: "Armor", collection: @armor, include_blank: "no armor", label_method: :name
+      = f.input :mobility_id, label: "Mobility", collection: @mobility, include_blank: "no mobility item", label_method: :name
+      = f.submit :class => "btn btn-primary"
 
-.row 
-  .col-md-6
-    %h2 Stats
+  .col-md-8
+    %h3 Current Stats
 
     %table.table.table-condensed.table-striped
       %tr
@@ -107,47 +112,18 @@
         %td
           = "#{@unit.eff_range_min}-#{@unit.eff_range_max}"
 
-  - unless @unit.fired
-    .col-md-6
-      %h2 Other Info
-      %p
-        %strong Status:
-        - if @unit.arena.present?
-          Queued for 
-          = link_to @unit.arena.name, "#"
-        - else
-          Unassigned
-
-      - if user_signed_in? && @unit.user == current_user
-        %p
-          = link_to "Manage Unit", edit_unit_path(@unit), :class => "btn btn-default"
-          = link_to "Fire Unit", @unit, :class => "btn btn-danger", :method => :delete, :data => { :confirm => "Are you sure you want to fire this unit? (Equipped items remain in your armory)" }
-
+    %p
+      %strong Status:
+      - if @unit.arena.present?
+        Queued for 
+        = link_to @unit.arena.name, "#"
+        %br
+        %em (Changing this unit's equipment will remove it from the current arena queue if it doesn't meet the point requirements)
+      - else
+        Unassigned
 .row
   .col-md-12
-    %h2 Latest Battles
-    %table.table.table-striped.table-condensed
-      %tr
-        %th Battle ID
-        %th Unit Team
-        %th Unit Outcome
-        %th Battle Outcome
-        %th.text-right XP
-        %th.text-right Gold
-        %th.text-right Time
-      - @outcomes.order("created_at desc").each do |outcome|
-        %tr
-          %td= link_to outcome.battle.battle_id, outcome.battle
-          %td= outcome.team
-          %td= outcome.outcome
-          %td= outcome.battle.outcome
-          %td.text-right= "+#{number_with_delimiter outcome.xp}"
-          %td.text-right= "+#{number_with_delimiter outcome.credits}"
-          %td.text-right
-            = time_ago_in_words outcome.created_at
-            ago
-    = paginate @outcomes, theme: 'twitter-bootstrap-3'
-
-    - if user_signed_in? && @unit.user == current_user
-      %p
-        = link_to "Back to roster", units_path, :class => "btn btn-default"
+    %hr
+    %p
+      = link_to "Cancel Update", @unit, :class => "btn btn-default"
+      = link_to "Back to Roster", units_path, :class => "btn btn-default"
