@@ -66,4 +66,9 @@ class User < ActiveRecord::Base
         total_missions >= template.mission_requirement
     end
   end
+
+  def can_buy?(equipment)
+    available_equipment_slots > 0 &&
+      credits >= equipment.price
+  end
 end

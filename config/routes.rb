@@ -25,4 +25,10 @@ Rails.application.routes.draw do
     end
   end
   resources :units
+  resources :equipment do
+    member do
+      post :buy
+    end
+  end
+  resources :user_equipment
 end

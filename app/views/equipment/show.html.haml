@@ -1,0 +1,61 @@
+%h1= @item.name
+
+%h2 Stats
+
+%table.table.table-condensed.table-striped
+  %tr
+    %th Icon
+    %th Slot
+    %th Points
+    %th HP
+    %th Movement
+    %th Evade
+    %th Defense
+    %th Damage
+    %th Accuracy
+    %th Range
+    %th Price
+  %tr
+    - if @item.slot == "weapon"
+      %td
+        %span{ :class => "item-icon item-#{@item.icon_class}" }
+      %td= @item.slot.capitalize
+      %td
+        = @item.points
+      %td
+      %td
+      %td
+      %td
+      %td
+        = @item.damage
+      %td
+        = @item.accuracy
+      %td
+        = "#{@item.range_min}-#{@item.range_max}"
+      %td
+        = number_with_delimiter @item.price
+    - else
+      %td
+        %span{ :class => "item-icon item-#{@item.icon_class}" }
+      %td Weapon
+      %td
+        = @item.points
+      %td
+        = @item.bonus_hp
+      %td
+        = @item.bonus_move
+      %td
+        = @item.bonus_evade
+      %td
+        = @item.bonus_defense
+      %td
+      %td
+        = @item.bonus_accuracy
+      %td
+      %td
+        = number_with_delimiter @item.price
+
+%p
+  - if user_signed_in?
+    = link_to "Buy Item", buy_equipment_path(@item.slug), :class => "btn btn-default", :method => :post, :data => { :confirm => "Are you sure you want to buy this equipment for #{@item.price} gold?" }
+  = link_to "Back to equipment list", equipment_index_path, :class => "btn btn-default"
