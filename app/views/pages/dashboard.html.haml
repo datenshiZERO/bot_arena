@@ -14,8 +14,10 @@
       %td= link_to outcome.battle.battle_id, outcome.battle
       %td= link_to outcome.unit.name, outcome.unit
       %td= outcome.team
-      %td= outcome.outcome
-      %td= outcome.battle.outcome
+      %td
+        %span{:class => outcome.unit_outcome_label }= outcome.outcome
+      %td
+        %span{:class => outcome.battle_outcome_label}= outcome.battle.outcome
       %td.text-right= "+#{number_with_delimiter outcome.xp}"
       %td.text-right= "+#{number_with_delimiter outcome.credits}"
       %td.text-right

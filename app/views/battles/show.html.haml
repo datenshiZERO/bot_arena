@@ -54,22 +54,46 @@
 
 .row
   .col-md-12
-    %h3 Battle Results
+    %h2= @battle.outcome
 
-    %p
-      %strong= @battle.outcome
-
-    - @battle.unit_battle_outcomes.each do |outcome|
-      %p
-        %strong= outcome.unit.name
-        = outcome.outcome
-        = "(#{outcome.team})"
-        %br
-        Kills: 
-        = outcome.kills
-        %br
-        Assists: 
-        = outcome.assists
+    %h3 Player owned-units
+    %table.table.table-striped.table-condensed.unit-table
+      %tr
+        %th Unit
+        %th Equipment
+        %th Team
+        %th Name
+        %th Owner
+        %th Stats
+        %th Kills
+        %th Assists
+        %th Unit Outcome
+      - ["A", "B", "C"].each do |team|
+        - if @battle.grouped_outcomes[team].present?
+          - @battle.grouped_outcomes[team].each do |outcome|
+            %tr
+              %td
+                %span{ :class => "unit-icon team-#{team}-unit #{outcome.unit.icon_class}" }
+              %td
+                %span{ :class => "item-icon item-#{outcome.unit.weapon_icon_class}" }
+                %span{ :class => "item-icon item-#{outcome.unit.armor_icon_class}" }
+                %span{ :class => "item-icon item-#{outcome.unit.mobility_icon_class}" }
+              %td= outcome.team
+              %td= link_to outcome.parsed_details["name"], outcome.unit
+              %td= outcome.unit.user.username
+              %td 
+                = outcome.parsed_details["hp"]
+                %span.fa.fa-heart
+                = outcome.parsed_details["move"]
+                %span.fa.fa-arrows
+                = "#{outcome.parsed_details["evade"]}/#{outcome.parsed_details["defense"]}"
+                %span.fa.fa-shield
+                = "#{outcome.parsed_details["damage"]}/#{outcome.parsed_details["accuracy"]}/#{outcome.parsed_details["range_min"]}-#{outcome.parsed_details["range_max"]}"
+                %span.fa.fa-crosshairs
+              %td= outcome.kills
+              %td= outcome.assists
+              %td
+                %span{:class => outcome.unit_outcome_label }= outcome.outcome
 
 
 

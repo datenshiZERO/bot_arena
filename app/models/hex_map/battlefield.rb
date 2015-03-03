@@ -338,6 +338,7 @@ module HexMap
           @arena.credits_kill * outcome.kills +
           (unit.alive? ? @arena.credits_survive : 0) +
           (unit.team == winning_team ? @arena.credits_win : 0)
+        outcome.details = JSON.generate(unit.details)
         outcome
       end
 
