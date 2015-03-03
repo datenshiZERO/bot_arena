@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :units
   has_many :user_equipment
+  
+  validates :username, presence: true
 
   XP_TABLE = [
     0, 1000, 3000, 6000, 10000,

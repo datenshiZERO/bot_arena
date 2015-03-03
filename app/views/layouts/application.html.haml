@@ -44,7 +44,7 @@
               -#%li.divider
               %li
                 = link_to "#" do
-                  = current_user.email
+                  = current_user.username
                   &nbsp;
                   = "Lvl: #{current_user.current_level}"
                   = "(#{number_with_delimiter current_user.total_xp}/#{number_with_delimiter current_user.xp_for_next_level})"

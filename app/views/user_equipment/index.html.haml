@@ -34,11 +34,11 @@
         - else
           not equipped
       %td
-        = link_to "Sell Item", user_equipment_path(item), :class => "btn btn-danger", :method => :delete, :data => { :confirm => "Are you sure you want to sell this item for #{item.price / 2}?#{ " (Unit equipping this item will be removed from their current arena)" if  item.unit.present? }" }
+        = link_to "Sell Item", user_equipment_path(item), :class => "btn btn-danger btn-sm", :method => :delete, :data => { :confirm => "Are you sure you want to sell this item for #{item.price / 2}?#{ " (Unit equipping this item will be removed from their current arena)" if  item.unit.present? }" }
   - current_user.available_equipment_slots.times do
     %tr
       %td.text-center{colspan: 6}
         Empty slot
       %td
-        = link_to "Buy Item", equipment_index_path, :class => "btn btn-default"
+        = link_to "Buy Item", equipment_index_path, :class => "btn btn-default btn-sm"
 
