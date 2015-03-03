@@ -1,0 +1,5 @@
+- if user_signed_in?
+  - if current_user.can_buy? item
+    = link_to "Buy Item", buy_equipment_path(item.slug), :class => "btn btn-default btn-sm", :method => :post, :data => { :confirm => "Are you sure you want to buy this equipment for #{item.price} gold?" }
+  - else
+    %button.btn.btn-default.btn-sm{ disabled: "disabled" } Buy Item

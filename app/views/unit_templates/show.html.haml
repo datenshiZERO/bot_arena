@@ -35,12 +35,10 @@
         %th Gold
         %th Gold (fully equipped)
       %tr
-        %td
-          = @unit.mission_requirement
-        %td
-          = @unit.kill_requirement
-        %td
-          = @unit.price
+        %td= number_with_delimiter @unit.mission_requirement
+        %td= number_with_delimiter @unit.kill_requirement
+        %td= number_with_delimiter @unit.price
+        %td= number_with_delimiter @unit.full_price
 .row
   .col-md-12
     %h2 Recommended Equipment
@@ -62,15 +60,21 @@
         %th Range
       %tr
         %td
-          = @unit.points
+          = @dummy_unit.total_points
         %td
-          = @unit.hp
+          = @dummy_unit.eff_hp
         %td
-          = @unit.move
+          = @dummy_unit.eff_move
         %td
-          = @unit.evade
+          = @dummy_unit.eff_evade
         %td
-          = @unit.defense
+          = @dummy_unit.eff_defense
+        %td
+          = @dummy_unit.eff_damage
+        %td
+          = @dummy_unit.eff_accuracy
+        %td
+          = "#{@dummy_unit.eff_range_min}-#{@dummy_unit.eff_range_max}"
 %p
   = render partial: "hire_buttons", locals: { unit: @unit }
   = link_to "Back to list", unit_templates_path, :class => "btn btn-default"

@@ -5,6 +5,7 @@
     %th Equipment
     %th Name
     %th Type
+    %th Price
     %th Weapon Stats
     %th Stat Bonus
     %th Actions
@@ -14,6 +15,7 @@
         %span{ :class => "item-icon item-#{item.icon_class}" }
       %td= item.name
       %td= item.slot.capitalize
+      %td= number_with_delimiter item.price
       %td
         - if item.slot == "weapon"
           = "#{item.damage}/#{item.accuracy}/#{item.range_min}-#{item.range_max}"
@@ -28,4 +30,5 @@
         = "#{item.bonus_accuracy}"
         %span.fa.fa-crosshairs
       %td
-        = link_to "View Item", equipment_path(item.slug), :class => "btn btn-default"
+        = link_to "View Item", equipment_path(item.slug), :class => "btn btn-default btn-sm"
+        = render partial: "buy_buttons", locals: { item: item }

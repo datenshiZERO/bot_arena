@@ -26,7 +26,7 @@ class Equipment
   end
 
   def icon_class
-    @slug
+    @slug.gsub("_", "-")
   end
 
   ALL_EQUIPMENT = [
@@ -68,6 +68,165 @@ class Equipment
       price: 10,
       bonus_evade: 1,
       bonus_move: 1
+    ),
+    self.new(
+      name: "Spear", 
+      slug: "spear",
+      slot: "weapon",
+      points: 3,
+      price: 50,
+      accuracy: 12,
+      damage: 4,
+      range_min: 1,
+      range_max: 1
+    ),
+    self.new(
+      name: "Bow", 
+      slug: "bow",
+      slot: "weapon",
+      points: 3,
+      price: 50,
+      accuracy: 9,
+      damage: 2,
+      range_min: 2,
+      range_max: 3
+    ),
+    self.new(
+      name: "Leather Armor", 
+      slug: "leather_armor",
+      slot: "armor",
+      points: 3,
+      price: 50,
+      bonus_evade: 2,
+      bonus_defense: 1
+    ),
+    self.new(
+      name: "Gloves", 
+      slug: "gloves",
+      slot: "mobility",
+      points: 3,
+      price: 50,
+      bonus_evade: 1,
+      bonus_accuracy: 1
+    ),
+    self.new(
+      name: "Sword", 
+      slug: "sword",
+      slot: "weapon",
+      points: 5,
+      price: 300,
+      accuracy: 14,
+      damage: 8,
+      range_min: 1,
+      range_max: 1
+    ),
+    self.new(
+      name: "War Bow", 
+      slug: "war_bow",
+      slot: "weapon",
+      points: 5,
+      price: 300,
+      accuracy: 10,
+      damage: 5,
+      range_min: 2,
+      range_max: 4
+    ),
+    self.new(
+      name: "Banded Mail", 
+      slug: "banded_mail",
+      slot: "armor",
+      points: 5,
+      price: 300,
+      bonus_evade: 3,
+      bonus_defense: 1
+    ),
+    self.new(
+      name: "Sabaton", 
+      slug: "sabaton",
+      slot: "mobility",
+      points: 5,
+      price: 300,
+      bonus_evade: 1,
+      bonus_defense: 1
+    ),
+    self.new(
+      name: "Battle Axe", 
+      slug: "battle_axe",
+      slot: "weapon",
+      points: 8,
+      price: 1800,
+      accuracy: 14,
+      damage: 16,
+      range_min: 1,
+      range_max: 1
+    ),
+    self.new(
+      name: "Ice Staff", 
+      slug: "ice_staff",
+      slot: "weapon",
+      points: 8,
+      price: 1800,
+      accuracy: 11,
+      damage: 10,
+      range_min: 3,
+      range_max: 4
+    ),
+    self.new(
+      name: "Cuirass", 
+      slug: "cuirass",
+      slot: "armor",
+      points: 8,
+      price: 1800,
+      bonus_evade: 4,
+      bonus_defense: 2
+    ),
+    self.new(
+      name: "Boots of Haste", 
+      slug: "boots_of_haste",
+      slot: "mobility",
+      points: 8,
+      price: 1800,
+      bonus_evade: 2,
+      bonus_move: 2
+    ),
+    self.new(
+      name: "Great Sword", 
+      slug: "great_sword",
+      slot: "weapon",
+      points: 13,
+      price: 12000,
+      accuracy: 15,
+      damage: 32,
+      range_min: 1,
+      range_max: 2
+    ),
+    self.new(
+      name: "Fire Staff", 
+      slug: "fire_staff",
+      slot: "weapon",
+      points: 13,
+      price: 12000,
+      accuracy: 12,
+      damage: 20,
+      range_min: 3,
+      range_max: 5
+    ),
+    self.new(
+      name: "Full Plate Mail", 
+      slug: "full_plate_mail",
+      slot: "armor",
+      points: 13,
+      price: 12000,
+      bonus_evade: 6,
+      bonus_defense: 3
+    ),
+    self.new(
+      name: "Gloves of Accuracy", 
+      slug: "gloves_of_accuracy",
+      slot: "mobility",
+      points: 13,
+      price: 12000,
+      bonus_accuracy: 6
     )
   ]
 

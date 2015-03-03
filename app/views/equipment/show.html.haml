@@ -2,7 +2,7 @@
 
 %h2 Stats
 
-%table.table.table-condensed.table-striped
+%table.table.table-condensed.table-striped.item-table
   %tr
     %th Icon
     %th Slot
@@ -56,6 +56,6 @@
         = number_with_delimiter @item.price
 
 %p
-  - if user_signed_in?
-    = link_to "Buy Item", buy_equipment_path(@item.slug), :class => "btn btn-default", :method => :post, :data => { :confirm => "Are you sure you want to buy this equipment for #{@item.price} gold?" }
+  = render partial: "buy_buttons", locals: { item: @item }
+%p
   = link_to "Back to equipment list", equipment_index_path, :class => "btn btn-default"

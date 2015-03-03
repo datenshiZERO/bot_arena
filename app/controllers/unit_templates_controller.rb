@@ -8,6 +8,10 @@ class UnitTemplatesController < ApplicationController
   def show
     @unit = UnitTemplate.find(params[:id])
     raise ActiveRecord::RecordNotFound if @unit.nil?
+    @dummy_unit = current_user.units.build(template_slug: params[:id], name: "dummy")
+    @dummy_unit.user_equipments.build(equipment_slug: @unit.weapon_default.slug)
+    @dummy_unit.user_equipments.build(equipment_slug: @unit.armor_default.slug)
+    @dummy_unit.user_equipments.build(equipment_slug: @unit.mobility_default.slug)
   end
 
   def hire

@@ -39,8 +39,8 @@
         %span.fa.fa-arrows
         = "#{unit.evade}/#{unit.defense}"
         %span.fa.fa-shield
-      %td.text-right= unit.kill_requirement
-      %td.text-right= unit.mission_requirement
+      %td.text-right= number_with_delimiter unit.kill_requirement
+      %td.text-right= number_with_delimiter unit.mission_requirement
       %td.text-right= "#{number_with_delimiter unit.price}/#{number_with_delimiter unit.full_price}"
       %td
         = link_to "View Unit".html_safe, unit_template_path(unit.slug), :class => "btn btn-default"
