@@ -13,7 +13,7 @@
     %tr
       %td
         %span{ :class => "item-icon item-#{item.icon_class}" }
-      %td= item.name
+      %td= link_to item.name, equipment_path(item.slug)
       %td= item.slot.capitalize
       %td
         - if item.slot == "weapon"
@@ -30,11 +30,10 @@
         %span.fa.fa-crosshairs
       %td
         - if item.unit.present?
-          = item.unit.name
+          = link_to item.unit.name, item.unit
         - else
           not equipped
       %td
-        = link_to "Manage Item", "#", :class => "btn btn-default"
         = link_to "Sell Item", user_equipment_path(item), :class => "btn btn-danger", :method => :delete, :data => { :confirm => "Are you sure you want to sell this item for #{item.price / 2}?#{ " (Unit equipping this item will be removed from their current arena)" if  item.unit.present? }" }
   - current_user.available_equipment_slots.times do
     %tr

@@ -35,4 +35,21 @@ module BattleUnit
   def eff_range_max
     (weapon.present? ? weapon.range_max : 0)
   end
+
+  def icon_class
+    unit_template.icon_class
+  end
+
+  def weapon_icon_class
+    weapon.present? ? weapon.icon_class : "undefined"
+  end
+
+  def armor_icon_class
+    armor.present? ? armor.icon_class : "undefined"
+  end
+
+  def mobility_icon_class
+    mobility_item.present? ? mobility_item.icon_class : "undefined"
+  end
+
 end

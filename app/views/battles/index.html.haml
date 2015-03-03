@@ -1,11 +1,16 @@
 %h1 Battle List
 
 %table.table.table-striped.table-condensed
+  %tr
+    %th Battle ID
+    %th Battle Outcome
+    %th.text-right Time
   - @battles.each do |battle|
     %tr
-      %td
-        = link_to "#{battle.battle_id}", battle
+      %td= link_to "#{battle.battle_id}", battle
+      %td= battle.outcome
       %td.text-right
-        = l battle.updated_at, format: :short
+        = time_ago_in_words battle.updated_at
+        ago
 
 = paginate @battles, theme: 'twitter-bootstrap-3'

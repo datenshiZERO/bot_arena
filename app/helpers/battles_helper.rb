@@ -10,10 +10,10 @@ module BattlesHelper
   end
 
   def board_class(arena)
-    case [arena.columns, arena.rows].max
-    when 1..4
-      "small"
-    when 5..11
+    case arena.rows
+    when 1..2
+      "large"
+    when 3..11
       "medium"
     else
       "large"

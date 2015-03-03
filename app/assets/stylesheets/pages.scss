@@ -19,7 +19,7 @@ footer, .footer {
   width: 64px;
   height: 64px;
   line-height: 64px;
-  vertical-align: text-top;
+  vertical-align: text-bottom;
 }
 .unit-icon.team-X-unit {
   background-position: 0 0;
@@ -124,21 +124,12 @@ table.unit-table, table.item-table {
         height: 5px;
       }
     }
-    .unit-icon.team-X-unit, .unit-icon.team-A-unit {
-      /*border: 1px solid transparent;*/
+    .unit-icon {
+      vertical-align: text-top;
     }
 
     .glyphicon-remove {
       color: maroon;
-    }
-  }
-  table.small {
-    th {
-      width: 50px;
-      line-height: 1px;
-    }
-    td.tile {
-      height: 100px;
     }
   }
   table.medium {

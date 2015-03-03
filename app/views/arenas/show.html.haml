@@ -1,5 +1,5 @@
 %h1 
-  = "#{@arena.name}"
+  = "Arena: #{@arena.name}"
 
 .row
   .col-md-12.board-container
@@ -15,11 +15,105 @@
             %td.tile{ :colspan => 2, :id => "tile-#{q}-#{r}", :class => tile_class(cell) } 
           - if r.even?
             %td.extra 
+.row
+  .col-md-12
+    %h2 Details
+    %table.table.table-condensed.table-striped
+      %tr
+        %th
+        %th{ colspan: 2 } Points
+        %th{ colspan: 4 } XP reward for
+        %th{ colspan: 3 } Gold reward for
+        %th
+      %tr
+        %th Mode
+        %th Min
+        %th Max
+        %th joining
+        %th kills
+        %th winning
+        %th surviving
+        %th kills
+        %th winning
+        %th surviving
+        %th Schedule
+      %tr
+        %td= @arena.mode
+        %td= @arena.points_min
+        %td= @arena.points_max
+        %td= @arena.xp_join
+        %td= @arena.xp_kill
+        %td= @arena.xp_win
+        %td= @arena.xp_survive
+        %td= @arena.credits_kill
+        %td= @arena.credits_win
+        %td= @arena.credits_survive
+        %td= "every #{pluralize @arena.minutes_interval, "minute"}"
 
-%h3 Assign Units
+.row
+  - unless @arena.battle_bots.where(filler: false).empty?
+    .col-md-12
+      %h3 Bots
+      %table.table.table-striped.table-condensed.unit-table
+        %tr
+          %th Unit
+          %th Equipment
+          %th Type
+          %th Count
+          %th Stats
+        - @arena.battle_bots.where(filler: false).each do |unit|
+          %tr
+            %td
+              %span{ :class => "unit-icon team-X-unit #{unit.icon_class}" }
+            %td
+              %span{ :class => "item-icon item-#{unit.weapon_icon_class}" }
+              %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
+              %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
+            %td= unit.unit_template.name
+            %td= unit.count
+            %td
+              = unit.eff_hp
+              %span.fa.fa-heart
+              = unit.eff_move
+              %span.fa.fa-arrows
+              = "#{unit.eff_evade}/#{unit.eff_defense}"
+              %span.fa.fa-shield
+              = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
+              %span.fa.fa-crosshairs
+  - if @arena.players_max > 1
+    .col-md-12
+      %h3 Filler Units
+      %table.table.table-striped.table-condensed.unit-table
+        %tr
+          %th Unit
+          %th Equipment
+          %th Type
+          %th % chance
+          %th Stats
+        - @arena.battle_bots.where(filler: true).each do |unit|
+          %tr
+            %td
+              %span{ :class => "unit-icon team-A-unit #{unit.icon_class}" }
+            %td
+              %span{ :class => "item-icon item-#{unit.weapon_icon_class}" }
+              %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
+              %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
+            %td= unit.unit_template.name
+            %td= "#{((unit.count / @arena.battle_bots.where(filler: true).count) * 100).round(0)}%"
+            %td
+              = unit.eff_hp
+              %span.fa.fa-heart
+              = unit.eff_move
+              %span.fa.fa-arrows
+              = "#{unit.eff_evade}/#{unit.eff_defense}"
+              %span.fa.fa-shield
+              = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
+              %span.fa.fa-crosshairs
 - if user_signed_in?
+  %hr
+  %h2 Assign Units
   - if current_user.assignable_units(@arena).empty?
-    %p All of your units failed to meet the point requirements of this arena.
+    %p None of your units meet the point requirements of this arena.
   - else
     = form_tag @arena, method: :put do 
       %table.table.table-striped.table-condensed.unit-table
@@ -40,7 +134,7 @@
               %span{ :class => "item-icon item-#{unit.weapon_icon_class}" }
               %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
               %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
-            %td= unit.name
+            %td= link_to unit.name, unit
             %td= unit.total_points
             %td
               = unit.eff_hp

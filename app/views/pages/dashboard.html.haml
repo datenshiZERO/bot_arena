@@ -12,7 +12,7 @@
   - current_user.latest_battles.each do |outcome|
     %tr
       %td= link_to outcome.battle.battle_id, outcome.battle
-      %td= outcome.unit.name
+      %td= link_to outcome.unit.name, outcome.unit
       %td= outcome.team
       %td= outcome.outcome
       %td= outcome.battle.outcome
@@ -43,7 +43,7 @@
         %span{ :class => "item-icon item-#{unit.weapon_icon_class}" }
         %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
         %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
-      %td= unit.name
+      %td= link_to unit.name, unit
       %td= unit.unit_template.name
       %td
         = unit.eff_hp

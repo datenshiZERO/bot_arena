@@ -2,14 +2,17 @@
 
 %table.table.table-condensed.table-striped
   %tr
-    %th{ colspan: 3 }
+    %th
+    %th
+    %th{ colspan: 2 } Points
     %th{ colspan: 4 } XP reward for
     %th{ colspan: 3 } Gold reward for
     %th
   %tr
     %th Name
-    %th Points Min/Max
     %th Mode
+    %th Min
+    %th Max
     %th joining
     %th kills
     %th winning
@@ -21,8 +24,9 @@
   - @arenas.each do |arena|
     %tr
       %td= link_to arena.name, arena
-      %td= "#{arena.points_min}/#{arena.points_max}"
       %td= arena.mode
+      %td= arena.points_min
+      %td= arena.points_max
       %td= arena.xp_join
       %td= arena.xp_kill
       %td= arena.xp_win

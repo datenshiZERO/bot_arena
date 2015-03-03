@@ -6,11 +6,11 @@ class ArenasController < ApplicationController
   end
 
   def show
-    @arena = Arena.find(params[:id])
+    @arena = Arena.where(active: true).find(params[:id])
   end
 
   def update
-    @arena = Arena.find(params[:id])
+    @arena = Arena.where(active: true).find(params[:id])
     units = current_user.units.where(fired: false).includes(:user_equipments).find(params[:unit_ids])
     Rails.logger.error units - current_user.assignable_units(@arena)
     if (units - current_user.assignable_units(@arena)).empty?

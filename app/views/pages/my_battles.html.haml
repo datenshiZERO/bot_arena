@@ -12,7 +12,7 @@
   - @outcomes.each do |outcome|
     %tr
       %td= link_to outcome.battle.battle_id, outcome.battle
-      %td= outcome.unit.name
+      %td= link_to outcome.unit.name, outcome.unit
       %td= outcome.team
       %td= outcome.outcome
       %td= outcome.battle.outcome
