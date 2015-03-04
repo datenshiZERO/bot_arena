@@ -1,2 +1,26 @@
-%h1 Hello
+.jumbotron
+  %h1 Tactics?!?
+  %p SRPG meets incremental games (e.g. Cookie Clicker)
+  %p= link_to "Sign up &raquo;".html_safe, new_user_registration_path, :class => "btn btn-primary btn-lg"
 
+%p
+  %strong Version 0.0.1.
+  This is a very early version, expect many balance changes and possible server wipes in future updates.
+  Feel free to use dummy email addresses for signing up.
+
+%h2 Latest Battles
+%table.table.table-striped.table-condensed
+  %tr
+    %th Battle ID
+    %th Battle Outcome
+    %th.text-right Time
+  - @latest_battles.each do |battle|
+    %tr
+      %td= link_to "#{battle.battle_id}", battle
+      %td= battle.outcome
+      %td.text-right
+        = time_ago_in_words battle.updated_at
+        ago
+
+%p.text-center
+  = link_to "View previous battles &raquo;".html_safe, battles_path, :class => "btn btn-default btn-lg"

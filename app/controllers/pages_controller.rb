@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!, except: :index
   def index
+    @latest_battles = Battle.order("updated_at desc").includes(:arena).limit 5
   end
 
   def dashboard
