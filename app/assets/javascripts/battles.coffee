@@ -184,7 +184,7 @@ moveUnit = (source, dest, unit) ->
   currentUnit().location = dest
 
 putUnitOnTile = (unit, tile) ->
-  tile.html("<div class='hp-box'><div style='width:#{unit.currentHP / unit.hp * 100}%'></div></div><span class='unit-icon team-#{unit.team}-unit'></span>")
+  tile.html("<div class='hp-box'><div style='width:#{unit.currentHP / unit.hp * 100}%'></div></div><span class='unit-icon team-#{unit.team}-unit #{unit.icon_class}'></span>")
   tile.data("unitId", unit.id)
 
 

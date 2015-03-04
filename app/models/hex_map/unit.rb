@@ -28,7 +28,7 @@ module HexMap
         name: name,
         team: @team,
         template_slug: @unit.template_slug,
-        icon_class: @unit.template.icon_class,
+        icon_class: @unit.unit_template.icon_class,
         hp: @hp_max,
         evade: @evade,
         move: @move,

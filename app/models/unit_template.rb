@@ -39,6 +39,7 @@ class UnitTemplate
       hp: 8,
       evade: 12,
       move: 3,
+      weapon_default: "shuriken",
       mobility_points: 3,
       mobility_default: "gloves",
       icon_class: "skirmisher"
