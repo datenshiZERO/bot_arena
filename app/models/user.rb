@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :units
   has_many :user_equipment
+  has_many :raids
   
   validates :username, presence: true
 

@@ -1,0 +1,202 @@
+module Dungeon
+  class Dive
+    def initialize(raid)
+      # todo validate raid
+      @raid = raid
+      @raid_log = [] #2d
+      @quest = raid.quest
+      @kills = 0
+      @xp = 0
+      @credits = 0
+      setup_party
+      setup_monsters
+    end 
+
+    def setup_party
+      # clear out empty slots
+      @party = [
+        [ @raid.unit_1_id, @raid.unit_1_front ],
+        [ @raid.unit_2_id, @raid.unit_2_front ],
+        [ @raid.unit_3_id, @raid.unit_3_front ],
+        [ @raid.unit_4_id, @raid.unit_4_front ],
+        [ @raid.unit_5_id, @raid.unit_5_front ],
+        [ @raid.unit_6_id, @raid.unit_6_front ]
+      ].reject { |u| u[0].nil? }
+      .map { |u| Dungeon::Unit.new(*u) }
+
+      @party.each_with_index do |unit, idx|
+        unit.id = idx
+      end
+      @initial_party = @party.map { |u| u.details }
+    end
+
+    def setup_monsters
+      # convert to hash of arrays representing waves
+      @monster_waves = @raid.encounters.sort_by { |e| e.wave }
+      .group_by { |e| e.wave }
+      .inject({}) do |hash, (wave_no, encounters)|
+        wave = []
+        encounters.each do |encounter|
+          encounter.count.times do
+            wave << Dungeon::Unit.new(encounter)
+          end
+        end
+        # each monster contains its index in the wave
+        wave.each_with_index do |monster, idx|
+          monster.id = idx
+        end
+        hash[wave_no] = wave
+        hash
+      end
+
+      @initial_monsters = @monster_waves.inject({}) do |hash, (wave_no, wave)|
+        hash[wave_no] = wave.map { |m| m.details }
+        hash
+      end
+    end
+
+    def process_raid
+      @battle_log = []
+      @monster_waves.each do |current_wave, wave|
+        @current_log = []
+        @battle_log << @current_log
+        process_wave(current_wave, wave)
+        break if party_wiped?
+      end
+      process_outcome
+    end
+
+    def process_wave(current_wave, wave)
+      # single shuffle?
+      current_brawl = (party + wave).shuffle.sort_by { |a| a.move }
+      while true
+        current_brawl.each do |actor|
+          action_log = {}
+          @current_log << action_log
+          # skip if dead
+          next if actor.dead?
+
+          # set target
+          # attack
+          # end wave if all units in one side is dead
+          if actor.monster
+            target = monster_target(actor)
+            attack_unit(actor, target)
+          else
+            target = unit_target(actor, current_wave)
+            attack_monster(actor, target)
+          end
+          break if monsters_wiped?(current_wave) || party_wiped?
+        end
+        break if monsters_wiped?(current_wave) || party_wiped?
+      end
+    end 
+
+    def unit_target(unit, current_wave)
+      # find highest damage, lowest health
+      @monster_waves[current_wave].select { |m| m.alive? }.max do |a, b|
+        (a.damage / a.hp) <=> (b.damage / b.hp)
+      end
+    end
+
+    def monster_target(monster)
+      # randomize living lol
+      @party.select { |u| u.alive? }.sample
+    end
+
+    def attack_unit(monster, unit)
+      eff_accuracy = monster.accuracy
+      eff_damage = monster.damage
+      if !unit.front && !monster.ranged
+        # modify damage/accuracy if unit in back row and attacker isn't ranged
+        eff_accuracy = eff_accuracy * 2 / 3
+        eff_damage = eff_damage / 2
+      end
+
+      # roll, check if hit
+      if target_hit?(eff_accuracy, unit.evade)
+        # process damage
+        eff_damage -= unit.defense
+        eff_damage = 1 if eff_damage < 1
+        unit.hp -= eff_damage
+      end
+      # if target is killed, move surviving forward
+      move_surviving_forward if unit.dead?
+    end
+
+    def attack_monster(unit, monster)
+      eff_accuracy = unit.accuracy
+      eff_damage = unit.damage
+      if !unit.front && !unit.ranged
+        # modify damage/accuracy if unit in back row and isn't ranged
+        eff_accuracy = eff_accuracy * 2 / 3
+        eff_damage = eff_damage / 2
+      end
+
+      # roll, check if hit
+      if target_hit?(eff_accuracy, monster.evade)
+        # process damage
+        eff_damage -= monster.defense
+        eff_damage = 1 if eff_damage < 1
+        monster.hp -= eff_damage
+      end
+
+      if monster.dead?
+        @kills += 1
+        @xp += monster.template.xp
+        @credits += monster.template.credits
+      end
+    end
+
+    def target_hit?(accuracy, evade)
+      roll = Random.rand(20) + 1
+      return true if roll == 20
+      return false if roll == 1
+      return true if roll >= (accuracy - evade)
+    end
+
+    def move_surviving_forward
+      if @party.select { |u| u.front && u.alive? }.empty?
+        @party.select { |u| u.alive? }.each { |u| u.front = true }
+      end
+    end
+
+    def monsters_wiped?(wave)
+      @monster_waves[current_wave].count { |m| m.alive? } > 0
+    end
+
+    def party_wiped?
+      @party.count { |u| u.alive? } > 0
+    end
+
+    def process_outcome
+      if party_wiped?
+        @raid.outcome = "Failed"
+      else
+        @raid.outcome = "Success"
+        @xp += @quest.xp_win
+        @credits += @quest.credits_win
+      end
+
+      user = @raid.user
+      user.with_lock do |u|
+        u.total_xp += @xp
+        u.total_missions += 1
+        u.total_kills += @kills
+        u.credits += @credits
+        u.save!
+      end
+      @raid.xp = @xp
+      @raid.credits = @credits
+      @raid.kills = @kills
+      # TODO
+      @raid.battle_log = {
+        party: @initial_party,
+        monsters: @initial_monsters
+        battle_log: @battle_log
+      }
+
+      @raid.save
+    end
+  end
+end
