@@ -60,6 +60,7 @@ module Dungeon
       @monster_waves.each do |current_wave, wave|
         @current_log = []
         @battle_log << @current_log
+        move_surviving_forward
         process_wave(current_wave, wave)
         break if party_wiped?
       end
@@ -180,11 +181,11 @@ module Dungeon
     def move_surviving_forward
       if @party.select { |u| u.front && u.alive? }.empty?
         @party.select { |u| u.alive? }.each { |u| u.front = true }
+        action_log = { 
+          action: "move forward"
+        }
+        @current_log << action_log
       end
-      action_log = { 
-        action: "move forward"
-      }
-      @current_log << action_log
     end
 
     def monsters_wiped?(current_wave)
@@ -222,7 +223,7 @@ module Dungeon
       @raid.raid_log = JSON.generate({
         party: @initial_party,
         monsters: @initial_monsters,
-        battle_log: @battle_log
+        raid_log: @battle_log
       })
 
       @raid.save

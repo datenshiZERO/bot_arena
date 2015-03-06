@@ -46,6 +46,13 @@ module Dungeon
         ranged: @ranged,
         icon_class: @icon_class
       }
+      unless @monster
+        hash.merge!({
+          weapon_icon_class: @template.weapon_icon_class,
+          armor_icon_class: @template.armor_icon_class,
+          mobility_icon_class: @template.mobility_icon_class
+        })
+      end
 
       hash
     end

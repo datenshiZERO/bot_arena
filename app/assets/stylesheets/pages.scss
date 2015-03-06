@@ -165,11 +165,27 @@ footer, .footer {
 }
 .monster-icon.monster-rat {
   background-position: -384px 32px;
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
 }
+
+#monster-row {
+  .unit-container.monster-green-slime-container, .unit-container.monster-green-slime-container {
+    width: 32px;
+  }
+  .unit-container.monster-rat-container {
+    width: 64px;
+  }
+}
+
 
 table.unit-table, table.item-table, table.monster-table {
   tr > td {
     vertical-align: middle;
+  }
+  tr > th.hp-column {
+    width: 300px;
   }
 }
 
@@ -343,4 +359,48 @@ table.unit-table, table.item-table, table.monster-table {
   .item-icon {
     vertical-align: -25%;
   }
+}
+
+#party-front-row, #party-back-row, #monster-row {
+  margin-bottom: 5px;
+  text-align: center;
+  .unit-container {
+    width: 32px;
+    margin: 0 4px;
+    display: inline-block;
+    .unit-icon {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+    }
+    .unit-icon.team-A-unit {
+      background-position: -288px 0;
+    }
+    .unit-icon.team-A-unit.skirmisher {
+      background-position: -352px 0;
+    }
+    .unit-icon.team-A-unit.sentinel {
+      background-position: -288px -64px;
+    }
+    .unit-icon.team-A-unit.mercenary {
+      background-position: -352px -64px;
+    }
+  }
+  .hp-box {
+    height: 7px;
+    border: 1px solid rgba(128, 128, 128, 0.8);
+    div {
+      background: rgba(0, 128, 0, 0.8);
+      height: 5px;
+    }
+  }
+  .unit-icon {
+    vertical-align: text-top;
+  }
+}
+
+#monster-row {
+  margin-bottom: 20px;
+  background: #eee;
+  padding: 10px;
 }

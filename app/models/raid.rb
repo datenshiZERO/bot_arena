@@ -5,6 +5,10 @@ class Raid < ActiveRecord::Base
   validate :check_stage, :units_must_be_available, :check_duplicate_units
   after_create :dive
 
+  def party_snapshot
+    @party_snapshot ||= JSON.parse(raid_log)["party"]
+    @party_snapshot
+  end
   private
 
   def check_stage
