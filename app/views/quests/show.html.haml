@@ -1,0 +1,78 @@
+%h1= @quest.name 
+
+%p
+  %strong XP for winning:
+  = @quest.xp_win
+
+%p
+  %strong Credits for winning:
+  = @quest.credits_win
+
+%h2 Enemies
+
+- @quest.encounters.group_by {|x| x.wave }.each do |wave, encounters|
+  %h3= "Wave #{wave}"
+
+  %table.table.table-condensed.table-striped.monster-table
+    %tr
+      %th Monster
+      %th HP
+      %th Movement
+      %th Evade
+      %th Defense
+      %th Damage
+      %th Accuracy
+      %th Range
+    - encounters.each do |encounter|
+      %tr
+        %td
+          %span{ class: "monster-icon monster-#{encounter.monster.icon_class}" }
+          = encounter.monster.name
+          x
+          = encounter.count
+        %td= encounter.monster.hp
+        %td= encounter.monster.move
+        %td= encounter.monster.evade
+        %td= encounter.monster.defense
+        %td= encounter.monster.damage
+        %td= encounter.monster.accuracy
+        %td
+          - if encounter.monster.ranged
+            %span.label.label-warn Ranged
+          - else 
+            %span.label.label-info Melee
+
+%h2 Send Raid Party
+
+- if @units.empty?
+  %p
+    You do not have any available units. 
+    Remove some from the arena
+    or 
+    hire new units 
+    before taking this quest.
+- else
+  = simple_form_for @raid do |f|
+    = f.input :quest_id, as: :hidden, value: @quest.id
+    = f.input :unit_1_id, collection: @units, include_blank: false
+    = f.input :unit_1_front, label: "Put unit 1 in the front row"
+    - if @units.size > 1
+      = f.input :unit_2_id, collection: @units, include_blank: false
+      = f.input :unit_2_front, label: "Put unit 2 in the front row"
+    - if @units.size > 2
+      = f.input :unit_3_id, collection: @units, include_blank: false
+      = f.input :unit_3_front, label: "Put unit 3 in the front row"
+    - if @units.size > 3
+      = f.input :unit_4_id, collection: @units, include_blank: false
+      = f.input :unit_4_front, label: "Put unit 4 in the front row"
+    - if @units.size > 4
+      = f.input :unit_5_id, collection: @units, include_blank: false
+      = f.input :unit_5_front, label: "Put unit 5 in the front row"
+    - if @units.size > 5
+      = f.input :unit_6_id, collection: @units, include_blank: false
+      = f.input :unit_6_front, label: "Put unit 6 in the front row"
+    = f.submit :class => "btn btn-primary", value: "Begin Raid &raquo;".html_safe
+
+%hr
+%p= link_to "Back to list of Quests", quests_path, :class => "btn btn-default"
+

@@ -32,13 +32,13 @@ module Dungeon
 
     def setup_monsters
       # convert to hash of arrays representing waves
-      @monster_waves = @raid.encounters.sort_by { |e| e.wave }
+      @monster_waves = @quest.encounters.sort_by { |e| e.wave }
       .group_by { |e| e.wave }
       .inject({}) do |hash, (wave_no, encounters)|
         wave = []
         encounters.each do |encounter|
           encounter.count.times do
-            wave << Dungeon::Unit.new(encounter)
+            wave << Dungeon::Unit.new(encounter.monster_slug)
           end
         end
         # each monster contains its index in the wave
@@ -68,11 +68,9 @@ module Dungeon
 
     def process_wave(current_wave, wave)
       # single shuffle?
-      current_brawl = (party + wave).shuffle.sort_by { |a| a.move }
+      current_brawl = (@party + wave).shuffle.sort_by { |a| -a.move }
       while true
         current_brawl.each do |actor|
-          action_log = {}
-          @current_log << action_log
           # skip if dead
           next if actor.dead?
 
@@ -105,6 +103,12 @@ module Dungeon
     end
 
     def attack_unit(monster, unit)
+      action_log = { 
+        action: "attack",
+        monster: true,
+        id: monster.id,
+        target: unit.id
+      }
       eff_accuracy = monster.accuracy
       eff_damage = monster.damage
       if !unit.front && !monster.ranged
@@ -119,12 +123,25 @@ module Dungeon
         eff_damage -= unit.defense
         eff_damage = 1 if eff_damage < 1
         unit.hp -= eff_damage
+
+        action_log[:damage] = eff_damage
+        action_log[:hit] = true
+      else
+        action_log[:hit] = false
       end
+      @current_log << action_log
+      
       # if target is killed, move surviving forward
       move_surviving_forward if unit.dead?
     end
 
     def attack_monster(unit, monster)
+      action_log = { 
+        action: "attack",
+        monster: false,
+        id: unit.id,
+        target: monster.id
+      }
       eff_accuracy = unit.accuracy
       eff_damage = unit.damage
       if !unit.front && !unit.ranged
@@ -139,7 +156,12 @@ module Dungeon
         eff_damage -= monster.defense
         eff_damage = 1 if eff_damage < 1
         monster.hp -= eff_damage
+        action_log[:damage] = eff_damage
+        action_log[:hit] = true
+      else
+        action_log[:hit] = false
       end
+      @current_log << action_log
 
       if monster.dead?
         @kills += 1
@@ -159,14 +181,18 @@ module Dungeon
       if @party.select { |u| u.front && u.alive? }.empty?
         @party.select { |u| u.alive? }.each { |u| u.front = true }
       end
+      action_log = { 
+        action: "move forward"
+      }
+      @current_log << action_log
     end
 
-    def monsters_wiped?(wave)
-      @monster_waves[current_wave].count { |m| m.alive? } > 0
+    def monsters_wiped?(current_wave)
+      @monster_waves[current_wave].count { |m| m.alive? } == 0
     end
 
     def party_wiped?
-      @party.count { |u| u.alive? } > 0
+      @party.count { |u| u.alive? } == 0
     end
 
     def process_outcome
@@ -179,22 +205,25 @@ module Dungeon
       end
 
       user = @raid.user
-      user.with_lock do |u|
-        u.total_xp += @xp
-        u.total_missions += 1
-        u.total_kills += @kills
-        u.credits += @credits
-        u.save!
+      user.with_lock do
+        user.total_xp += @xp
+        user.total_missions += 1
+        user.total_kills += @kills
+        user.credits += @credits
+        if @quest.stage == user.stage
+          user.stage += 1
+        end
+        user.save!
       end
       @raid.xp = @xp
       @raid.credits = @credits
       @raid.kills = @kills
       # TODO
-      @raid.battle_log = {
+      @raid.raid_log = JSON.generate({
         party: @initial_party,
-        monsters: @initial_monsters
+        monsters: @initial_monsters,
         battle_log: @battle_log
-      }
+      })
 
       @raid.save
     end

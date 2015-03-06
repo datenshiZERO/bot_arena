@@ -1,0 +1,16 @@
+%h1 Quests
+%p Finish quests to unlock more
+
+%table.table.table-condensed.table-striped
+  %tr
+    %th Quest
+    %th XP for winning
+    %th Credits for winning
+    %th Actions
+  - @quests.each do |quest|
+    %tr
+      %td= quest.name
+      %td= quest.xp_win
+      %td= quest.credits_win
+      %td
+        = link_to "View Quest", quest, :class => "btn btn-default btn-sm"

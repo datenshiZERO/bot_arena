@@ -147,7 +147,27 @@ footer, .footer {
   background-position: -352px -256px;
 }
 
-table.unit-table, table.item-table {
+.monster-icon {
+  background-image: image-url("sprites.png");
+  background-position: top left;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  vertical-align: text-bottom;
+}
+.monster-icon.monster-green-slime {
+  background-position: -384px 0px;
+}
+.monster-icon.monster-red-slime {
+  background-position: -416px 0px;
+}
+.monster-icon.monster-rat {
+  background-position: -384px 32px;
+}
+
+table.unit-table, table.item-table, table.monster-table {
   tr > td {
     vertical-align: middle;
   }

@@ -32,4 +32,7 @@ Rails.application.routes.draw do
   end
   resources :user_equipment
   resources :arenas
+
+  resources :quests
+  resources :raids
 end

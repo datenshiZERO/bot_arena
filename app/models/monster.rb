@@ -2,8 +2,8 @@ class Monster
   attr_reader :name, :slug, :hp, :move, :evade, :defense, :damage, :accuracy, 
     :ranged, :xp, :credits
 
-  def initialize(name:, slug:, hp: 4, move: 1, evade: 6, damage: 1, accuracy: 6, 
-      ranged: false, xp: 4, credits: 2)
+  def initialize(name:, slug:, hp: 4, move: 1, evade: 6, defense: 0, damage: 1, 
+                 accuracy: 6, ranged: false, xp: 4, credits: 2)
     @name = name
     @slug = slug
     @hp = hp
