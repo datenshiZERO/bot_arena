@@ -2,7 +2,11 @@ class Raid < ActiveRecord::Base
   belongs_to :user
   belongs_to :quest
 
-  validate :check_stage, :units_must_be_available, :check_duplicate_units
+  validates :quest, presence: true
+  validates :user, presence: true
+
+  validate :check_stage, if: "quest.present?"
+  validate :units_must_be_available, :check_duplicate_units
   after_create :dive
 
   def party_snapshot

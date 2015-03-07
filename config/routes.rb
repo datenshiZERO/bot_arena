@@ -25,7 +25,11 @@ Rails.application.routes.draw do
       post :hire_equipped
     end
   end
-  resources :units
+  resources :units do
+    collection do
+      post :unassign
+    end
+  end
   resources :equipment do
     member do
       post :buy
@@ -35,5 +39,9 @@ Rails.application.routes.draw do
   resources :arenas
 
   resources :quests
-  resources :raids
+  resources :raids do
+    member do
+      post :rerun
+    end
+  end
 end

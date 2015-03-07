@@ -29,50 +29,7 @@
   = link_to "Send your units to arenas &raquo;".html_safe, arenas_path, :class => "btn btn-default btn-lg"
 
 %h2 Roster
-
-%table.table.table-striped.table-condensed.unit-table
-  %tr
-    %th Unit
-    %th Equipment
-    %th Name
-    %th Type
-    %th Stats
-    %th Status
-    %th Actions
-  - current_user.active_units.each do |unit|
-    %tr
-      %td
-        %span{ :class => "unit-icon team-A-unit #{unit.icon_class}" }
-      %td
-        %span{ :class => "item-icon item-#{unit.weapon_icon_class}" }
-        %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
-        %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
-      %td= link_to unit.name, unit
-      %td= unit.unit_template.name
-      %td
-        = unit.eff_hp
-        %span.fa.fa-heart
-        = unit.eff_move
-        %span.fa.fa-arrows
-        = "#{unit.eff_evade}/#{unit.eff_defense}"
-        %span.fa.fa-shield
-        = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
-        %span.fa.fa-crosshairs
-      %td
-        - if unit.arena.present?
-          Queued for 
-          = link_to unit.arena.name, unit.arena
-        - else
-          Unassigned
-      %td
-        = link_to "View Unit", unit, :class => "btn btn-default btn-sm"
-        = link_to "Manage Unit", edit_unit_path(unit), :class => "btn btn-default btn-sm"
-  - (current_user.available_unit_slots).times do
-    %tr
-      %td.text-center{colspan: 6}
-        Empty slot
-      %td
-        = link_to "Hire Unit", unit_templates_path, :class => "btn btn-default btn-sm"
+= render partial: "units/units_table", locals: { dashboard: true }
 
 %p.text-center
   = link_to "Manage armory &raquo;".html_safe, user_equipment_index_path, :class => "btn btn-default btn-lg"

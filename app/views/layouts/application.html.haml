@@ -70,13 +70,8 @@
         %p
           &copy; 2015
           = link_to "Bryan Bibat", "http://bryanbibat.net"
-        %p
-          -#%br
-          -#= link_to "Fork this on Github", "https://github.com/phrug/pinoyrb"
-
-    -#= javascript_include_tag "//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry"
-    -#= javascript_include_tag "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js"
     = yield :data_scripts
     = javascript_include_tag "application"
     = yield :scripts
-    -#= render "layouts/analytics"
+    - if Rails.env == "production"
+      = render "layouts/analytics"

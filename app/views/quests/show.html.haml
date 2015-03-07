@@ -54,22 +54,22 @@
 - else
   = simple_form_for @raid do |f|
     = f.input :quest_id, as: :hidden, value: @quest.id
-    = f.input :unit_1_id, collection: @units, include_blank: false
+    = f.input :unit_1_id, collection: @units, include_blank: "- select unit -"
     = f.input :unit_1_front, label: "Put unit 1 in the front row"
     - if @units.size > 1
-      = f.input :unit_2_id, collection: @units, include_blank: false
+      = f.input :unit_2_id, collection: @units, include_blank: "- select unit -"
       = f.input :unit_2_front, label: "Put unit 2 in the front row"
     - if @units.size > 2
-      = f.input :unit_3_id, collection: @units, include_blank: false
+      = f.input :unit_3_id, collection: @units, include_blank: "- select unit -"
       = f.input :unit_3_front, label: "Put unit 3 in the front row"
     - if @units.size > 3
-      = f.input :unit_4_id, collection: @units, include_blank: false
+      = f.input :unit_4_id, collection: @units, include_blank: "- select unit -"
       = f.input :unit_4_front, label: "Put unit 4 in the front row"
     - if @units.size > 4
-      = f.input :unit_5_id, collection: @units, include_blank: false
+      = f.input :unit_5_id, collection: @units, include_blank: "- select unit -"
       = f.input :unit_5_front, label: "Put unit 5 in the front row"
     - if @units.size > 5
-      = f.input :unit_6_id, collection: @units, include_blank: false
+      = f.input :unit_6_id, collection: @units, include_blank: "- select unit -"
       = f.input :unit_6_front, label: "Put unit 6 in the front row"
     = f.submit :class => "btn btn-primary", value: "Begin Raid &raquo;".html_safe
 

@@ -78,7 +78,8 @@ class UnitTemplate
       armor_points: 3,
       armor_default: "leather_armor",
       mobility_points: 3,
-      mobility_default: "gloves"
+      mobility_default: "gloves",
+      icon_class: "regular"
     ),
     self.new(
       name: "Regular Skirmisher",
@@ -96,7 +97,7 @@ class UnitTemplate
       armor_default: "leather_armor",
       mobility_points: 5,
       mobility_default: "sabaton",
-      icon_class: "skirmisher"
+      icon_class: "skirmisher regular"
     ),
     self.new(
       name: "Regular Sentinel",
@@ -114,7 +115,7 @@ class UnitTemplate
       armor_default: "banded_mail",
       mobility_points: 3,
       mobility_default: "gloves",
-      icon_class: "sentinel"
+      icon_class: "sentinel regular"
     ),
     self.new(
       name: "Regular Mercenary",
@@ -130,7 +131,7 @@ class UnitTemplate
       armor_default: "leather_armor",
       mobility_points: 3,
       mobility_default: "gloves",
-      icon_class: "mercenary"
+      icon_class: "mercenary regular"
     ),
     self.new(
       name: "Veteran Warrior",
@@ -148,7 +149,8 @@ class UnitTemplate
       armor_points: 5,
       armor_default: "banded_mail",
       mobility_points: 5,
-      mobility_default: "sabaton"
+      mobility_default: "sabaton",
+      icon_class: "veteran"
     ),
     self.new(
       name: "Veteran Skirmisher",
@@ -167,7 +169,7 @@ class UnitTemplate
       armor_default: "banded_mail",
       mobility_points: 8,
       mobility_default: "boots_of_haste",
-      icon_class: "skirmisher"
+      icon_class: "skirmisher veteran"
     ),
     self.new(
       name: "Veteran Sentinel",
@@ -186,7 +188,7 @@ class UnitTemplate
       armor_default: "cuirass",
       mobility_points: 5,
       mobility_default: "sabaton",
-      icon_class: "sentinel"
+      icon_class: "sentinel veteran"
     ),
     self.new(
       name: "Veteran Mercenary",
@@ -204,7 +206,7 @@ class UnitTemplate
       armor_default: "banded_mail",
       mobility_points: 5,
       mobility_default: "sabaton",
-      icon_class: "mercenary"
+      icon_class: "mercenary veteran"
     ),
     self.new(
       name: "Elite Warrior",
@@ -222,7 +224,8 @@ class UnitTemplate
       armor_points: 8,
       armor_default: "cuirass",
       mobility_points: 8,
-      mobility_default: "boots_of_haste"
+      mobility_default: "boots_of_haste",
+      icon_class: "elite"
     ),
     self.new(
       name: "Elite Skirmisher",
@@ -241,7 +244,7 @@ class UnitTemplate
       armor_default: "cuirass",
       mobility_points: 13,
       mobility_default: "gloves_of_accuracy",
-      icon_class: "skirmisher"
+      icon_class: "skirmisher elite"
     ),
     self.new(
       name: "Elite Sentinel",
@@ -260,7 +263,7 @@ class UnitTemplate
       armor_default: "full_plate_mail",
       mobility_points: 8,
       mobility_default: "boots_of_haste",
-      icon_class: "sentinel"
+      icon_class: "sentinel elite"
     ),
     self.new(
       name: "Elite Mercenary",
@@ -278,7 +281,7 @@ class UnitTemplate
       armor_default: "cuirass",
       mobility_points: 8,
       mobility_default: "boots_of_haste",
-      icon_class: "mercenary"
+      icon_class: "mercenary elite"
     )
   ]
 

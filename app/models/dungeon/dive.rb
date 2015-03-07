@@ -82,6 +82,8 @@ module Dungeon
             target = monster_target(actor)
             attack_unit(actor, target)
           else
+            # skip if damage 0
+            next if actor.damage == 0
             target = unit_target(actor, current_wave)
             attack_monster(actor, target)
           end
@@ -179,6 +181,7 @@ module Dungeon
     end
 
     def move_surviving_forward
+      return if party_wiped?
       if @party.select { |u| u.front && u.alive? }.empty?
         @party.select { |u| u.alive? }.each { |u| u.front = true }
         action_log = { 

@@ -9,11 +9,10 @@ class RaidsController < ApplicationController
 
   def create
     @raid = current_user.raids.build raid_params
-    if @raid.save!
+    if @raid.save
       redirect_to @raid, notice: "Raid completed, see results below"
     else
       @units = current_user.units.where(fired: false, arena: nil).all
-      @quest = Quest.find @raid.quest_id
       @quests = Quest.includes(:encounters).where("stage <= ?", current_user.stage).order(:stage)
       render :new
     end

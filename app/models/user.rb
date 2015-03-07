@@ -44,7 +44,11 @@ class User < ActiveRecord::Base
   end
 
   def active_units
-    units.where(fired: false)
+    units.where(fired: false).includes(:arena, :user_equipments)
+  end
+
+  def assigned_units
+    active_units.where("arena_id is not null")
   end
 
   def available_unit_slots

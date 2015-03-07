@@ -2,7 +2,6 @@ class UnitsController < ApplicationController
   before_action :authenticate_user!, except: :show
 
   def index
-    redirect_to root_url
   end
 
   def show
@@ -49,8 +48,15 @@ class UnitsController < ApplicationController
         e.save
       end
       @unit.save
-      redirect_to root_url, notice: "Unit fired"
+      redirect_to units_url, notice: "Unit fired"
     end
+  end
+
+  def unassign
+    current_user.units.where(fired: false, id: params[:unit_ids]).each do |unit|
+      unit.update(arena: nil)
+    end
+    redirect_to units_url, notice: "Units removed from arena"
   end
 
   private
