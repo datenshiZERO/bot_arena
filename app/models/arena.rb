@@ -55,7 +55,7 @@ class Arena < ActiveRecord::Base
   def self.schedule_battles
     # called at start of hour via cron
     # get all queueable arenas (ie. with bots)
-    Arena.includes(:units, :battle_bots).each do |arena|
+    Arena.includes(:units, :battle_bots).where(active: true).each do |arena|
       if arena.valid?
       # queue intervals for each
         times_per_hour = 60 / arena.minutes_interval
