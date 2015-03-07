@@ -79,3 +79,10 @@
     %p
       %strong Gold received:
       = @raid.credits
+    %p
+      = link_to "Run again using same party", rerun_raid_path(@raid), method: :post, class: "btn btn-primary btn-lg"
+
+%hr
+%p
+  = link_to "Back to list of Raids", raids_path, class: "btn btn-default btn-lg"
+  = link_to "Back to list of Quests", quests_path, class: "btn btn-default btn-lg"

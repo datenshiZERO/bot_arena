@@ -1,2 +1,27 @@
-%h1 Raids#index
-%p Find me in app/views/raids/index.html.haml
+- build_meta_tags title: "Past Raids"
+
+%h1 Past Raids
+
+%table.table.table-condensed.table-striped.item-table
+  %tr
+    %th Quest
+    %th Outcome
+    %th XP received
+    %th Credits received
+    %th Total kills
+    %th Actions
+  - @raids.each do |raid|
+    %tr
+      %td= link_to raid.quest.name
+      %td
+        - if raid.outcome == "Success"
+          %span.label.label-info Success
+        - else 
+          %span.label.label-danger Failed
+      %td= raid.xp
+      %td= raid.credits
+      %td= raid.kills
+      %td
+        = link_to "View Raid", raid, :class => "btn btn-default btn-sm"
+
+= paginate @raids, theme: 'twitter-bootstrap-3'

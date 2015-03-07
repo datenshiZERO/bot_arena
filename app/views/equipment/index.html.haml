@@ -1,3 +1,5 @@
+- build_meta_tags title: "Item List and Shop"
+
 %h1 All Equipment
 
 %table.table.table-striped.table-condensed.item-table
@@ -6,6 +8,7 @@
     %th Name
     %th Type
     %th Price
+    %th Points
     %th Weapon Stats
     %th Stat Bonus
     %th Actions
@@ -16,6 +19,9 @@
       %td= item.name
       %td= item.slot.capitalize
       %td= number_with_delimiter item.price
+      %td
+        = item.points
+        %span.fa.fa-bolt
       %td
         - if item.slot == "weapon"
           = "#{item.damage}/#{item.accuracy}/#{item.range_min}-#{item.range_max}"

@@ -19,6 +19,8 @@ gem 'simple_form'
 gem 'haml'
 gem 'faker'
 
+gem 'meta-tags', :require => 'meta_tags'
+
 gem 'sidekiq'
 
 group :development, :test do

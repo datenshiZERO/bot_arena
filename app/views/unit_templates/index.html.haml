@@ -1,3 +1,5 @@
+- build_meta_tags title: "Units for Hire"
+
 %h1 Units for Hire
 
 - if user_signed_in? 
@@ -31,7 +33,9 @@
         %span{ :class => "item-icon item-#{unit.armor_default.icon_class}" }
         %span{ :class => "item-icon item-#{unit.mobility_default.icon_class}" }
       %td= unit.name
-      %td.text-right= unit.points
+      %td.text-right
+        = unit.points
+        %span.fa.fa-bolt
       %td.text-right
         = unit.hp
         %span.fa.fa-heart

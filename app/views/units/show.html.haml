@@ -1,3 +1,5 @@
+- build_meta_tags title: "View Unit"
+
 %h1
   %span{ :class => "unit-icon team-A-unit #{@unit.icon_class}" }
   = @unit.name
@@ -11,7 +13,7 @@
     %table.table.table-condensed.table-striped.item-table
       %tr
         %th 
-        %th Points
+        %th Points (<span class='fa fa-bolt'></span>)
         %th HP
         %th Movement
         %th Evade

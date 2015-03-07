@@ -6,7 +6,7 @@ class Raid < ActiveRecord::Base
   validates :user, presence: true
 
   validate :check_stage, if: "quest.present?"
-  validate :units_must_be_available, :check_duplicate_units
+  validate :at_least_one_unit, :units_must_be_available, :check_duplicate_units
   after_create :dive
 
   def party_snapshot
@@ -20,6 +20,13 @@ class Raid < ActiveRecord::Base
       errors.add(:quest_id, "is invalid")
     end
   end
+ 
+  def at_least_one_unit
+    if [unit_1_id, unit_2_id, unit_3_id, unit_4_id, unit_5_id, unit_6_id].compact.empty?
+      errors.add(:unit_1_id, "can't be blank")
+    end
+  end
+
   def units_must_be_available
     if unit_1_id.present?
       unit = user.units.find(unit_1_id)

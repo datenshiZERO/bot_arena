@@ -25,6 +25,8 @@
         %td= link_to unit.name, unit
         %td= unit.unit_template.name
         %td
+          = unit.total_points
+          %span.fa.fa-bolt
           = unit.eff_hp
           %span.fa.fa-heart
           = unit.eff_move

@@ -1,3 +1,5 @@
+- build_meta_tags title: "Quests"
+
 %h1= @quest.name 
 
 %p
@@ -10,7 +12,7 @@
 
 %h2 Enemies
 
-- @quest.encounters.group_by {|x| x.wave }.each do |wave, encounters|
+- @quest.encounters.sort_by {|x| x.wave }.group_by {|x| x.wave }.each do |wave, encounters|
   %h3= "Wave #{wave}"
 
   %table.table.table-condensed.table-striped.monster-table

@@ -1,6 +1,9 @@
+- build_meta_tags title: "New Raid"
+
 %h1 New Raid
 
 = simple_form_for @raid do |f|
+  = f.error_notification
   = f.association :quest, collection: @quests, value: @raid.quest_id
   = f.input :unit_1_id, collection: @units, include_blank: "- select unit -"
   = f.input :unit_1_front, label: "Put unit 1 in the front row"

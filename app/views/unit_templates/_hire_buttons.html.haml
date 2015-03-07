@@ -1,8 +1,8 @@
 - if user_signed_in? 
   - if current_user.can_hire?(unit, false)
-    = link_to "Hire Unit", hire_unit_template_path(unit.slug), :class => "btn btn-default", :method => :post, :data => { :confirm => "Are you sure you want to hire this unit for #{number_with_delimiter unit.price} gold?" }
+    = link_to "Hire Unit", hire_unit_template_path(unit.slug), :class => "btn btn-primary", :method => :post, :data => { :confirm => "Are you sure you want to hire this unit for #{number_with_delimiter unit.price} gold?" }
     - if current_user.can_hire?(unit, true)
-      = link_to "Hire Fully Equipped", hire_equipped_unit_template_path(unit.slug), :class => "btn btn-default", :method => :post, :data => { :confirm => "Are you sure you want to hire this unit fully equipped for #{number_with_delimiter unit.full_price} gold?" }
+      = link_to "Hire Fully Equipped", hire_equipped_unit_template_path(unit.slug), :class => "btn btn-primary", :method => :post, :data => { :confirm => "Are you sure you want to hire this unit fully equipped for #{number_with_delimiter unit.full_price} gold?" }
     - else
       %button.btn.btn-default{ disabled: "disabled" } Hire Fully Equipped
   - else
