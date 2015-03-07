@@ -34,6 +34,7 @@ continueReplay = ->
   window.iid = window.setInterval(nextTick, window.replaySpeed)
 
 stopReplay = ->
+  log "Battle ends"
   window.clearInterval(window.iid)
   window.replayPlaying = false
   $("#play-icon").removeClass("glyphicon-pause").addClass("glyphicon-play")

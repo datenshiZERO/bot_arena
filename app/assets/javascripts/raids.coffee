@@ -8,6 +8,7 @@ replayRaid = ->
   window.paused = false
   setupUnits()
   window.clearInterval(window.iid)
+  $("#monster-row").html("")
   log "Raid Start"
   window.currentEncounter = 1
   window.currentAction = null
@@ -39,6 +40,8 @@ stopReplay = ->
 endReplay = ->
   window.clearInterval(window.iid)
   log "Raid ends"
+  window.replayPlaying = false
+  $("#play-icon").removeClass("glyphicon-pause").addClass("glyphicon-play")
 
 nextTick = ->
   if window.currentAction == null
