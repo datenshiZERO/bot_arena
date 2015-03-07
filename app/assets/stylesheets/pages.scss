@@ -163,8 +163,14 @@ footer, .footer {
 .monster-icon.monster-red-slime {
   background-position: -416px 0px;
 }
-.monster-icon.monster-rat {
-  background-position: -384px 32px;
+.monster-icon.monster-giant-rat {
+  background-position: -384px -32px;
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+}
+.monster-icon.monster-giant-spider {
+  background-position: -384px -96px;
   width: 64px;
   height: 64px;
   line-height: 64px;
@@ -174,7 +180,7 @@ footer, .footer {
   .unit-container.monster-green-slime-container, .unit-container.monster-green-slime-container {
     width: 32px;
   }
-  .unit-container.monster-rat-container {
+  .unit-container.monster-giant-rat-container, .unit-container.monster-giant-spider-container {
     width: 64px;
   }
 }

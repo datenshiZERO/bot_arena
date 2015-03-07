@@ -25,6 +25,39 @@ class Monster
     self.new(
       name: "Green Slime",
       slug: "green_slime"
+    ),
+    self.new(
+      name: "Giant Rat",
+      slug: "giant_rat",
+      hp: 5,
+      move: 2,
+      evade: 8,
+      damage: 2,
+      accuracy: 8,
+      xp: 8,
+      credits: 4
+    ),
+    self.new(
+      name: "Giant Spider",
+      slug: "giant_spider",
+      hp: 15,
+      move: 2,
+      evade: 9,
+      damage: 3,
+      accuracy: 9,
+      xp: 15,
+      credits: 10
+    ),
+    self.new(
+      name: "Red Slime",
+      slug: "red_slime",
+      hp: 20,
+      move: 3,
+      evade: 10,
+      damage: 4,
+      accuracy: 10,
+      xp: 25,
+      credits: 20
     )
   ]
     

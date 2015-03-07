@@ -1,7 +1,7 @@
 class RaidsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @raids = current_user.raids.order("created_at desc").includes(:quest).page params[:id]
+    @raids = current_user.raids.order("created_at desc").includes(:quest).page params[:page]
   end
 
   def show
@@ -14,7 +14,7 @@ class RaidsController < ApplicationController
       redirect_to @raid, notice: "Raid completed, see results below"
     else
       @units = current_user.units.where(fired: false, arena: nil).all
-      @quests = Quest.includes(:encounters).where("stage <= ?", current_user.stage).order(:stage)
+      @quests = Quest.includes(:encounters).where(active: true).where("stage <= ?", current_user.stage).order(:stage)
       render :new
     end
   end

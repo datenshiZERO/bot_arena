@@ -5,7 +5,7 @@ class Raid < ActiveRecord::Base
   validates :quest, presence: true
   validates :user, presence: true
 
-  validate :check_stage, if: "quest.present?"
+  validate :check_stage_and_active, if: "quest.present?"
   validate :at_least_one_unit, :units_must_be_available, :check_duplicate_units
   after_create :dive
 
@@ -15,8 +15,8 @@ class Raid < ActiveRecord::Base
   end
   private
 
-  def check_stage
-    if quest.stage > user.stage
+  def check_stage_and_active
+    if quest.stage > user.stage || !quest.active
       errors.add(:quest_id, "is invalid")
     end
   end
