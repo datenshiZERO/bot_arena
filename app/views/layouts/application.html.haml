@@ -24,36 +24,37 @@
           = link_to "Tactics?!?", root_url, :class => "navbar-brand"
         .navbar-collapse.collapse
           %ul.nav.navbar-nav
-            -#%li{ :class => (action_name == "podcasts" ? "active" : "") }= link_to "Podcasts", podcasts_url
             %li{ :class => (((action_name == "index" || action_name == "dashboard") && controller_name == "pages") ? "active" : "") }= link_to "Home", root_url
             - if user_signed_in?
-              %li{ :class => (controller_name == "user_equipment" ? "active" : "") }= link_to "Armory", user_equipment_index_path
-              %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "My Battles", my_battles_url
-            %li{ :class => ((controller_name == "battles") ? "active" : "") }= link_to "All Battles", battles_url
-            %li{ :class => (controller_name == "arenas" ? "active" : "") }= link_to "Arenas", arenas_path
-            -#%li{ :class => (controller_name == "Units" ? "active" : "") }= link_to "Stocks", securities_url
-          -#= form_tag search_path, method: :get, class: "navbar-form navbar-right" do
-            -#.form-group
-              -#= text_field_tag "q", params[:q], class: "form-control"
-            -#%button.btn.btn-default{ type: "submit" }
-              -#%i.glyphicon.glyphicon-search
+              %li{ :class => (controller_name == "units" ? "active" : "") }= link_to "Roster", units_url
+              %li{ :class => (controller_name == "user_equipment" ? "active" : "") }= link_to "Armory", user_equipment_index_url
+              %li.dropdown
+                = link_to "Quests <span class='caret'></span>".html_safe, "#", class: "dropdown-toggle #{(%w{quests raids}.include? controller_name) ? "active" : ""}", "data-toggle" => "dropdown" 
+                %ul.dropdown-menu
+                  %li= link_to "Quests List", quests_url
+                  %li= link_to "Past Raids", raids_url
+            %li.dropdown
+              = link_to "Arenas <span class='caret'></span>".html_safe, "#", class: "dropdown-toggle", "data-toggle" => "dropdown" 
+              %ul.dropdown-menu
+                %li{ :class => (controller_name == "arenas" ? "active" : "") }= link_to "Arena List", arenas_url
+                - if user_signed_in?
+                  %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "Past Battles", my_battles_url
+                %li{ :class => ((controller_name == "battles") ? "active" : "") }= link_to "All Battles", battles_url
+            %li{ :class => (action_name == "help" ? "active" : "") }= link_to "Help", help_url
           %ul.nav.navbar-nav.navbar-right
             - if user_signed_in?
-              -#%li= link_to 'Profile', current_user
-              -#%li= link_to 'Settings', settings_path
-              -#%li.divider
               %li
                 = link_to "#" do
-                  = current_user.username
+                  %strong= current_user.username
                   &nbsp;
                   = "Lvl: #{current_user.current_level}"
                   = "(#{number_with_delimiter current_user.total_xp}/#{number_with_delimiter current_user.xp_for_next_level})"
                   &nbsp;
                   = "Gold: #{number_with_delimiter current_user.credits}"
-              %li= link_to 'Sign out', logout_path, :method => :delete
+              %li= link_to 'Sign out', logout_url, :method => :delete
             - else
-              %li= link_to 'Sign up', new_user_registration_path
-              %li= link_to 'Sign in', login_path
+              %li= link_to 'Sign up', new_user_registration_url
+              %li= link_to 'Sign in', login_url
 
 
     .container.main-container

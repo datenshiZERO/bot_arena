@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     root 'pages#dashboard', as: :user_root
   end
   root 'pages#index'
+  get 'help' => 'pages#help', as: 'help'
 
   get 'my_battles' => 'pages#my_battles', as: 'my_battles'
   resources :battles

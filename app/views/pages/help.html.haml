@@ -1,0 +1,136 @@
+- cache "help" do
+  %h1 
+    %em Tactics?!?
+    kitchen-sink help page
+
+  %p 
+    %em Tactics?!?
+    is a prototype game where I experiment with combining elements from JRPG/SRPG with those in incremental/mobile/browser games.
+
+  %h2 "Tutorial"
+
+  %p Here's the basic list of things to do after signing up:
+
+  %ul
+    %li Buy a fully equipped warrior.
+    %li 
+      Do 
+      = link_to "Quests", quests_url
+      to increase your XP and Gold.
+    %li Buy more units. Do harder quests. Repeat.
+    %li 
+      Send units to 
+      = link_to "Arenas", arenas_url
+      when your party is full or you want to do something else.
+
+  %h2 Basic concepts
+
+  %h3 Units
+
+  There are 4 types of units that you can hire:
+
+  %ul
+    %li
+      %strong Warriors
+      \- cheap, all-around unit.
+    %li
+      %strong Skirmishers
+      \- fast, less durable units. Unlocks mobility items (gloves, boots) earlier.
+    %li
+      %strong Sentinels
+      \- durable defensive units. Unlocks armor earlier.
+    %li
+      %strong Mercenaries
+      \- offensive units. Unlocks weapons earlier.
+
+  %p Units have the following base attributes:
+
+  %ul
+    %li
+      %strong Health Points (HP)
+      \- duh
+    %li
+      %strong Points
+      \- an arbitrary number saying how powerful the unit is. Used to balance Arenas.
+    %li
+      %strong Movement 
+      \- determines turn order in Quests and the movement range in Arenas
+    %li
+      %strong Evade 
+      \- increases chance of avoiding an attack
+    %li
+      %strong Defense 
+      \- damage reduced from an attack. Damage cannot be reduced below 1.
+    %li
+      %strong Damage 
+      \- HP deducted when attack connects. Reduced by Defense and range in Quests.
+    %li
+      %strong Accuracy
+      \- increases chance of hitting. Hits are determined by a d20 die roll - 
+      %code 20
+      is hit, 
+      %code 1
+      is miss, 
+      %code roll &gt;= (target's evade - unit's accuracy)
+      is hit.
+    %li
+      %strong Range Min/Max 
+      \- attack range in Arenas. Unit counts as a ranged unit in Quests if the range max is greater than 1.
+
+  %p Weapons determine the offensive stats while other items affect the other stats.
+
+  %h3 Quests
+
+  %p
+    %em aka Missions or Dungeons in other mobile games.
+
+  %p
+    But unlike those games, all you need to do here is set your party (and their row assignments) and let them go through the quest on their own. No need to match jewels or worry about skills! (/s)
+
+  %p
+    A typical quest has 1 or more 
+    %em encounters
+    which are waves of enemies that need to be defeated in order to proceed. Battles proceed as follows:
+
+  %ul
+    %li Turn order is determined by movement stat, the higher the earlier. Order is randomized in case of a tie.
+    %li Monsters attack randomly.
+    %li 
+      Party members attack the unit with the highest 
+      %code (attack / health)
+      ratio. This means that weaker and more damaging enemies are targetted earlier.
+    %li 
+      Position affects damage and accuracy. Non-ranged monsters attacking units at the back row and non-ranged units in the back row attacking monsters will have their damage reduced by half and accuracy reduced by a third. 
+
+  %h3 Arenas
+
+  %p
+    %em aka Cookie Clicker/Candy Box the SRPG.
+
+  %p As mentioned above, if your Quest party is full or if you want your units to earn you XP and Gold while you are doing something else, you can send them to Arenas.
+
+  %p Arenas are basically scheduled PvP / PvE instances. At set intervals, each arena groups all units assigned to it and lets them duke it out among themselves or against bots. This grouping is random so it is possible for your units to face off against each other if they are both assigned to the same arena.
+
+  %p The last group will often have less than the required amount of units to start the battle so there are filler units that will substitute for the missing.
+
+  %p Arenas can have up to 3 player-filled teams, teams A, B, and C (colored yellow, purple and blue, respectively), and one optional bot-filled team (colored black/red).
+
+  %p Units in Arenas behave less intelligently than in Quests. Here's how battles proceed in Arenas:
+
+  %ul
+    %li Turn order is randomly set at the start of the battle.
+    %li Each unit will target the closest enemy unit. Targets are randomly chosen in case of a tie.
+    %li Unit will try to move towards the edge of their attacking range from the target.
+    %li Units can pass through team mates.
+    %li Units attack after moving. If they are within range, attack proceeds as normal (range does not affect accuracy/damage like in Quests). If they are not within range but another unit is within range, they will switch targets and attack the latter.
+    %li Units do not change targets between turns. They only change targets when the current target dies or the situation in the previous point.
+    %li Battle continues until one team remains or the turn limit is hit (draw).
+
+
+
+
+
+
+
+
+
