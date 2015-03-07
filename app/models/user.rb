@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :user_equipment
   has_many :raids
   
-  validates :username, presence: true
+  validates :username, presence: true, length: { in: 3..16 }, uniqueness: true
 
   XP_TABLE = [
     0, 1000, 3000, 6000, 10000,
