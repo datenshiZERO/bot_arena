@@ -355,11 +355,13 @@ module HexMap
       # update xp/kills
       outcomes.each do |outcome|
         user = outcome.unit.user
-        user.total_missions += 1
-        user.total_kills += outcome.kills
-        user.total_xp += outcome.xp
-        user.credits += outcome.credits
-        user.save
+        user.with_lock do
+          user.total_missions += 1
+          user.total_kills += outcome.kills
+          user.total_xp += outcome.xp
+          user.credits += outcome.credits
+          user.save
+        end
       end
 
     end

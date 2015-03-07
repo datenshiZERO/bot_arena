@@ -14,8 +14,10 @@ class UserEquipmentController < ApplicationController
       owner.arena = nil
       owner.save
     end
-    current_user.credits += @item.price / 2
-    current_user.save
+    current_user.with_lock do
+      current_user.credits += @item.price / 2
+      current_user.save
+    end
     @item.destroy
     redirect_to user_equipment_index_path, notice: "Item sold"
   end

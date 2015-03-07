@@ -32,16 +32,18 @@ class UnitTemplatesController < ApplicationController
 
       Unit.transaction do
         @unit = current_user.units.create(template_slug: @template.slug, name: "#{Faker::Name.first_name} #{Faker::Name.last_name}")
-        if equipped
-          @unit.user_equipments.create(user: current_user, equipment_slug: @template.weapon_default.slug)
-          @unit.user_equipments.create(user: current_user, equipment_slug: @template.armor_default.slug)
-          @unit.user_equipments.create(user: current_user, equipment_slug: @template.mobility_default.slug)
-          current_user.credits -= @template.full_price
-        else
-          current_user.credits -= @template.price
+        current_user.with_lock do
+          if equipped
+            @unit.user_equipments.create(user: current_user, equipment_slug: @template.weapon_default.slug)
+            @unit.user_equipments.create(user: current_user, equipment_slug: @template.armor_default.slug)
+            @unit.user_equipments.create(user: current_user, equipment_slug: @template.mobility_default.slug)
+            current_user.credits -= @template.full_price
+          else
+            current_user.credits -= @template.price
+          end
+          @unit.save
+          current_user.save
         end
-        @unit.save
-        current_user.save
       end
       redirect_to @unit, notice: "Unit hired"
     else
