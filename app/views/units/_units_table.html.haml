@@ -49,6 +49,6 @@
         %td.text-center{colspan: 6}
           Empty slot
         %td
-          = link_to "Hire Unit", unit_templates_path, :class => "btn btn-default btn-sm"
+          = link_to "Hire Unit", unit_templates_path, :class => "btn btn-primary btn-sm"
   - unless dashboard || current_user.assigned_units.count == 0
     = submit_tag "Remove selected from Arena", class: "btn btn-default"

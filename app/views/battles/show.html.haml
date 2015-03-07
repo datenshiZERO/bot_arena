@@ -6,7 +6,7 @@
   .col-md-6
     %h1 
       Battle:
-      = "#{@battle.arena.name}##{@battle.id}"
+      = link_to @battle.arena.name, arena
 
 
 .row

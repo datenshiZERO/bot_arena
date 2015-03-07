@@ -2,12 +2,12 @@
 
 %table.table.table-striped.table-condensed
   %tr
-    %th Battle ID
+    %th Battle
     %th Battle Outcome
     %th.text-right Time
   - @battles.each do |battle|
     %tr
-      %td= link_to "#{battle.battle_id}", battle
+      %td= link_to "Battle at '#{battle.arena.name}'", battle
       %td= battle.outcome
       %td.text-right
         = time_ago_in_words battle.updated_at
