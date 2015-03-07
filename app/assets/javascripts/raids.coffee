@@ -17,14 +17,14 @@ setupUnits = ->
   $("#party-front-row, #party-back-row").html("")
   for unit, id in window.RaidLog.party
     unit.currentHP = unit.hp
-    $("#party-#{if unit.front then "front" else "back"}-row").append("<div id='unit-#{id}' class='unit-container'><div class='hp-box'><div style='width:#{unit.currentHP / unit.hp * 100}%'></div></div><span class='unit-icon team-A-unit #{unit.icon_class}'></span></div>")
+    $("#party-#{if unit.front then "front" else "back"}-row").append("<div id='unit-#{id}' class='unit-container'><div class='hp-box'><div style='width:100%'></div></div><span class='unit-icon team-A-unit #{unit.icon_class}'></span></div>")
 
 setupEncounter = ->
   $("#raid-encounter").text("Encounter #{window.currentEncounter}")
   $("#monster-row").html("")
   for unit, id in window.RaidLog.monsters[window.currentEncounter]
     unit.currentHP = unit.hp
-    $("#monster-row").append("<div id='monster-#{id}' class='unit-container monster-#{unit.icon_class}-container'><div class='hp-box'><div style='width:#{unit.currentHP / unit.hp * 100}%'></div></div><span class='monster-icon monster-#{unit.icon_class}'></span></div>")
+    $("#monster-row").append("<div id='monster-#{id}' class='unit-container monster-#{unit.icon_class}-container'><div class='hp-box'><div style='width:100%'></div></div><span class='monster-icon monster-#{unit.icon_class}'></span></div>")
 
 pauseReplay = ->
   window.clearInterval(window.iid)
@@ -73,8 +73,6 @@ displayAttack = (action) ->
   highlightCurrent(action)
   if action.hit
     target.currentHP -= action.damage
-    console.log target
-    console.log "width:#{target.currentHP / target.hp * 100}%"
     highlightHit(action, target)
     log "#{current.name} attacks #{target.name} and hits for #{action.damage} damage! #{ if target.currentHP <= 0 then "#{target.name} dies!" else "" }"
   else
@@ -98,7 +96,9 @@ highlightCurrent =  (action) ->
 highlightMiss =  (action) ->
 
 highlightHit =  (action, target) ->
-  $("##{if action.monster then 'unit' else 'monster'}-#{action.target} div.hp-box div").attr("style", "width:#{target.currentHP / target.hp * 100}%")
+  width = target.currentHP / target.hp * 100
+  width = 0 if width < 0
+  $("##{if action.monster then 'unit' else 'monster'}-#{action.target} div.hp-box div").attr("style", "width:#{width}%")
   
 
 $("#play-raid").click ->

@@ -143,7 +143,9 @@ highlightHit = ->
   unit = getUnit(currentUnit().target)
   qr = unit.location
   $("#tile-#{qr[0]}-#{qr[1]}").addClass("hit")
-  $("#tile-#{qr[0]}-#{qr[1]} div.hp-box div").attr("style", "width:#{unit.currentHP / unit.hp * 100}%")
+  width = unit.currentHP / unit.hp * 100
+  width = 0 if width < 0
+  $("#tile-#{qr[0]}-#{qr[1]} div.hp-box div").attr("style", "width:#{width}%")
   updateUnitInfoBox(unit, false)
 
 updateUnitInfoBox = (unit, isCurrent) ->
@@ -184,7 +186,7 @@ moveUnit = (source, dest, unit) ->
   currentUnit().location = dest
 
 putUnitOnTile = (unit, tile) ->
-  tile.html("<div class='hp-box'><div style='width:#{unit.currentHP / unit.hp * 100}%'></div></div><span class='unit-icon team-#{unit.team}-unit #{unit.icon_class}'></span>")
+  tile.html("<div class='hp-box'><div style='width:100%'></div></div><span class='unit-icon team-#{unit.team}-unit #{unit.icon_class}'></span>")
   tile.data("unitId", unit.id)
 
 
