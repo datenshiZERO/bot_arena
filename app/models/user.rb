@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   end
 
   def assignable_units(arena)
-    units.where(fired: false).includes(:user_equipments).select do |u|
+    units.where(fired: false).includes(:arena, :user_equipments).select do |u|
       arena.points_min <= u.total_points && u.total_points <= arena.points_max
     end
   end
