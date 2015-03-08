@@ -190,7 +190,6 @@ putUnitOnTile = (unit, tile) ->
   tile.html("<div class='hp-box'><div style='width:100%'></div></div><span class='unit-icon team-#{unit.team}-unit #{unit.icon_class}'></span>")
   tile.data("unitId", unit.id)
 
-
 $("#play").click ->
   if window.replayPlaying? && window.replayPlaying
     if window.paused

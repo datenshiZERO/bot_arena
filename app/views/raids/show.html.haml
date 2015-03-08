@@ -6,16 +6,16 @@
   Raid:
   = link_to @raid.quest.name, @raid.quest
 
-.row
+.row.replay-container
   .col-md-12.text-center
     %h2#raid-encounter
-.row
+.row.replay-container
   #monster-row.col-md-12
-.row
+.row.replay-container
   #party-front-row.col-md-12
-.row
+.row.replay-container
   #party-back-row.col-md-12
-.row
+.row.replay-container
   .col-md-12#board-controls
     %p
       = link_to "#", :class => "btn btn-default btn-lg", :id => "play-raid" do
@@ -27,11 +27,13 @@
         = link_to "#", :class => "btn btn-default btn-lg", :id => "faster" do
           %span#faster-icon.glyphicon.glyphicon-plus
 
-.row
+.row.replay-container
   .col-md-12
     %form
       .form-group
         %textarea.form-control#raid-log{readonly: true, rows: 4}
+
+%p#load-replay-container.text-center= link_to "Load Replay", "#", id: "load-replay", class: "btn btn-default btn-success btn-lg"
 
 .row
   .col-md-8
@@ -84,5 +86,5 @@
 
 %hr
 %p
-  = link_to "Back to list of Raids", raids_path, class: "btn btn-default btn-lg"
-  = link_to "Back to list of Quests", quests_path, class: "btn btn-default btn-lg"
+  = link_to "Back to list of Raids", raids_path, class: "btn btn-default"
+  = link_to "Back to list of Quests", quests_path, class: "btn btn-default"

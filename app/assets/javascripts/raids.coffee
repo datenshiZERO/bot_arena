@@ -77,7 +77,7 @@ displayAttack = (action) ->
   if action.hit
     target.currentHP -= action.damage
     highlightHit(action, target)
-    log "#{current.name} attacks #{target.name} and hits for #{action.damage} damage! #{ if target.currentHP <= 0 then "#{target.name} dies!" else "" }"
+    log "#{current.name} attacks #{target.name} and hits for #{action.damage} damage! #{ if target.currentHP <= 0 then "#{target.name} fainted!" else "" }"
   else
     highlightMiss(action)
     log "#{current.name} attacks #{target.name} but misses!"
@@ -103,6 +103,10 @@ highlightHit =  (action, target) ->
   width = 0 if width < 0
   $("##{if action.monster then 'unit' else 'monster'}-#{action.target} div.hp-box div").attr("style", "width:#{width}%")
   
+$("#load-replay").click ->
+  $("#load-replay").hide()
+  $(".replay-container").show()
+  false
 
 $("#play-raid").click ->
   if window.replayPlaying? && window.replayPlaying

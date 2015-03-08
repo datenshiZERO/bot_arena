@@ -87,7 +87,7 @@ class Equipment
       points: 3,
       price: 50,
       accuracy: 9,
-      damage: 2,
+      damage: 3,
       range_min: 2,
       range_max: 3
     ),

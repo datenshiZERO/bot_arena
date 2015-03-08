@@ -52,9 +52,9 @@
 
 .row
   - unless @arena.battle_bots.where(filler: false).empty?
-    .col-md-12
+    .col-md-6
       %h3 Bots
-      %table.table.table-striped.table-condensed.unit-table
+      %table.table.table-striped.table-condensed.unit-table.medium
         %tr
           %th Unit
           %th Equipment
@@ -81,9 +81,9 @@
               = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
               %span.fa.fa-crosshairs
   - if @arena.players_max > 1
-    .col-md-12
+    .col-md-6
       %h3 Filler Units
-      %table.table.table-striped.table-condensed.unit-table
+      %table.table.table-striped.table-condensed.unit-table.medium
         %tr
           %th Unit
           %th Equipment
@@ -113,8 +113,14 @@
   %hr
   %h2 Assign Units
   - if current_user.assignable_units(@arena).empty?
-    %p None of your units meet the point requirements of this arena.
-  - else
+    %p 
+      None of your units meet the point requirements of this arena.
+  %p
+    = link_to "Hire more units", unit_templates_path
+    or 
+    = link_to "re-equip your roster", units_path
+    to be able to assign more units to this arena.
+  - unless current_user.assignable_units(@arena).empty?
     = form_tag @arena, method: :put do 
       %table.table.table-striped.table-condensed.unit-table
         %tr

@@ -72,7 +72,61 @@ footer, .footer {
 .unit-icon.team-C-unit.mercenary {
   background-position: -192px -192px;
 }
-
+.medium { 
+  .unit-icon {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+  .unit-icon.team-X-unit {
+    background-position: -256px 0;
+  }
+  .unit-icon.team-A-unit {
+    background-position: -288px 0;
+  }
+  .unit-icon.team-B-unit {
+    background-position: -256px -32px;
+  }
+  .unit-icon.team-C-unit {
+    background-position: -288px -32px;
+  }
+  .unit-icon.team-X-unit.skirmisher {
+    background-position: -320px 0;
+  }
+  .unit-icon.team-A-unit.skirmisher {
+    background-position: -352px 0;
+  }
+  .unit-icon.team-B-unit.skirmisher {
+    background-position: -320px -32px;
+  }
+  .unit-icon.team-C-unit.skirmisher {
+    background-position: -352px -32px;
+  }
+  .unit-icon.team-X-unit.sentinel {
+    background-position: -256px -64px;
+  }
+  .unit-icon.team-A-unit.sentinel {
+    background-position: -288px -64px;
+  }
+  .unit-icon.team-B-unit.sentinel {
+    background-position: -256px -96px;
+  }
+  .unit-icon.team-C-unit.sentinel {
+    background-position: -288px -96px;
+  }
+  .unit-icon.team-X-unit.mercenary {
+    background-position: -320px -64px;
+  }
+  .unit-icon.team-A-unit.mercenary {
+    background-position: -352px -64px;
+  }
+  .unit-icon.team-B-unit.mercenary {
+    background-position: -320px -96px;
+  }
+  .unit-icon.team-C-unit.mercenary {
+    background-position: -352px -96px;
+  }
+}
 .item-icon {
   background-image: image-url("sprites.png");
   background-position: top left;
@@ -195,6 +249,14 @@ table.unit-table, table.item-table, table.monster-table {
   }
 }
 
+.replay-container {
+  display: none;
+}
+
+#load-replay {
+  margin-top: 50px;
+}
+
 .board-container {
   margin-bottom: 10px;
   table {
@@ -276,59 +338,6 @@ table.unit-table, table.item-table, table.monster-table {
       div {
         height: 3px;
       }
-    }
-    .unit-icon {
-      width: 32px;
-      height: 32px;
-      line-height: 32px;
-    }
-    .unit-icon.team-X-unit {
-      background-position: -256px 0;
-    }
-    .unit-icon.team-A-unit {
-      background-position: -288px 0;
-    }
-    .unit-icon.team-B-unit {
-      background-position: -256px -32px;
-    }
-    .unit-icon.team-C-unit {
-      background-position: -288px -32px;
-    }
-    .unit-icon.team-X-unit.skirmisher {
-      background-position: -320px 0;
-    }
-    .unit-icon.team-A-unit.skirmisher {
-      background-position: -352px 0;
-    }
-    .unit-icon.team-B-unit.skirmisher {
-      background-position: -320px -32px;
-    }
-    .unit-icon.team-C-unit.skirmisher {
-      background-position: -352px -32px;
-    }
-    .unit-icon.team-X-unit.sentinel {
-      background-position: -256px -64px;
-    }
-    .unit-icon.team-A-unit.sentinel {
-      background-position: -288px -64px;
-    }
-    .unit-icon.team-B-unit.sentinel {
-      background-position: -256px -96px;
-    }
-    .unit-icon.team-C-unit.sentinel {
-      background-position: -288px -96px;
-    }
-    .unit-icon.team-X-unit.mercenary {
-      background-position: -320px -64px;
-    }
-    .unit-icon.team-A-unit.mercenary {
-      background-position: -352px -64px;
-    }
-    .unit-icon.team-B-unit.mercenary {
-      background-position: -320px -96px;
-    }
-    .unit-icon.team-C-unit.mercenary {
-      background-position: -352px -96px;
     }
   }
   table.battle-start {

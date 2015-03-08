@@ -49,6 +49,13 @@ class Unit < ActiveRecord::Base
       [weapon, armor, mobility_item].compact.sum(&:bonus_hp)
   end
 
+  def dropdown_text
+    "#{name} (#{unit_template.name}) - #{total_points} points - HP: #{eff_hp} - MV: #{eff_move} - #{eff_evade}/#{eff_defense} - #{eff_damage}/#{eff_accuracy}/#{ranged_text}"
+  end
+
+  def ranged_text
+    eff_range_max > 1 ? "Ranged" : "Melee"
+  end
   include BattleUnit
 
   def verify_equipment

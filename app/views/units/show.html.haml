@@ -24,15 +24,15 @@
       %tr
         %td
           %strong Base
-        %td
+        %td.text-right
           = @unit.unit_template.points
-        %td
+        %td.text-right
           = @unit.unit_template.hp
-        %td
+        %td.text-right
           = @unit.unit_template.move
-        %td
+        %td.text-right
           = @unit.unit_template.evade
-        %td
+        %td.text-right
           = @unit.unit_template.defense
         %td
         %td
@@ -41,72 +41,72 @@
         %tr
           %td
             %span{ :class => "item-icon item-#{@unit.weapon.icon_class}" }
-          %td
-            = @unit.weapon.points
-          %td
-          %td
+          %td.text-right
+            = "#{@unit.weapon.points}/#{@unit.unit_template.weapon_points}"
           %td
           %td
           %td
+          %td
+          %td.text-right
             = @unit.weapon.damage
-          %td
+          %td.text-right
             = @unit.weapon.accuracy
-          %td
+          %td.text-right
             = "#{@unit.weapon.range_min}-#{@unit.weapon.range_max}"
       - if @unit.armor.present?
         %tr
           %td
             %span{ :class => "item-icon item-#{@unit.armor.icon_class}" }
-          %td
-            = @unit.armor.points
-          %td
+          %td.text-right
+            = "#{@unit.armor.points}/#{@unit.unit_template.armor_points}"
+          %td.text-right
             = @unit.armor.bonus_hp
-          %td
+          %td.text-right
             = @unit.armor.bonus_move
-          %td
+          %td.text-right
             = @unit.armor.bonus_evade
-          %td
+          %td.text-right
             = @unit.armor.bonus_defense
-          %td
-          %td
+          %td.text-right
+          %td.text-right
             = @unit.armor.bonus_accuracy
-          %td
+          %td.text-right
       - if @unit.mobility_item.present?
         %tr
           %td
             %span{ :class => "item-icon item-#{@unit.mobility_item.icon_class}" }
-          %td
-            = @unit.mobility_item.points
-          %td
+          %td.text-right
+            = "#{@unit.mobility_item.points}/#{@unit.unit_template.mobility_points}"
+          %td.text-right
             = @unit.mobility_item.bonus_hp
-          %td
+          %td.text-right
             = @unit.mobility_item.bonus_move
-          %td
+          %td.text-right
             = @unit.mobility_item.bonus_evade
-          %td
+          %td.text-right
             = @unit.mobility_item.bonus_defense
-          %td
-          %td
+          %td.text-right
+          %td.text-right
             = @unit.mobility_item.bonus_accuracy
-          %td
+          %td.text-right
       %tr
         %td
           %strong Total
-        %td
+        %td.text-right
           = @unit.total_points
-        %td
+        %td.text-right
           = @unit.eff_hp
-        %td
+        %td.text-right
           = @unit.eff_move
-        %td
+        %td.text-right
           = @unit.eff_evade
-        %td
+        %td.text-right
           = @unit.eff_defense
-        %td
+        %td.text-right
           = @unit.eff_damage
-        %td
+        %td.text-right
           = @unit.eff_accuracy
-        %td
+        %td.text-right
           = "#{@unit.eff_range_min}-#{@unit.eff_range_max}"
 
   - unless @unit.fired
