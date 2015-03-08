@@ -152,7 +152,7 @@ highlightHit = ->
 updateUnitInfoBox = (unit, isCurrent) ->
   id = if isCurrent then "#selected-unit" else "#targeted-unit"
 
-  $("#{id} .info-header").html("<p><span class='unit-icon team-#{unit.team}-unit'></span> <span class='unit-name'>#{unit.name}</span></p>")
+  $("#{id} .info-header").html("<p><span class='unit-icon team-#{unit.team}-unit #{unit.icon_class}'></span> <span class='unit-name'>#{unit.name}</span></p>")
 
   $("#{id} .info-hp").html("<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' style='width: #{unit.currentHP / unit.hp * 100}%'>#{unit.currentHP}</div></div>")
   $("#{id} .other-info").html("")
