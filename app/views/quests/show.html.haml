@@ -25,6 +25,8 @@
       %th Damage
       %th Accuracy
       %th Range
+      %th XP
+      %th Gold
     - encounters.each do |encounter|
       %tr
         %td
@@ -43,6 +45,8 @@
             %span.label.label-warn Ranged
           - else 
             %span.label.label-info Melee
+        %td= encounter.monster.xp
+        %td= encounter.monster.credits
 
 %h2 Send Raid Party
 
