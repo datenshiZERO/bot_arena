@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, except: [:index, :help]
   def index
     @latest_battles = Battle.order("updated_at desc").includes(:arena).limit 5
   end
