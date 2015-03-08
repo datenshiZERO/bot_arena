@@ -3,7 +3,7 @@ module ApplicationHelper
     set_meta_tags(:title => title,
                   :description => description,
                   :open_graph => {
-                    :title => title.nil? ? ENV['title'] : "#{title} | #{ENV['title']}",
+                    :title => title.nil? ? "Tactics?!?" : "#{title} | Tactics?!?",
                     :description => description,
                     :type => page_type,
                     :url => url_for(:only_path => false),
