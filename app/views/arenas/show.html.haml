@@ -99,7 +99,7 @@
               %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
               %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
             %td= unit.unit_template.name
-            %td= "#{((unit.count.to_f / @arena.battle_bots.where(filler: true).count) * 100).round(0)}%"
+            %td= "#{((unit.count.to_f / @arena.battle_bots.where(filler: true).sum(:count)) * 100).round(0)}%"
             %td
               = unit.eff_hp
               %span.fa.fa-heart
