@@ -96,7 +96,7 @@ module Dungeon
     def unit_target(unit, current_wave)
       # find highest damage, lowest health
       @monster_waves[current_wave].select { |m| m.alive? }.max do |a, b|
-        (a.damage / a.hp) <=> (b.damage / b.hp)
+        (a.damage.to_f / a.hp) <=> (b.damage.to_f / b.hp)
       end
     end
 
