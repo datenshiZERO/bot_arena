@@ -78,7 +78,7 @@ class Arena < ActiveRecord::Base
   def commence_battle(unit_ids)
     #Rails.logger.error self.inspect
     #Rails.logger.error "#{points_min} #{points_max} #{id}"
-    units = Unit.where(id: unit_ids)
+    units = Unit.includes(:user_equipments).where(id: unit_ids)
     valid_units = []
     units.each do |unit|
       #Rails.logger.error "e #{unit.arena_id} #{id}"
