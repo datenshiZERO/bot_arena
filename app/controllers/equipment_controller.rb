@@ -19,7 +19,7 @@ class EquipmentController < ApplicationController
         current_user.credits -= @item.price
         current_user.save
       end
-      redirect_to user_equipment_index_path, notice: "Equipment bought"
+      redirect_to equipment_index_path, notice: "Equipment bought and added to armory"
     else
       redirect_to equipment_path(@item.slug), alert: "You cannot buy this"
     end
