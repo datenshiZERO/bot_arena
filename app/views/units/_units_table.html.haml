@@ -37,7 +37,6 @@
           %span.fa.fa-crosshairs
         %td
           - if unit.arena.present?
-            Queued for 
             = link_to unit.arena.name, unit.arena
           - else
             Unassigned
@@ -46,7 +45,7 @@
           = link_to "Equip / Rename Unit", edit_unit_path(unit), :class => "btn btn-default btn-sm"
     - (current_user.available_unit_slots).times do
       %tr
-        %td.text-center{colspan: 6}
+        %td.text-center{colspan: ((dashboard || current_user.assigned_units.count == 0) ? 6 : 7)}
           Empty slot
         %td
           = link_to "Hire Unit", unit_templates_path, :class => "btn btn-primary btn-sm"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307115304) do
+ActiveRecord::Schema.define(version: 20150308113217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,7 +194,7 @@ ActiveRecord::Schema.define(version: 20150307115304) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.integer  "credits",                default: 200
+    t.integer  "credits",                default: 150
     t.integer  "total_xp",               default: 0
     t.integer  "total_missions",         default: 0
     t.integer  "total_kills",            default: 0
