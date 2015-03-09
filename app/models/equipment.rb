@@ -155,7 +155,7 @@ class Equipment
       slot: "weapon",
       points: 8,
       price: 1800,
-      accuracy: 14,
+      accuracy: 16,
       damage: 16,
       range_min: 1,
       range_max: 1
@@ -195,7 +195,7 @@ class Equipment
       slot: "weapon",
       points: 13,
       price: 12000,
-      accuracy: 15,
+      accuracy: 18,
       damage: 32,
       range_min: 1,
       range_max: 2

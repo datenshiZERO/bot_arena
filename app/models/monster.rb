@@ -30,7 +30,7 @@ class Monster
       name: "Giant Rat",
       slug: "giant_rat",
       hp: 5,
-      move: 2,
+      move: 1,
       evade: 8,
       damage: 2,
       accuracy: 8,
@@ -52,12 +52,12 @@ class Monster
       name: "Red Slime",
       slug: "red_slime",
       hp: 20,
-      move: 3,
+      move: 2,
       evade: 10,
       damage: 4,
       accuracy: 10,
-      xp: 25,
-      credits: 20
+      xp: 20,
+      credits: 15
     )
   ]
     
