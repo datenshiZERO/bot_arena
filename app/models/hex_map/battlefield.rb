@@ -120,11 +120,12 @@ module HexMap
       
       # find max range -> min range tiles from target, max range has higher priority
       target = unit.target
+      Rails.logger.debug "t #{target.name} at #{target.tile.q} #{target.tile.r}"
       target_tiles = (unit.range_min..unit.range_max).map do |range|
         target.tile.landable_tiles_at_range(range, unit)
       end.flatten
 
-      target_tiles.each { |t| Rails.logger.debug "#{t.q} #{t.r}" }
+      target_tiles.each { |t| Rails.logger.debug "tt - #{t.q} #{t.r}" }
       
       # BFS to all target tiles
       #   store priority, distance from unit, and distance from target
@@ -134,7 +135,6 @@ module HexMap
       queue = [unit.tile]
       visited = []
 
-      Rails.logger.debug "> #{target.tile.q} #{target.tile.r}"
       # target_tiles is checked only if there are target_tiles
       until queue.empty? || (target_tiles.count > 0 && (target_tiles - visited).empty?)
         tile = queue.shift
@@ -167,19 +167,30 @@ module HexMap
       if (target_tiles - visited).count == target_tiles.count
         Rails.logger.debug "#{visited.count} no path"
 
-        flattened_info.each do |info|
+        flattened_info.select do |info|
+          (info[:tile] == unit.tile || info[:tile].empty_space?)
+        end.each do |info|
           Rails.logger.debug "#{info[:tile].q},#{info[:tile].r} #{info[:dist]} #{info[:range]}"
         end
+
         # move towards tile closest to the target
         closest = flattened_info.select do |info|
-          (info[:tile] == unit.tile || info[:tile].empty_space?) && info[:dist] <= unit.move
+          (info[:tile] == unit.tile || info[:tile].empty_space?)
         end.sort_by { |info| info[:range] }.first
 
         unless closest == unit.tile || closest.nil?
           Rails.logger.debug "#{closest[:tile].q},#{closest[:tile].r}"
           Rails.logger.debug "id: #{closest[:tile].unit.nil? ? "n/a" : closest[:tile].unit.id}"
 
-          current = closest[:tile]
+          closest_tile = closest[:tile]
+
+          # if not within movement, backtrack to the tile which is within movement
+          # stop when current tile is current tile
+          while closest_tile != unit.tile && (dist[closest_tile] > unit.move || !closest_tile.empty_space?)
+            closest_tile = prev[closest_tile]
+          end
+
+          current = closest_tile
           next_moves = []
           while current != unit.tile
             next_moves << [current.q, current.r]
@@ -187,7 +198,7 @@ module HexMap
           end
           moves = moves + next_moves.reverse
           # move to target
-          unit.move_to(closest[:tile])
+          unit.move_to(closest_tile)
         end
       else 
         Rails.logger.debug "with path"
