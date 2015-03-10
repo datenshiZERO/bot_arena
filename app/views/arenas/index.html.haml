@@ -6,21 +6,21 @@
   %tr
     %th Name
     %th Mode
-    %th Point Requirement
-    %th Team Count
-    %th Total Player Units per Run
-    %th Units Currently in Arena 
+    %th.text-right Point Requirement
+    %th.text-right Team Count
+    %th.text-right Total Player Units per Run
+    %th.text-right Units Currently in Arena 
     %th Schedule
     %th Actions
   - @arenas.order(:points_max).includes(:units).each do |arena|
     %tr
       %td= link_to arena.name, arena
       %td= arena.mode
-      %td= "#{arena.points_min} - #{arena.points_max}"
-      %td= arena.team_count
-      %td= arena.players_max
-      %td= arena.units.count
-      %td= "every #{pluralize arena.minutes_interval, "minute"}"
+      %td.text-right= "#{arena.points_min} - #{arena.points_max}"
+      %td.text-right= arena.team_count
+      %td.text-right= arena.players_max
+      %td.text-right= arena.units.count
+      %td.text-right= "every #{pluralize arena.minutes_interval, "minute"}"
       %td
         = link_to "View Details", arena, class: "btn btn-default btn-sm"
 

@@ -1,6 +1,7 @@
 %h2 My Battles
 %table.table.table-striped.table-condensed.item-table
   %tr
+    %th Battle
     %th Arena
     %th Unit
     %th Unit Team
@@ -12,6 +13,7 @@
     %th Actions
   - @outcomes.each do |outcome|
     %tr
+      %td= link_to "Battle at '#{outcome.battle.arena.name}'", outcome.battle
       %td= link_to outcome.battle.arena.name, outcome.battle.arena
       %td= link_to outcome.unit.name, outcome.unit
       %td= outcome.team
