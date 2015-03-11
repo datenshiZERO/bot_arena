@@ -47,7 +47,7 @@ class Arena < ActiveRecord::Base
     # converts string layout (stripping whitespace) 
     # into matrix form
     layout.gsub(/\s+/, "")
-      .scan(/./)
+      .chars
       .each_slice(columns)
       .to_a
   end
