@@ -1,8 +1,8 @@
-# Untitled Multiplayer Incremental Game
+# Tactics?!?
+
+
 
 ## Combat
-
-### Philosophy
 
 For this phase of the prototype, we will be using D&D style leveling and attributes (ie. linear growth and very low level cap). Most of the game should be unlockable under 3 hours to ensure that we can test the game engine more thoroughly.
 
@@ -28,72 +28,3 @@ Weapon/equipment attributes:
 ### Leveling up
 
 In this version, units do not level up. The XP they'll gain will be added to your XP, which in turn will unlock unit and inventory slots. Similarly, kills and missions completed will unlock new units and equipment for purchase.
-
-## TODO
-
-* shooting bots - bot hunt
-
-        X X X X X X X X X X
-         . . . . . . . . . .
-        . . . . . . . . . .
-         . . . . . . . . . .
-        . . . . . . . . . . 
-         A A A A A A A A A A
-    
-* Chess - tdm
-
-        A A A A A A A A
-         A A A A A A A A
-        . . . . . . . .
-         . . . . . . . .
-        . . . . . . . . 
-         . . . . . . . .
-        B B B B B B B B
-         B B B B B B B B
-
-* Triangle - dm
-  
-        * * * * A * * * *
-         * * * . . * * * *
-        * * * B . C * * *
-         * * . . . . * * *
-        * * D . E . F * *
-         * . . . . . . * * 
-        * G . H . I . J *
-         . . . . . . . . *
-        J . K . L . M . N 
-
-## Log format
-
-    {
-      participants: [
-        {
-          id: x,
-          team: "x",
-          spawn_point: [q, r],
-          // snapshot
-          name:
-          template:
-          weapon:
-          ...
-        },
-      ]
-      battle_log: [
-        [ 
-          { 
-            id: x,
-            target: x, // no new target if not present
-            move: [[q, r], [q, r]...] // still present if no move
-            attack: {
-              new_target: x, // no new target (i.e. same target) if not present
-              hit: true,
-              damage: x,
-              kill: false
-            }
-          },
-          ...
-        ],
-        ...
-      ]
-    }
-
