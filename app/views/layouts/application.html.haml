@@ -52,7 +52,7 @@
                   %strong= current_user.username
                   &nbsp;
                   = "Lvl: #{current_user.current_level}"
-                  = "(#{number_with_delimiter current_user.total_xp}/#{number_with_delimiter current_user.xp_for_next_level})"
+                  = xp_display(current_user)
                   &nbsp;
                   = "Gold: #{number_with_delimiter current_user.credits}"
               %li= link_to 'Sign out', logout_url, :method => :delete

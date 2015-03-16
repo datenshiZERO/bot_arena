@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     XP_TABLE[current_level]
   end
 
+  def max_level?
+    total_xp > XP_TABLE.last
+  end
+
   def max_units
     current_level + 1
   end
