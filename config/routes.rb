@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     collection do
       post :unassign
     end
+    member do
+      post :extract
+    end
   end
   resources :equipment do
     member do

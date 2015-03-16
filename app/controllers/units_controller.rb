@@ -23,8 +23,7 @@ class UnitsController < ApplicationController
   def update
     @unit = current_user.units.where(fired: false).find(params[:id])
     if @unit.update_attributes(unit_params)
-      @unit.update_equipment
-      redirect_to @unit, notice: "Unit updated"
+      @unit.update_equipment redirect_to @unit, notice: "Unit updated"
     else
       @weapons = ([@unit.weapon] +
         current_user.user_equipment.where(unit: nil).all.select { |e| e.slot == "weapon" && e.points <= @unit.unit_template.weapon_points }).compact
@@ -57,6 +56,12 @@ class UnitsController < ApplicationController
       unit.update(arena: nil)
     end
     redirect_to units_url, notice: "Units removed from arena"
+  end
+
+  def extract
+    @unit = current_user.units.where(fired: false).find(params[:id])
+    @unit.update(arena_id: nil)
+    redirect_to @unit, notice: "Unit removed from arena"
   end
 
   private

@@ -5,9 +5,9 @@
 - if user_signed_in? 
   %p
     Your units have completed
-    %strong= pluralize current_user.total_missions, "mission"
+    %strong= pluralize (number_with_delimiter current_user.total_missions), "mission"
     and have amassed a total of
-    %strong= "#{pluralize current_user.total_kills, "kill"}."
+    %strong= "#{pluralize (number_with_delimiter current_user.total_kills), "kill"}."
 
 %table.table.table-striped.table-condensed.unit-table
   %tr
