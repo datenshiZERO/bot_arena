@@ -634,7 +634,114 @@ table.unit-table, table.item-table, table.monster-table {
 }
 
 .board-container {
+  background-color: #ddd;
+  padding: 10px 0;
+  text-align: center;
   margin-bottom: 10px;
+  .hex-row.odd {
+    margin-left: 63px;
+  }
+  .hex-row {
+    .hex-tile {
+      display: inline-block;
+      overflow: hidden;
+      visibility: hidden;
+      -webkit-transform: rotate(120deg);
+      -moz-transform: rotate(120deg);
+      -o-transform: rotate(120deg);
+      transform: rotate(120deg);
+      width: 60px;
+      height: 120px;
+      margin: -34px 1px -34px 0;
+      .hex-in1 {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        -webkit-transform: rotate(-60deg);
+        -moz-transform: rotate(-60deg);
+        -o-transform: rotate(-60deg);
+        transform: rotate(-60deg);
+        .hex-in2 {
+          width: 100%;
+          height: 100%;
+          visibility: visible;
+          -webkit-transform: rotate(-60deg);
+          -moz-transform: rotate(-60deg);
+          -o-transform: rotate(-60deg);
+          transform: rotate(-60deg);
+          background-color: white;
+          .hp-box {
+            height: 5px;
+            border: 1px solid rgba(128, 128, 128, 0.8);
+            position: relative;
+            top: 40px;
+            width: 60%;
+            left: 13px;
+            div {
+              background: rgba(0, 128, 0, 0.8);
+              height: 3px;
+            }
+          }
+          .unit-icon {
+            margin-top: 42px;
+          }
+        }
+      }
+    }
+    .hex-tile.wall {
+      .hex-in1 .hex-in2 {
+        background-color: #ddd;
+      }
+    }
+    .hex-tile.team-a {
+      .hex-in1 .hex-in2 {
+        background: lightyellow;
+      }
+    }
+    .hex-tile.team-b {
+      .hex-in1 .hex-in2 {
+        background: lavender;
+      }
+    }
+    .hex-tile.team-c {
+      .hex-in1 .hex-in2 {
+        background: lightblue;
+      }
+    }
+    .hex-tile.team-x {
+      .hex-in1 .hex-in2 {
+        background: #888;
+      }
+    }
+    .hex-tile.current {
+      .hex-in1 .hex-in2 {
+        background: lightgreen !important;
+      }
+    }
+    .hex-tile.enemy {
+      .hex-in1 .hex-in2 {
+        background: salmon !important;
+      }
+    }
+    .hex-tile.enemy.hit {
+      .hex-in1 .hex-in2 {
+        background: red !important;
+      }
+    }
+    .hex-tile.path {
+      .hex-in1 .hex-in2 {
+        background: #fd8 !important;
+      }
+    }
+  }
+  .battle-start .hex-row {
+    .hex-tile.team-a, .hex-tile.team-b, .hex-tile.team-c, .hex-tile.team-x {
+      .hex-in1 .hex-in2 {
+        background: white;
+      }
+    }
+  }
+
   table {
     /*background: #ddd;*/
     padding: 10px;

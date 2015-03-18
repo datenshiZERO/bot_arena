@@ -178,7 +178,7 @@ getUnit = (id) ->
   window.BattleLog.participants[id]
 
 getTile = (qr) ->
-  $("#tile-#{qr[0]}-#{qr[1]}")
+  $("#tile-#{qr[0]}-#{qr[1]} .hex-in2")
 
 moveUnit = (source, dest, unit) ->
   tile = getTile(dest)

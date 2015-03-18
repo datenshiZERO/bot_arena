@@ -3,18 +3,13 @@
 
 .row
   .col-md-12.board-container
-    %table#board{ :class => board_class(@arena) }
-      %tr
-        - (@arena.columns * 2 + 1).times do
-          %th &nbsp;
+    #board{ :class => board_class(@arena) }
       - @arena.processed_layout.each_with_index do |row, r|
-        %tr
-          - if r.odd?
-            %td.extra 
+        .hex-row{ :class => (r.odd? ? "odd" : "even") }
           - row.each_with_index do |cell, q|
-            %td.tile{ :colspan => 2, :id => "tile-#{q}-#{r}", :class => tile_class(cell) } 
-          - if r.even?
-            %td.extra 
+            .hex-tile{ :id => "tile-#{q}-#{r}", :class => tile_class(cell) } 
+              .hex-in1
+                .hex-in2
 .row
   .col-md-12
     %h2 Details
