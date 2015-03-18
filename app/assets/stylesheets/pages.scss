@@ -672,7 +672,10 @@ table.unit-table, table.item-table, table.monster-table {
           background-color: white;
           .hp-box {
             height: 5px;
-            border: 1px solid rgba(128, 128, 128, 0.8);
+            border-right: 1px solid rgba(128, 128, 128, 0.8);
+            border-bottom: 1px solid rgba(128, 128, 128, 0.8);
+            border-top: 1px solid rgba(198, 198, 198, 0.8);
+            border-left: 1px solid rgba(198, 198, 198, 0.8);
             position: relative;
             top: 40px;
             width: 60%;
