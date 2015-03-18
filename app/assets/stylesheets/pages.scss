@@ -681,6 +681,18 @@ table.unit-table, table.item-table, table.monster-table {
               background: rgba(0, 128, 0, 0.8);
               height: 3px;
             }
+            .team-X-hp {
+              background-color: #888;
+            }
+            .team-A-hp {
+              background-color: orange;
+            }
+            .team-B-hp {
+              background-color: purple;
+            }
+            .team-C-hp {
+              background-color: teal;
+            }
           }
           .unit-icon {
             margin-top: 42px;
@@ -694,22 +706,22 @@ table.unit-table, table.item-table, table.monster-table {
       }
     }
     .hex-tile.team-a {
-      .hex-in1 .hex-in2 {
+      .hex-in1 .hex-in2, .hp-box div {
         background: lightyellow;
       }
     }
     .hex-tile.team-b {
-      .hex-in1 .hex-in2 {
+      .hex-in1 .hex-in2, .hp-box div {
         background: lavender;
       }
     }
     .hex-tile.team-c {
-      .hex-in1 .hex-in2 {
+      .hex-in1 .hex-in2, .hp-box div {
         background: lightblue;
       }
     }
     .hex-tile.team-x {
-      .hex-in1 .hex-in2 {
+      .hex-in1 .hex-in2, .hp-box div {
         background: #888;
       }
     }
