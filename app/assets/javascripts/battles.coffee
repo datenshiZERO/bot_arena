@@ -103,7 +103,7 @@ displayAttack = ->
       highlightHit()
       if attack.kill
         log "#{currentUnit().name} killed #{target.name}."
-        getTile(target.location).html("<span class='glyphicon glyphicon-remove'></span>")
+        getTile(target.location).html("")
     else
       log "Missed!"
   else
