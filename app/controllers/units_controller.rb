@@ -23,7 +23,8 @@ class UnitsController < ApplicationController
   def update
     @unit = current_user.units.where(fired: false).find(params[:id])
     if @unit.update_attributes(unit_params)
-      @unit.update_equipment redirect_to @unit, notice: "Unit updated"
+      @unit.update_equipment
+      redirect_to @unit, notice: "Unit updated"
     else
       @weapons = ([@unit.weapon] +
         current_user.user_equipment.where(unit: nil).all.select { |e| e.slot == "weapon" && e.points <= @unit.unit_template.weapon_points }).compact
