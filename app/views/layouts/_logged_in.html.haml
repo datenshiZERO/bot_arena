@@ -1,0 +1,30 @@
+%ul.nav.navbar-nav
+  %li{ :class => (((action_name == "index" || action_name == "dashboard") && controller_name == "pages") ? "active" : "") }= link_to "Home", root_url
+  %li.dropdown
+    = link_to "Menu <span class='caret'></span>".html_safe, "#", class: "dropdown-toggle #{(%w{quests raids}.include? controller_name) ? "active" : ""}", "data-toggle" => "dropdown" 
+    %ul.dropdown-menu
+      %li{ :class => (controller_name == "units" ? "active" : "") }= link_to "Roster", units_url
+      %li{ :class => (controller_name == "user_equipment" ? "active" : "") }= link_to "Armory", user_equipment_index_url
+      %li.divider
+      %li= link_to "Hire Units", unit_templates_url
+      %li= link_to "Item Store", equipment_index_url
+  %li.dropdown
+    = link_to "Missions <span class='caret'></span>".html_safe, "#", class: "dropdown-toggle #{(%w{quests raids}.include? controller_name) ? "active" : ""}", "data-toggle" => "dropdown" 
+    %ul.dropdown-menu
+      %li= link_to "Send units on a Quest", quests_url
+      %li= link_to "Past Raids", raids_url
+      %li.divider
+      %li{ :class => (controller_name == "arenas" ? "active" : "") }= link_to "Send units to Arenas", arenas_url
+      %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "Past Battles", my_battles_url
+      %li{ :class => ((controller_name == "battles") ? "active" : "") }= link_to "All Battles", battles_url
+  %li{ :class => (action_name == "help" ? "active" : "") }= link_to "Help", help_url
+%ul.nav.navbar-nav.navbar-right
+  %li
+    = link_to "#" do
+      %strong= current_user.username
+      &nbsp;
+      = "Lvl: #{current_user.current_level}"
+      = xp_display(current_user)
+      &nbsp;
+      = "Gold: #{number_with_delimiter current_user.credits}"
+  %li= link_to 'Sign out', logout_url, :method => :delete

@@ -1,0 +1,11 @@
+%ul.nav.navbar-nav
+  %li{ :class => ((action_name == "index" && controller_name == "pages") ? "active" : "") }= link_to "Home", root_url
+  %li.dropdown
+    = link_to "Arenas <span class='caret'></span>".html_safe, "#", class: "dropdown-toggle", "data-toggle" => "dropdown" 
+    %ul.dropdown-menu
+      %li{ :class => (controller_name == "arenas" ? "active" : "") }= link_to "Arena List", arenas_url
+      %li{ :class => ((controller_name == "battles") ? "active" : "") }= link_to "All Battles", battles_url
+  %li{ :class => (action_name == "help" ? "active" : "") }= link_to "Help", help_url
+%ul.nav.navbar-nav.navbar-right
+  %li= link_to 'Sign up', new_user_registration_url
+  %li= link_to 'Sign in', login_url
