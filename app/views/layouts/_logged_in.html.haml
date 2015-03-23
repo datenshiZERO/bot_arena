@@ -20,7 +20,7 @@
   %li{ :class => (action_name == "help" ? "active" : "") }= link_to "Help", help_url
 %ul.nav.navbar-nav.navbar-right
   %li
-    = link_to "#" do
+    = link_to my_profile_path do
       %strong= current_user.username
       &nbsp;
       = "Lvl: #{current_user.current_level}"

@@ -47,4 +47,6 @@ Rails.application.routes.draw do
       post :rerun
     end
   end
+
+  resource :my_profile
 end
