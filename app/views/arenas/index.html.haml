@@ -20,7 +20,7 @@
       %td.text-right= arena.team_count
       %td.text-right= arena.players_max
       %td.text-right= arena.units.count
-      %td.text-right= "every #{pluralize arena.minutes_interval, "minute"}"
+      %td= "every #{pluralize arena.minutes_interval, "minute"}"
       %td
         = link_to "View Details", arena, class: "btn btn-default btn-sm"
 
