@@ -1,7 +1,7 @@
 class QuestsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @quests = Quest.includes(:encounters).where(active: true).where("stage <= ?", current_user.stage).order(:stage)
+    @areas = Area.all
   end
 
   def show

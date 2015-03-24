@@ -3,24 +3,25 @@
 %h1 Quests
 %p Finish quests to unlock more difficult quests.
 
-%table.table.table-condensed.table-striped.item-table
-  %tr
-    %th Quest
-    %th XP for winning
-    %th Credits for winning
-    %th Status
-    %th Actions
-  - @quests.each do |quest|
-    %tr
-      %td= quest.name
-      %td= quest.xp_win
-      %td= quest.credits_win
-      %td
-        - if current_user.stage < quest.stage
-          %span.label.label-danger Not Yet Unlocked
-        - elsif current_user.stage == quest.stage
-          %span.label.label-warning Not Yet Completed
-        - else 
-          %span.label.label-info Completed
-      %td
-        = link_to "View Quest", quest, :class => "btn btn-default btn-sm"
+- @areas.each_slice(2) do |areas|
+  .row
+    - areas.each do |area|
+      .col-md-6
+        %h2= area.name
+        %table.table.table-condensed.table-striped.item-table
+          %tr
+            %th Quest
+            %th Status
+            %th Actions
+          - area.quests.each do |quest|
+            %tr
+              %td= quest.name
+              %td
+                - if current_user.stage < quest.stage
+                  %span.label.label-danger Not Yet Unlocked
+                - elsif current_user.stage == quest.stage
+                  %span.label.label-warning Not Yet Completed
+                - else 
+                  %span.label.label-info Completed
+              %td
+                = link_to "View Quest", quest, :class => "btn btn-default btn-sm"
