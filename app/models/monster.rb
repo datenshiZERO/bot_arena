@@ -57,6 +57,11 @@ class Monster
       hp: 20, move: 2, evade: 10, damage: 4, accuracy: 10, xp: 20, credits: 15
     ),
     self.new(
+      name: "Wolf",
+      slug: "wolf",
+      hp: 20, move: 3, evade: 15, defense: 0, damage: 3, accuracy: 14, xp: 20, credits: 20
+    ),
+    self.new(
       name: "Dire Spider",
       slug: "dire_spider",
       hp: 30, move: 3, evade: 15, defense: 1, damage: 5, accuracy: 13, xp: 30, credits: 30

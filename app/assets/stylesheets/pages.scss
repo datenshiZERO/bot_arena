@@ -599,19 +599,107 @@ $c-mercenary-medium: -352px -96px;
   height: 64px;
   line-height: 64px;
 }
-.monster-icon.monster-giant-spider {
-  background-position: -384px -96px;
+.monster-icon.monster-giant-spider, 
+.monster-icon.monster-dire-spider, 
+.monster-icon.monster-magma-spider,
+.monster-icon.monster-wolf,
+.monster-icon.monster-alpha-wolf,
+.monster-icon.monster-goblin-warrior,
+.monster-icon.monster-goblin-berserker {
   width: 64px;
   height: 64px;
   line-height: 64px;
 }
 
+.monster-icon.monster-giant-spider {
+  background-position: -384px -96px;
+}
+
+.monster-icon.monster-dire-spider {
+  background-position: -448px -96px;
+}
+
+.monster-icon.monster-magma-spider {
+  background-position: -448px -32px;
+}
+
+.monster-icon.monster-giant-snake {
+  background-position: -448px -160px;
+}
+
+.monster-icon.monster-wolf {
+  background-position: -384px -224px;
+}
+
+.monster-icon.monster-alpha-wolf {
+  background-position: -448px -224px;
+}
+
+.monster-icon.monster-goblin-warrior {
+  background-position: -384px -288px;
+}
+
+.monster-icon.monster-goblin-berserker {
+  background-position: -448px -288px;
+}
+
+.monster-icon.monster-rabid-rabbit {
+  background-position: -384px -160px;
+  width: 52px;
+  height: 52px;
+  line-height: 52px;
+}
+
+.monster-icon.monster-giant-scorpion,
+.monster-icon.monster-fire-scorpion {
+  width: 54px;
+  height: 70px;
+  line-height: 70px;
+}
+
+.monster-icon.monster-giant-scorpion {
+  background-position: -336px -352px;
+}
+.monster-icon.monster-fire-scorpion {
+  background-position: -336px -432px;
+}
+
+.monster-icon.monster-green-dragon,
+.monster-icon.monster-red-dragon {
+  width: 112px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.monster-icon.monster-green-dragon {
+  background-position: -400px -352px;
+}
+.monster-icon.monster-red-dragon {
+  background-position: -400px -432px;
+}
+
 #monster-row {
-  .unit-container.monster-green-slime-container, .unit-container.monster-green-slime-container {
+  .unit-container.monster-green-slime-container, 
+  .unit-container.monster-green-slime-container {
     width: 32px;
   }
-  .unit-container.monster-giant-rat-container, .unit-container.monster-giant-spider-container {
+  .unit-container.monster-rabid-rabbit-container {
+    width: 52px;
+  }
+  .unit-container.monster-giant-rat-container, 
+  .unit-container.monster-giant-spider-container,
+  .unit-container.monster-dire-spider-container,
+  .unit-container.monster-magma-spider-container,
+  .unit-container.monster-giant-snake-container,
+  .unit-container.monster-wolf-container, 
+  .unit-container.monster-alpha-wolf-container,
+  .unit-container.monster-goblin-warrior-container, 
+  .unit-container.monster-goblin-berserker-container {
     width: 64px;
+  }
+  .unit-container.monster-green-dragon-container, 
+  .unit-container.monster-red-dragon-container {
+    width: 112px;
   }
 }
 
