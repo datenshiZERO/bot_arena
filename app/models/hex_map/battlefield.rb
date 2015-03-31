@@ -364,14 +364,15 @@ module HexMap
       battle.save
 
       # update xp/kills
-      outcomes.each do |outcome|
-        user = outcome.unit.user
+      outcomes.group_by { |outcome| outcome.unit.user }.each do |user, user_outcomes|
         user.with_lock do
-          user.total_missions += 1
-          user.total_kills += outcome.kills
-          user.total_xp += outcome.xp
-          user.credits += outcome.credits
-          user.save
+          user_outcomes.each do |outcome|
+            user.total_missions += 1
+            user.total_kills += outcome.kills
+            user.total_xp += outcome.xp
+            user.credits += outcome.credits
+          end
+          user.save!
         end
       end
 
