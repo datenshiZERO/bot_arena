@@ -91,9 +91,9 @@ module HexMap
         break if battle_ended?
         @turns += 1
       end
-      Battle.transaction do
+      #Battle.transaction do
         process_outcome
-      end
+      #end
     end
 
     def set_target(unit, log)
