@@ -8,6 +8,10 @@ class Quest
     @stage
   end
 
+  def unlocked_quests
+    @unlocks.map { |id| Quest.find(id) }
+  end
+
   def initialize(attr)
     @name = attr[:name]
     @stage = attr[:stage]
@@ -110,18 +114,139 @@ class Quest
       unlocks: [ 7 ]
     },
     {
+      name: "Sewers - 7",
+      stage: 7,
+      encounters: Encounter.generate_encounters([
+        [1, :giant_rat, 1],
+        [1, :giant_spider, 1],
+        [1, :red_slime, 2],
+        [2, :giant_spider, 3],
+        [2, :red_slime, 2],
+        [3, :dire_spider, 1]
+      ]),
+      xp_win: 35,
+      credits_win: 35,
+      area_id: 0,
+      unlocks: [ 8 ]
+    },
+    {
+      name: "Sewers - 8",
+      stage: 8,
+      encounters: Encounter.generate_encounters([
+        [1, :giant_rat, 4],
+        [1, :red_slime, 2],
+        [2, :giant_spider, 3],
+        [2, :red_slime, 2],
+        [3, :red_slime, 2],
+        [3, :dire_spider, 2]
+      ]),
+      xp_win: 50,
+      credits_win: 50,
+      area_id: 0,
+      unlocks: [ 9 ]
+    },
+    {
+      name: "Sewers - 9",
+      stage: 9,
+      encounters: Encounter.generate_encounters([
+        [1, :giant_spider, 8],
+        [2, :giant_spider, 3],
+        [2, :red_slime, 2],
+        [3, :red_slime, 4],
+        [4, :red_slime, 2],
+        [4, :dire_spider, 2],
+        [5, :dire_spider, 3]
+      ]),
+      xp_win: 75,
+      credits_win: 75,
+      area_id: 0,
+      unlocks: [ 10 ]
+    },
+    {
+      name: "Sewers - 10",
+      stage: 10,
+      encounters: Encounter.generate_encounters([
+        [1, :green_slime, 8],
+        [2, :red_slime, 4],
+        [3, :blue_slime, 2]
+      ]),
+      xp_win: 100,
+      credits_win: 100,
+      area_id: 0,
+      unlocks: [ ]
+    },
+    {
       name: "Forest - 1",
       stage: 11,
       encounters: Encounter.generate_encounters([
         [1, :rabid_rabbit, 1],
         [2, :rabid_rabbit, 2],
         [3, :rabid_rabbit, 4],
-        [4, :rabid_rabbit, 6]
+        [4, :rabid_rabbit, 8]
       ]),
       xp_win: 20,
       credits_win: 20,
       area_id: 1,
       unlocks: [ 12 ]
+    },
+    {
+      name: "Forest - 2",
+      stage: 12,
+      encounters: Encounter.generate_encounters([
+        [1, :rabid_rabbit, 3],
+        [2, :giant_snake, 3],
+        [3, :rabid_rabbit, 5],
+        [4, :giant_snake, 4]
+      ]),
+      xp_win: 30,
+      credits_win: 30,
+      area_id: 1,
+      unlocks: [ 13 ]
+    },
+    {
+      name: "Forest - 3",
+      stage: 13,
+      encounters: Encounter.generate_encounters([
+        [1, :rabid_rabbit, 4],
+        [2, :giant_snake, 2],
+        [2, :wolf, 1],
+        [3, :giant_snake, 3],
+        [3, :wolf, 2]
+      ]),
+      xp_win: 35,
+      credits_win: 35,
+      area_id: 1,
+      unlocks: [ 14 ]
+    },
+    {
+      name: "Forest - 4",
+      stage: 14,
+      encounters: Encounter.generate_encounters([
+        [1, :giant_snake, 4],
+        [2, :giant_snake, 3],
+        [2, :wolf, 2],
+        [3, :wolf, 2],
+        [3, :goblin_warrior, 2]
+      ]),
+      xp_win: 50,
+      credits_win: 50,
+      area_id: 1,
+      unlocks: [ 15 ]
+    },
+    {
+      name: "Forest - 5",
+      stage: 15,
+      encounters: Encounter.generate_encounters([
+        [1, :wolf, 4],
+        [2, :wolf, 3],
+        [2, :goblin_warrior, 2],
+        [3, :goblin_warrior, 2],
+        [3, :alpha_wolf, 2]
+      ]),
+      xp_win: 60,
+      credits_win: 60,
+      area_id: 1,
+      unlocks: [ 16, 21 ]
     }
   ]
 

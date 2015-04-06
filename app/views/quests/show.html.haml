@@ -80,6 +80,13 @@
       = f.input :unit_6_front, label: "Put unit 6 in the front row"
     = f.submit :class => "btn btn-primary", value: "Begin Raid &raquo;".html_safe
 
+- if current_user.completed_quest?(@quest) && @quest.unlocked_quests.compact.size > 0
+  %hr
+  %p
+    Completing this quest unlocked the following quests:
+  %p
+    - @quest.unlocked_quests.each do |quest|
+      = link_to "Go to \"#{quest.name}\"", quest_url(quest.id), class: "btn btn-default"
 %hr
 %p= link_to "Back to list of Quests", quests_path, :class => "btn btn-default"
 
