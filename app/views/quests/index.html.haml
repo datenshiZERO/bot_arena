@@ -25,4 +25,8 @@
                 - else
                   %span.label.label-danger Not Yet Unlocked
               %td
-                = link_to "View Quest", quest_url(quest.id), :class => "btn btn-default btn-sm"
+                - if current_user.unlocked_quest?(quest)
+                  = link_to "View Quest", quest_url(quest.id), :class => "btn btn-default btn-sm"
+                - else
+                  %button.btn.btn-default.btn-sm{ disabled: "disabled"} View Quest
+

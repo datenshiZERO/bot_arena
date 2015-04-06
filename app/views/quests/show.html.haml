@@ -12,41 +12,44 @@
 
 %h2 Enemies
 
-- @quest.encounters.sort_by {|x| x.wave }.group_by {|x| x.wave }.each do |wave, encounters|
-  %h3= "Wave #{wave}"
+- if current_user.completed_quest?(@quest)
+  - @quest.encounters.sort_by {|x| x.wave }.group_by {|x| x.wave }.each do |wave, encounters|
+    %h3= "Wave #{wave}"
 
-  %table.table.table-condensed.table-striped.monster-table
-    %tr
-      %th Monster
-      %th HP
-      %th Movement
-      %th Evade
-      %th Defense
-      %th Damage
-      %th Accuracy
-      %th Range
-      %th XP
-      %th Gold
-    - encounters.each do |encounter|
+    %table.table.table-condensed.table-striped.monster-table
       %tr
-        %td
-          %span{ class: "monster-icon monster-#{encounter.monster.icon_class}" }
-          = encounter.monster.name
-          x
-          = encounter.count
-        %td= encounter.monster.hp
-        %td= encounter.monster.move
-        %td= encounter.monster.evade
-        %td= encounter.monster.defense
-        %td= encounter.monster.damage
-        %td= encounter.monster.accuracy
-        %td
-          - if encounter.monster.ranged
-            %span.label.label-warning Ranged
-          - else 
-            %span.label.label-info Melee
-        %td= encounter.monster.xp
-        %td= encounter.monster.credits
+        %th Monster
+        %th HP
+        %th Movement
+        %th Evade
+        %th Defense
+        %th Damage
+        %th Accuracy
+        %th Range
+        %th XP
+        %th Gold
+      - encounters.each do |encounter|
+        %tr
+          %td
+            %span{ class: "monster-icon monster-#{encounter.monster.icon_class}" }
+            = encounter.monster.name
+            x
+            = encounter.count
+          %td= encounter.monster.hp
+          %td= encounter.monster.move
+          %td= encounter.monster.evade
+          %td= encounter.monster.defense
+          %td= encounter.monster.damage
+          %td= encounter.monster.accuracy
+          %td
+            - if encounter.monster.ranged
+              %span.label.label-warning Ranged
+            - else 
+              %span.label.label-info Melee
+          %td= encounter.monster.xp
+          %td= encounter.monster.credits
+- else
+  %p ???
 
 %h2 Send Raid Party
 
