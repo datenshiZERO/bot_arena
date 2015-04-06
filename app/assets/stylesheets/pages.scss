@@ -279,6 +279,7 @@ $a-mercenary-medium: -352px -64px;
 $b-mercenary-medium: -320px -96px;
 $c-mercenary-medium: -352px -96px;
 
+#party-front-row, #party-back-row, #monster-row,
 .medium { 
   .unit-icon {
     width: 32px;
@@ -1049,27 +1050,13 @@ table.unit-table, table.item-table, table.monster-table {
     width: 32px;
     margin: 0 4px;
     display: inline-block;
-    .unit-icon {
-      width: 32px;
-      height: 32px;
-      line-height: 32px;
-    }
-    .unit-icon.team-A-unit {
-      background-position: -288px 0;
-    }
-    .unit-icon.team-A-unit.skirmisher {
-      background-position: -352px 0;
-    }
-    .unit-icon.team-A-unit.sentinel {
-      background-position: -288px -64px;
-    }
-    .unit-icon.team-A-unit.mercenary {
-      background-position: -352px -64px;
-    }
   }
   .hp-box {
     height: 7px;
-    border: 1px solid rgba(128, 128, 128, 0.8);
+    border-right: 1px solid rgba(128, 128, 128, 0.8);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.8);
+    border-top: 1px solid rgba(198, 198, 198, 0.8);
+    border-left: 1px solid rgba(198, 198, 198, 0.8);
     div {
       background: rgba(0, 128, 0, 0.8);
       height: 5px;
