@@ -167,7 +167,7 @@ class Equipment
       points: 8,
       price: 1800,
       accuracy: 11,
-      damage: 10,
+      damage: 12,
       range_min: 3,
       range_max: 4
     ),
@@ -207,7 +207,7 @@ class Equipment
       points: 13,
       price: 12000,
       accuracy: 12,
-      damage: 20,
+      damage: 24,
       range_min: 3,
       range_max: 5
     ),

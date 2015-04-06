@@ -178,6 +178,7 @@ module Dungeon
       return true if roll == 20
       return false if roll == 1
       return true if roll >= (accuracy - evade)
+      false
     end
 
     def move_surviving_forward

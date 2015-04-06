@@ -385,7 +385,7 @@ class Quest
         [4, :giant_scorpion, 6],
         [5, :fire_scorpion, 3]
       ]),
-      xp_win: 300,
+      xp_win: 200,
       credits_win: 300,
       area_id: 2,
       unlocks: [ 25 ]
@@ -403,8 +403,8 @@ class Quest
         [4, :red_slime, 4],
         [4, :magma_spider, 2]
       ]),
-      xp_win: 500,
-      credits_win: 500,
+      xp_win: 250,
+      credits_win: 250,
       area_id: 2,
       unlocks: [ 26, 31 ]
     },
@@ -412,19 +412,78 @@ class Quest
       name: "Desert - 6",
       stage: 26,
       encounters: Encounter.generate_encounters([
-        [1, :red_slime, 6],
-        [1, :giant_scorpion, 6],
-        [2, :red_slime, 6],
-        [2, :salamander, 3],
-        [3, :red_slime, 6],
-        [3, :fire_scorpion, 3],
-        [4, :red_slime, 4],
-        [4, :magma_spider, 2]
+        [1, :giant_scorpion, 4],
+        [1, :salamander, 4],
+        [2, :red_slime, 4],
+        [2, :fire_scorpion, 4],
+        [3, :magma_spider, 3]
       ]),
-      xp_win: 500,
-      credits_win: 500,
+      xp_win: 300,
+      credits_win: 300,
       area_id: 2,
       unlocks: [ 27 ]
+    },
+    {
+      name: "Desert - 7",
+      stage: 27,
+      encounters: Encounter.generate_encounters([
+        [1, :fire_scorpion, 4],
+        [1, :salamander, 4],
+        [2, :fire_scorpion, 3],
+        [2, :magma_spider, 3]
+      ]),
+      xp_win: 350,
+      credits_win: 350,
+      area_id: 2,
+      unlocks: [ 28 ]
+    },
+    {
+      name: "Desert - 8",
+      stage: 28,
+      encounters: Encounter.generate_encounters([
+        [1, :salamander, 6],
+        [2, :fire_scorpion, 6],
+        [3, :magma_spider, 4],
+        [4, :cockatrice, 2]
+      ]),
+      xp_win: 300,
+      credits_win: 300,
+      area_id: 2,
+      unlocks: [ 29 ]
+    },
+    {
+      name: "Desert - 9",
+      stage: 29,
+      encounters: Encounter.generate_encounters([
+        [1, :salamander, 2],
+        [1, :fire_scorpion, 2],
+        [2, :salamander, 3],
+        [2, :fire_scorpion, 3],
+        [3, :fire_scorpion, 3],
+        [3, :magma_spider, 3],
+        [4, :cockatrice, 4]
+      ]),
+      xp_win: 300,
+      credits_win: 300,
+      area_id: 2,
+      unlocks: [ 30 ]
+    },
+    {
+      name: "Desert - 10",
+      stage: 30,
+      encounters: Encounter.generate_encounters([
+        [1, :giant_scorpion, 8],
+        [2, :salamander, 8],
+        [3, :fire_scorpion, 4],
+        [3, :magma_spider, 4],
+        [4, :red_slime, 6],
+        [4, :cockatrice, 4],
+        [5, :red_dragon, 1]
+      ]),
+      xp_win: 300,
+      credits_win: 300,
+      area_id: 2,
+      unlocks: [ ]
     },
     {
       name: "Haunted Castle - 1",
@@ -437,10 +496,151 @@ class Quest
         [3, :skeleton, 6],
         [4, :evil_eye, 3]
       ]),
+      xp_win: 250,
+      credits_win: 250,
+      area_id: 3,
+      unlocks: [ 32 ]
+    },
+    {
+      name: "Haunted Castle - 2",
+      stage: 32,
+      encounters: Encounter.generate_encounters([
+        [1, :giant_spider, 10],
+        [2, :giant_spider, 7],
+        [2, :skeleton, 5],
+        [3, :skeleton, 6],
+        [3, :evil_eye, 4]
+      ]),
       xp_win: 300,
       credits_win: 300,
       area_id: 3,
-      unlocks: [ 32 ]
+      unlocks: [ 33 ]
+    },
+    {
+      name: "Haunted Castle - 3",
+      stage: 33,
+      encounters: Encounter.generate_encounters([
+        [1, :giant_spider, 6],
+        [2, :skeleton, 6],
+        [3, :evil_eye, 6],
+        [4, :ghost, 4]
+      ]),
+      xp_win: 350,
+      credits_win: 350,
+      area_id: 3,
+      unlocks: [ 34 ]
+    },
+    {
+      name: "Haunted Castle - 4",
+      stage: 34,
+      encounters: Encounter.generate_encounters([
+        [1, :skeleton, 4],
+        [1, :evil_eye, 2],
+        [2, :skeleton, 6],
+        [2, :evil_eye, 2],
+        [2, :ghost, 2],
+        [3, :ghost, 3],
+        [4, :revenant, 3]
+      ]),
+      xp_win: 400,
+      credits_win: 400,
+      area_id: 3,
+      unlocks: [ 35 ]
+    },
+    {
+      name: "Haunted Castle - 5",
+      stage: 35,
+      encounters: Encounter.generate_encounters([
+        [1, :skeleton, 4],
+        [1, :ghost, 2],
+        [2, :skeleton, 2],
+        [2, :ghost, 4],
+        [3, :skeleton, 6],
+        [3, :revenant, 2],
+        [4, :ghost, 2],
+        [4, :revenant, 2]
+      ]),
+      xp_win: 450,
+      credits_win: 500,
+      area_id: 3,
+      unlocks: [ 36 ]
+    },
+    {
+      name: "Haunted Castle - 6",
+      stage: 36,
+      encounters: Encounter.generate_encounters([
+        [1, :ghost, 4],
+        [1, :evil_eye, 2],
+        [2, :revenant, 4],
+        [2, :evil_eye, 2],
+        [3, :wraith, 2]
+      ]),
+      xp_win: 500,
+      credits_win: 700,
+      area_id: 3,
+      unlocks: [ 37 ]
+    },
+    {
+      name: "Haunted Castle - 7",
+      stage: 37,
+      encounters: Encounter.generate_encounters([
+        [1, :evil_eye, 2],
+        [2, :evil_eye, 4],
+        [3, :evil_eye, 6],
+        [4, :evil_eye, 4],
+        [4, :beholder, 2]
+      ]),
+      xp_win: 500,
+      credits_win: 1000,
+      area_id: 3,
+      unlocks: [ 38 ]
+    },
+    {
+      name: "Haunted Castle - 8",
+      stage: 38,
+      encounters: Encounter.generate_encounters([
+        [1, :skeleton, 8],
+        [1, :evil_eye, 2],
+        [2, :ghost, 6],
+        [2, :evil_eye, 3],
+        [3, :revenant, 2],
+        [3, :wraith, 2],
+        [3, :beholder, 2]
+      ]),
+      xp_win: 750,
+      credits_win: 2000,
+      area_id: 3,
+      unlocks: [ 39 ]
+    },
+    {
+      name: "Haunted Castle - 9",
+      stage: 39,
+      encounters: Encounter.generate_encounters([
+        [1, :green_slime, 6],
+        [1, :giant_spider, 6],
+        [2, :giant_spider, 6],
+        [2, :skeleton, 3],
+        [3, :skeleton, 6],
+        [4, :evil_eye, 3]
+      ]),
+      xp_win: 750,
+      credits_win: 4000,
+      area_id: 3,
+      unlocks: [ 40 ]
+    },
+    {
+      name: "Haunted Castle - 10",
+      stage: 40,
+      encounters: Encounter.generate_encounters([
+        [1, :blue_slime, 4],
+        [2, :wraith, 3],
+        [3, :beholder, 2],
+        [4, :shadow_boss, 1]
+      ]),
+      xp_win: 1000,
+      credits_win: 10000,
+      area_id: 3,
+      unlocks: [ ]
     }
   ]
 
