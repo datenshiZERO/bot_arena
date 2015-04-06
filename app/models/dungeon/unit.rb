@@ -6,7 +6,7 @@ module Dungeon
     attr_accessor :hp, :front, :id
 
     def initialize(id_or_slug, front = true)
-      if id_or_slug.is_a? String
+      if id_or_slug.is_a?(String) || id_or_slug.is_a?(Symbol)
         actor = Monster.find(id_or_slug)
         @hp = actor.hp
         @move = actor.move

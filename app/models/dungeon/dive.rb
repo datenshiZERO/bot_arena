@@ -214,8 +214,9 @@ module Dungeon
         user.total_missions += 1
         user.total_kills += @kills
         user.credits += @credits
-        if @quest.stage == user.stage && !party_wiped?
-          user.stage += 1
+        if !party_wiped?
+          user.unlock_quests(@quest)
+          user.complete_quest(@quest)
         end
         user.save!
       end

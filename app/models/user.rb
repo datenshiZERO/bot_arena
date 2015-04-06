@@ -88,4 +88,30 @@ class User < ActiveRecord::Base
       arena.points_min <= u.total_points && u.total_points <= arena.points_max
     end
   end
+
+  def unlocked_quest?(quest)
+    unlocked_quests[quest.stage - 1] == "Y"
+  end
+
+  def unlock_quests(completed_quest)
+    prev_unlocks = unlocked_quests
+    completed_quest.unlocks.each do |s|
+      prev_unlocks[s - 1] = "Y"
+    end
+    self.unlocked_quests = prev_unlocks
+  end
+
+  def all_unlocked_quests
+    Quest::QUESTS.select { |q| unlocked_quest?(q) }
+  end
+
+  def completed_quest?(quest)
+    completed_quests[quest.stage - 1] == "Y"
+  end
+
+  def complete_quest(quest)
+    fields = completed_quests
+    fields[quest.stage - 1] = "Y"
+    self.completed_quests = fields
+  end
 end

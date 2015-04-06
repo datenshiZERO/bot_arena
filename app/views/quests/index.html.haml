@@ -17,11 +17,12 @@
             %tr
               %td= quest.name
               %td
-                - if current_user.stage < quest.stage
+                - if current_user.unlocked_quest?(quest)
+                  - if current_user.completed_quest?(quest)
+                    %span.label.label-info Completed
+                  - else 
+                    %span.label.label-warning Not Yet Completed
+                - else
                   %span.label.label-danger Not Yet Unlocked
-                - elsif current_user.stage == quest.stage
-                  %span.label.label-warning Not Yet Completed
-                - else 
-                  %span.label.label-info Completed
               %td
-                = link_to "View Quest", quest, :class => "btn btn-default btn-sm"
+                = link_to "View Quest", quest_url(quest.id), :class => "btn btn-default btn-sm"

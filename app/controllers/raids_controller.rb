@@ -1,7 +1,7 @@
 class RaidsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @raids = current_user.raids.order("created_at desc").includes(:quest).page params[:page]
+    @raids = current_user.raids.order("created_at desc").page params[:page]
   end
 
   def show
@@ -14,7 +14,7 @@ class RaidsController < ApplicationController
       redirect_to @raid, notice: "Raid completed, see results below"
     else
       @units = current_user.units.where(fired: false, arena: nil).all
-      @quests = Quest.includes(:encounters).where(active: true).where("stage <= ?", current_user.stage).order(:stage)
+      @quests = current_user.all_unlocked_quests
       render :new
     end
   end
@@ -22,7 +22,7 @@ class RaidsController < ApplicationController
   def rerun
     @raid_source = current_user.raids.find params[:id]
     @raid = current_user.raids.build
-    @raid.quest = @raid_source.quest
+    @raid.quest_id = @raid_source.quest_id
     @raid.unit_1_id = @raid_source.unit_1_id
     @raid.unit_1_front = @raid_source.unit_1_front
     @raid.unit_2_id = @raid_source.unit_2_id

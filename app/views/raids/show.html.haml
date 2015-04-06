@@ -4,7 +4,7 @@
 
 %h1
   Raid:
-  = link_to @raid.quest.name, @raid.quest
+  = link_to @raid.quest.name, quest_url(@raid.quest.id)
 
 .row.replay-container
   .col-md-12.text-center
@@ -71,7 +71,10 @@
     %h2 Results
     %p
       %strong Outcome:
-      = @raid.outcome
+      - if @raid.outcome == "Success"
+        %span.label.label-info Success
+      - else 
+        %span.label.label-danger Failed
     %p
       %strong Kills:
       = @raid.kills

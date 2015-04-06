@@ -7,7 +7,7 @@ class Area
 
   def initialize(id)
     @name = AREAS[id][:name]
-    @quests = Quest.where(active: true, area_id: id).order(:stage)
+    @quests = Quest.area(id)
   end
 
   AREAS = [

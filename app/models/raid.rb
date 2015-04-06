@@ -1,11 +1,10 @@
 class Raid < ActiveRecord::Base
   belongs_to :user
-  belongs_to :quest
 
-  validates :quest, presence: true
+  validates :quest_id, presence: true
   validates :user, presence: true
 
-  validate :check_stage_and_active, if: "quest.present?"
+  validate :check_stage, if: "quest_id.present?"
   validate :at_least_one_unit, :units_must_be_available, :check_duplicate_units
   after_create :dive
 
@@ -13,10 +12,15 @@ class Raid < ActiveRecord::Base
     @party_snapshot ||= JSON.parse(raid_log)["party"]
     @party_snapshot
   end
+
+  def quest
+    Quest.find(quest_id)
+  end
+
   private
 
-  def check_stage_and_active
-    if quest.stage > user.stage || !quest.active
+  def check_stage
+    unless user.unlocked_quest?(quest)
       errors.add(:quest_id, "is invalid")
     end
   end

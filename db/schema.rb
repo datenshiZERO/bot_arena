@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403122135) do
+ActiveRecord::Schema.define(version: 20150406034941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,29 +84,6 @@ ActiveRecord::Schema.define(version: 20150403122135) do
   end
 
   add_index "battles", ["arena_id"], name: "index_battles_on_arena_id", using: :btree
-
-  create_table "encounters", force: :cascade do |t|
-    t.integer  "quest_id"
-    t.integer  "wave",         default: 1
-    t.string   "monster_slug"
-    t.integer  "count",        default: 1
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "encounters", ["quest_id"], name: "index_encounters_on_quest_id", using: :btree
-
-  create_table "quests", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "stage"
-    t.integer  "xp_win"
-    t.integer  "credits_win"
-    t.boolean  "active",      default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "area_id",     default: 0
-  end
 
   create_table "raids", force: :cascade do |t|
     t.integer  "user_id"
@@ -182,12 +159,12 @@ ActiveRecord::Schema.define(version: 20150403122135) do
   add_index "user_equipments", ["user_id"], name: "index_user_equipments_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",  null: false
-    t.string   "encrypted_password",     default: "",  null: false
+    t.string   "email",                  default: "",                                                                                                     null: false
+    t.string   "encrypted_password",     default: "",                                                                                                     null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,   null: false
+    t.integer  "sign_in_count",          default: 0,                                                                                                      null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -201,6 +178,8 @@ ActiveRecord::Schema.define(version: 20150403122135) do
     t.integer  "total_kills",            default: 0
     t.integer  "stage",                  default: 1
     t.integer  "tutorial_level",         default: 0
+    t.string   "unlocked_quests",        default: "YNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+    t.string   "completed_quests",       default: "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -209,8 +188,6 @@ ActiveRecord::Schema.define(version: 20150403122135) do
 
   add_foreign_key "battle_bots", "arenas"
   add_foreign_key "battles", "arenas"
-  add_foreign_key "encounters", "quests"
-  add_foreign_key "raids", "quests"
   add_foreign_key "raids", "users"
   add_foreign_key "unit_battle_outcomes", "battles"
   add_foreign_key "unit_battle_outcomes", "units"

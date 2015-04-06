@@ -5,11 +5,13 @@ class QuestsController < ApplicationController
   end
 
   def show
-    @quest = Quest.includes(:encounters).where(active: true).find params[:id]
-    if @quest.stage > current_user.stage
+    @quest = Quest.find params[:id]
+
+    if current_user.unlocked_quest?(@quest)
+      @raid = Raid.new(quest_id: @quest.stage)
+      @units = current_user.units.where(fired: false, arena: nil).all
+    else
       redirect_to quests_path, alert: "You have not unlocked this stage yet"
     end
-    @raid = @quest.raids.build()
-    @units = current_user.units.where(fired: false, arena: nil).all
   end
 end
