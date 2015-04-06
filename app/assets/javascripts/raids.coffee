@@ -120,3 +120,17 @@ $("#play-raid").click ->
     $("#play-icon").removeClass("glyphicon-play").addClass("glyphicon-pause")
     replayRaid()
   false
+
+$("#slower").click ->
+  if window.replayPlaying
+    window.replaySpeed *= 2
+    window.clearInterval(window.iid)
+    window.iid = window.setInterval(nextTick, window.replaySpeed)
+  false
+
+$("#faster").click ->
+  if window.replayPlaying
+    window.replaySpeed /= 2
+    window.clearInterval(window.iid)
+    window.iid = window.setInterval(nextTick, window.replaySpeed)
+  false
