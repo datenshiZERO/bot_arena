@@ -12,7 +12,7 @@
     %th Actions
   - @raids.each do |raid|
     %tr
-      %td= link_to raid.quest.name
+      %td= link_to raid.quest.name, quest_url(raid.quest.id)
       %td
         - if raid.outcome == "Success"
           %span.label.label-info Success
