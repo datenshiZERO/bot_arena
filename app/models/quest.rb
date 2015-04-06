@@ -616,12 +616,12 @@ class Quest
       name: "Haunted Castle - 9",
       stage: 39,
       encounters: Encounter.generate_encounters([
-        [1, :green_slime, 6],
-        [1, :giant_spider, 6],
-        [2, :giant_spider, 6],
-        [2, :skeleton, 3],
-        [3, :skeleton, 6],
-        [4, :evil_eye, 3]
+        [1, :skeleton, 6],
+        [1, :revenant, 2],
+        [2, :ghost, 6],
+        [2, :wraith, 2],
+        [3, :evil_eye, 6],
+        [3, :beholder, 3]
       ]),
       xp_win: 750,
       credits_win: 4000,
@@ -632,7 +632,7 @@ class Quest
       name: "Haunted Castle - 10",
       stage: 40,
       encounters: Encounter.generate_encounters([
-        [1, :blue_slime, 4],
+        [1, :blue_slime, 5],
         [2, :wraith, 3],
         [3, :beholder, 2],
         [4, :shadow_boss, 1]

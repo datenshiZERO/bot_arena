@@ -13,7 +13,7 @@ class RaidsController < ApplicationController
     if @raid.save
       redirect_to @raid, notice: "Raid completed, see results below"
     else
-      @units = current_user.units.where(fired: false, arena: nil).all
+      @units = current_user.units.where(fired: false, arena: nil).order(:created_at).all
       @quests = current_user.all_unlocked_quests
       render :new
     end
@@ -38,7 +38,7 @@ class RaidsController < ApplicationController
     if @raid.save
       redirect_to @raid, notice: "Raid completed, see results below"
     else
-      @units = current_user.units.where(fired: false, arena: nil).all
+      @units = current_user.units.where(fired: false, arena: nil).order(:created_at).all
       @quests = Quest.includes(:encounters).where("stage <= ?", current_user.stage).order(:stage)
       render :new
     end

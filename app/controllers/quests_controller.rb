@@ -9,7 +9,7 @@ class QuestsController < ApplicationController
 
     if current_user.unlocked_quest?(@quest)
       @raid = Raid.new(quest_id: @quest.stage)
-      @units = current_user.units.where(fired: false, arena: nil).all
+      @units = current_user.units.where(fired: false, arena: nil).order(:created_at).all
       if current_user.raids.count > 0
         last_raid = current_user.raids.last
         @raid.unit_1_id = last_raid.unit_1_id
