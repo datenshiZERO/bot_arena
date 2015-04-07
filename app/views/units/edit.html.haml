@@ -19,8 +19,8 @@
         %th Points
         %th HP
         %th Movement
-        %th Evade
         %th Defense
+        %th Evade
         %th Damage
         %th Accuracy
         %th Range
@@ -34,9 +34,9 @@
         %td
           = @unit.unit_template.move
         %td
-          = @unit.unit_template.evade
-        %td
           = @unit.unit_template.defense
+        %td
+          = @unit.unit_template.evade
         %td
         %td
         %td
@@ -67,9 +67,9 @@
           %td
             = @unit.armor.bonus_move
           %td
-            = @unit.armor.bonus_evade
-          %td
             = @unit.armor.bonus_defense
+          %td
+            = @unit.armor.bonus_evade
           %td
           %td
             = @unit.armor.bonus_accuracy
@@ -85,9 +85,9 @@
           %td
             = @unit.mobility_item.bonus_move
           %td
-            = @unit.mobility_item.bonus_evade
-          %td
             = @unit.mobility_item.bonus_defense
+          %td
+            = @unit.mobility_item.bonus_evade
           %td
           %td
             = @unit.mobility_item.bonus_accuracy
@@ -102,9 +102,9 @@
         %td
           = @unit.eff_move
         %td
-          = @unit.eff_evade
-        %td
           = @unit.eff_defense
+        %td
+          = @unit.eff_evade
         %td
           = @unit.eff_damage
         %td

@@ -56,26 +56,32 @@
       %strong Movement (<span class="fa fa-arrows"></span>)
       \- determines turn order in Quests and the movement range in Arenas
     %li
-      %strong Evade 
-      \- increases chance of avoiding an attack
+      %strong Defense/Evade (Def/Eva <span class="fa fa-shield"></span>)
+      %ul
+        %li
+          %strong Defense 
+          \- damage reduced from an attack. Damage cannot be reduced below 1.
+        %li
+          %strong Evade
+          \- increases chance of avoiding an attack
     %li
-      %strong Defense 
-      \- damage reduced from an attack. Damage cannot be reduced below 1.
-    %li
-      %strong Damage 
-      \- HP deducted when attack connects. Reduced by Defense and range in Quests.
-    %li
-      %strong Accuracy
-      \- increases chance of hitting. Hits are determined by a d20 die roll - 
-      %code 20
-      is hit, 
-      %code 1
-      is miss, 
-      %code roll &gt;= (target's evade - unit's accuracy)
-      is hit.
-    %li
-      %strong Range Min/Max 
-      \- attack range in Arenas. Unit counts as a ranged unit in Quests if the range max is greater than 1.
+      %strong Offense (Dmg/Acc/RMn-RMx <span class="fa fa-crosshairs"></span>)
+      %ul
+        %li
+          %strong Damage 
+          \- HP deducted when attack connects. Reduced by Defense and range in Quests.
+        %li
+          %strong Accuracy
+          \- increases chance of hitting. Hits are determined by a d20 die roll - 
+          %code 20
+          is hit, 
+          %code 1
+          is miss, 
+          %code roll &gt;= (target's evade - unit's accuracy)
+          is hit.
+        %li
+          %strong Range Min/Max 
+          \- attack range in Arenas. Unit counts as a ranged unit in Quests if the range max is greater than 1.
 
   %p Weapons determine the offensive stats while other items affect the other stats.
 

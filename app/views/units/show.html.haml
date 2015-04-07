@@ -16,8 +16,8 @@
         %th Points (<span class='fa fa-bolt'></span>)
         %th HP
         %th Movement
-        %th Evade
         %th Defense
+        %th Evade
         %th Damage
         %th Accuracy
         %th Range
@@ -31,9 +31,9 @@
         %td.text-right
           = @unit.unit_template.move
         %td.text-right
-          = @unit.unit_template.evade
-        %td.text-right
           = @unit.unit_template.defense
+        %td.text-right
+          = @unit.unit_template.evade
         %td
         %td
         %td
@@ -64,9 +64,9 @@
           %td.text-right
             = @unit.armor.bonus_move
           %td.text-right
-            = @unit.armor.bonus_evade
-          %td.text-right
             = @unit.armor.bonus_defense
+          %td.text-right
+            = @unit.armor.bonus_evade
           %td.text-right
           %td.text-right
             = @unit.armor.bonus_accuracy
@@ -82,9 +82,9 @@
           %td.text-right
             = @unit.mobility_item.bonus_move
           %td.text-right
-            = @unit.mobility_item.bonus_evade
-          %td.text-right
             = @unit.mobility_item.bonus_defense
+          %td.text-right
+            = @unit.mobility_item.bonus_evade
           %td.text-right
           %td.text-right
             = @unit.mobility_item.bonus_accuracy
@@ -99,9 +99,9 @@
         %td.text-right
           = @unit.eff_move
         %td.text-right
-          = @unit.eff_evade
-        %td.text-right
           = @unit.eff_defense
+        %td.text-right
+          = @unit.eff_evade
         %td.text-right
           = @unit.eff_damage
         %td.text-right
