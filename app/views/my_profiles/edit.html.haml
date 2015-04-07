@@ -1,0 +1,6 @@
+%h1 Edit Profile
+
+= simple_form_for current_user, url: my_profile_path do |f|
+  = f.error_notification
+  = f.input :username
+  = f.submit :class => "btn btn-primary", value: "Update Profile"

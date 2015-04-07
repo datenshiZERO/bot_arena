@@ -19,12 +19,19 @@
       %li{ :class => ((controller_name == "battles") ? "active" : "") }= link_to "All Battles", battles_url
   %li{ :class => (action_name == "help" ? "active" : "") }= link_to "Help", help_url
 %ul.nav.navbar-nav.navbar-right
-  %li
-    = link_to my_profile_path do
+  %li.dropdown
+    = link_to "#", class: "dropdown-toggle", "data-toggle" => "dropdown" do
       %strong= current_user.username
       &nbsp;
       = "Lvl: #{current_user.current_level}"
       = xp_display(current_user)
       &nbsp;
       = "Gold: #{number_with_delimiter current_user.credits}"
+      %span.caret
+    %ul.dropdown-menu
+      %li= link_to "View my profile", my_profile_path
+      %li.divider
+      %li= link_to "Edit my profile", edit_my_profile_path
+      %li= link_to "Edit my account", edit_user_registration_path
+
   %li= link_to 'Sign out', logout_url, :method => :delete

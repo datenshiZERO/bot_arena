@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :user_equipment
   has_many :raids
   
-  validates :username, presence: true, length: { in: 3..16 }, uniqueness: true
+  validates :username, presence: true, length: { in: 3..16 }, uniqueness: true, exclusion: { in: %w{sign_in sign_out password cancel sign_up edit}, message: "is invalid" }
 
   XP_TABLE = [
     0, 500, 2000, 5500, 10000,
