@@ -203,14 +203,14 @@ $("#play").click ->
     replayBattle()
   false
 
-$("#slower").click ->
+$("#slower-battle").click ->
   if window.replayPlaying
     window.replaySpeed *= 2
     window.clearInterval(window.iid)
     window.iid = window.setInterval(nextTick, window.replaySpeed)
   false
 
-$("#faster").click ->
+$("#faster-battle").click ->
   if window.replayPlaying
     window.replaySpeed /= 2
     window.clearInterval(window.iid)
