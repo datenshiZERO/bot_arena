@@ -65,9 +65,10 @@
         %th Name
         %th Owner
         %th Stats
-        %th Kills
-        %th Assists
-        %th Unit Outcome
+        %th.text-right Kills
+        %th.text-right Assists
+        %th.text-right Trophies
+        %th.text-center Outcome
       - ["A", "B", "C"].each do |team|
         - if @battle.grouped_outcomes[team].present?
           - @battle.grouped_outcomes[team].each do |outcome|
@@ -90,9 +91,13 @@
                 %span.fa.fa-shield
                 = "#{outcome.parsed_details["damage"]}/#{outcome.parsed_details["accuracy"]}/#{outcome.parsed_details["range_min"]}-#{outcome.parsed_details["range_max"]}"
                 %span.fa.fa-crosshairs
-              %td= outcome.kills
-              %td= outcome.assists
-              %td
+              %td.text-right= outcome.kills
+              %td.text-right= outcome.assists
+              %td.text-right
+                - if outcome.trophies > 0
+                  = outcome.trophies
+                  %span.fa.fa-trophy
+              %td.text-center
                 %span{:class => outcome.unit_outcome_label }= outcome.outcome
 
 

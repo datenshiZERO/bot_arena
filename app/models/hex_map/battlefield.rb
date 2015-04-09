@@ -353,6 +353,67 @@ module HexMap
         outcome
       end
 
+      # award trophies only to full arenas
+      if outcomes.count == @arena.players_max
+        ordered_outcomes = outcomes.sort_by { |o| [-o.kills, -o.assists] }
+
+        # first place matches
+
+        first = ordered_outcomes.first
+        second = nil
+        third = nil
+        firsts = ordered_outcomes.select { |o| o.kills == first.kills && o.assists == first.assists }
+        if firsts.count == 1
+          # only one 1st place
+          first.trophies = @arena.trophies_1st
+        else
+          # more than one first place
+          if firsts.count == 2
+            first.trophies = (@arena.trophies_1st + @arena.trophies_2nd) / 2
+            second = ordered_outcomes[1]
+            second.trophies = (@arena.trophies_1st + @arena.trophies_2nd) / 2
+          elsif firsts.count == 3
+            first.trophies = (@arena.trophies_1st + @arena.trophies_2nd + @arena.trophies_3rd) / 3
+            second = ordered_outcomes[1]
+            second.trophies = (@arena.trophies_1st + @arena.trophies_2nd + @arena.trophies_3rd) / 3
+            third = ordered_outcomes[2]
+            third.trophies = (@arena.trophies_1st + @arena.trophies_2nd + @arena.trophies_3rd) / 3
+          else
+            # more than 3 first place
+            first, second, third = firsts.sample[3]
+            first.trophies = (@arena.trophies_1st + @arena.trophies_2nd + @arena.trophies_3rd) / 3
+            second.trophies = (@arena.trophies_1st + @arena.trophies_2nd + @arena.trophies_3rd) / 3
+            third.trophies = (@arena.trophies_1st + @arena.trophies_2nd + @arena.trophies_3rd) / 3
+          end
+        end
+        if second.nil?
+          second = ordered_outcomes[1]
+          seconds = ordered_outcomes.select { |o| o.kills == second.kills && o.assists == second.assists }
+          if seconds.count == 1
+            second.trophies = @arena.trophies_2nd
+          else
+            if seconds.count == 2
+              second.trophies = (@arena.trophies_2nd + @arena.trophies_3rd) / 2
+              third = ordered_outcomes[2]
+              third.trophies = (@arena.trophies_2nd + @arena.trophies_3rd) / 2
+            else
+              # more than 2 second place
+              second, third = seconds.sample[2]
+              second.trophies = (@arena.trophies_2nd + @arena.trophies_3rd) / 2
+              third.trophies = (@arena.trophies_2nd + @arena.trophies_3rd) / 2
+            end
+          end
+        end
+        if third.nil?
+          third = ordered_outcomes[2]
+          thirds = ordered_outcomes.select { |o| o.kills == third.kills && o.assists == third.assists }
+          if thirds.count > 1
+            third = thirds.sample
+          end
+          third.trophies = @arena.trophies_3rd
+        end
+      end
+
       battle.battle_log = JSON.generate({ 
         participants: @all_units.inject({}) do |p, unit| 
           p[unit.id] = unit.details
@@ -371,6 +432,7 @@ module HexMap
             user.total_kills += outcome.kills
             user.total_xp += outcome.xp
             user.credits += outcome.credits
+            user.total_trophies += outcome.trophies
           end
           user.save!
         end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406034941) do
+ActiveRecord::Schema.define(version: 20150409162732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(version: 20150406034941) do
     t.datetime "updated_at",                       null: false
     t.integer  "turn_limit"
     t.boolean  "active",           default: false
+    t.integer  "trophies_1st",     default: 5
+    t.integer  "trophies_2nd",     default: 3
+    t.integer  "trophies_3rd",     default: 1
   end
 
   add_index "arenas", ["active"], name: "index_arenas_on_active", using: :btree
@@ -124,6 +127,7 @@ ActiveRecord::Schema.define(version: 20150406034941) do
     t.datetime "updated_at",             null: false
     t.integer  "assists",    default: 0
     t.string   "team"
+    t.integer  "trophies",   default: 0
   end
 
   add_index "unit_battle_outcomes", ["battle_id"], name: "index_unit_battle_outcomes_on_battle_id", using: :btree
@@ -180,10 +184,13 @@ ActiveRecord::Schema.define(version: 20150406034941) do
     t.integer  "tutorial_level",         default: 0
     t.string   "unlocked_quests",        default: "YNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
     t.string   "completed_quests",       default: "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+    t.integer  "total_trophies",         default: 0
+    t.boolean  "leaderboard_visible",    default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["total_trophies"], name: "index_users_on_total_trophies", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "battle_bots", "arenas"

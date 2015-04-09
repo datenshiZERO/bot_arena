@@ -1,0 +1,18 @@
+%h1 Leaderboard
+
+%h2 Top Ten Players
+.row
+  .col-md-6
+    %table.table.table-condensed.table-striped
+      %tr
+        %th Player
+        %th.text-right Trophies
+      - @top_ten.each do |user|
+        %tr
+          %td= user.username
+          %td.text-right
+            = user.total_trophies
+            %span.fa.fa-trophy
+
+      
+

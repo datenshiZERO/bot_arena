@@ -18,6 +18,7 @@
       %li{ :class => ((action_name == "my_battles" && controller_name == "pages") ? "active" : "") }= link_to "Past Battles", my_battles_url
       %li{ :class => ((controller_name == "battles") ? "active" : "") }= link_to "All Battles", battles_url
   %li{ :class => (action_name == "help" ? "active" : "") }= link_to "Help", help_url
+  %li{ :class => (action_name == "leaderboard" ? "active" : "") }= link_to "Leaderboard", leaderboard_url
 %ul.nav.navbar-nav.navbar-right
   %li.dropdown
     = link_to "#", class: "dropdown-toggle", "data-toggle" => "dropdown" do
