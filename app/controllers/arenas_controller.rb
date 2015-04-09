@@ -2,10 +2,10 @@ class ArenasController < ApplicationController
   before_action :authenticate_user!, only: :update
 
   def index
-    if current_user.tutorial_level == 5
+    if user_signed_in? && current_user.tutorial_level == 5
       current_user.update(tutorial_level: 6)
     end
-    @arenas = Arena.where(active: true).page params[:page]
+    @arenas = Arena.where(active: true).order([:points_max, :points_min]).page params[:page]
   end
 
   def show
