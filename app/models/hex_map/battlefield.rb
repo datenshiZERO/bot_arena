@@ -355,7 +355,7 @@ module HexMap
 
       # award trophies only to full arenas
       if outcomes.count == @arena.players_max && 
-          @battle.outcome != "Draw" && @battle.outcome != "Bots Win"
+          battle.outcome != "Draw" && battle.outcome != "Bots Win"
         ordered_outcomes = outcomes.sort_by { |o| [-o.kills, -o.assists] }
 
         # first place matches
