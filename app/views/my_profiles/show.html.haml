@@ -1,4 +1,6 @@
-%h1= "#{current_user.username}'s profile"
+%h1
+  = "#{current_user.username}'s profile"
+  = user_flair(current_user)
 
 %p
   %strong Level:

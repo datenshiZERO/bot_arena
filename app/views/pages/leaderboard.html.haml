@@ -9,7 +9,9 @@
         %th.text-right Trophies
       - @top_ten.each do |user|
         %tr
-          %td= user.username
+          %td
+            = user.username
+            = user_flair(user)
           %td.text-right
             = number_with_delimiter user.total_trophies
             %span.fa.fa-trophy

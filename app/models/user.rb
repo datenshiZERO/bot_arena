@@ -114,4 +114,8 @@ class User < ActiveRecord::Base
     fields[quest.stage - 1] = "Y"
     self.completed_quests = fields
   end
+
+  def complete_all_quests?
+    completed_quests[39] == "Y"
+  end
 end
