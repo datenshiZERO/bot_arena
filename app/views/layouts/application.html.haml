@@ -33,6 +33,8 @@
         %div{:class => "alert alert-#{name == "notice" ? "success" : "danger"}"}
           %a.close{"data-dismiss" => "alert"} ×
           = msg
+      - if user_signed_in?
+        = render "layouts/tutorial"
       .row
         .col-sm-12
           = yield

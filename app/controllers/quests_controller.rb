@@ -25,6 +25,10 @@ class QuestsController < ApplicationController
         @raid.unit_6_id = last_raid.unit_6_id
         @raid.unit_6_front = last_raid.unit_6_front
       end
+      if current_user.tutorial_level == 3
+        current_user.update(tutorial_level: 4)
+      end
+      
     else
       redirect_to quests_path, alert: "You have not unlocked this quest yet"
     end

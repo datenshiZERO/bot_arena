@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'my_battles' => 'pages#my_battles', as: 'my_battles'
   resources :battles
 
-  resources :unit_templates do
+  resources :units_for_hire, controller: "unit_templates", as: "unit_templates" do
     member do
       post :hire
       post :hire_equipped
@@ -48,5 +48,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :my_profile
+  resource :my_profile do
+    member do
+      post :skip_tutorial
+    end
+  end
 end

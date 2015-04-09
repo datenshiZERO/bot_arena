@@ -24,6 +24,10 @@ class UnitsController < ApplicationController
     @unit = current_user.units.where(fired: false).find(params[:id])
     if @unit.update_attributes(unit_params)
       @unit.update_equipment
+
+      if current_user.tutorial_level == 2
+        current_user.update(tutorial_level: 3)
+      end
       redirect_to @unit, notice: "Unit updated"
     else
       @weapons = ([@unit.weapon] +

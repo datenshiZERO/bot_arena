@@ -5,6 +5,9 @@ class RaidsController < ApplicationController
   end
 
   def show
+    if current_user.tutorial_level == 4
+      current_user.update(tutorial_level: 5)
+    end
     @raid = current_user.raids.find params[:id]
   end
 

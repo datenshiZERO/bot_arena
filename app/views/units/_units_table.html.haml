@@ -9,7 +9,8 @@
       %th Type
       %th Stats
       %th Status
-      %th Actions
+      - unless dashboard
+        %th Actions
     - current_user.active_units.each do |unit|
       %tr
         - unless dashboard || current_user.assigned_units.count == 0
@@ -40,14 +41,16 @@
             = link_to unit.arena.name, unit.arena
           - else
             Unassigned
-        %td
-          = link_to "View Unit", unit, :class => "btn btn-default btn-sm"
-          = link_to "Equip / Rename Unit", edit_unit_path(unit), :class => "btn btn-default btn-sm"
+        - unless dashboard
+          %td
+            = link_to "View Unit", unit, :class => "btn btn-default btn-sm"
+            = link_to "Equip / Rename Unit", edit_unit_path(unit), :class => "btn btn-default btn-sm"
     - (current_user.available_unit_slots).times do
       %tr
-        %td.text-center{colspan: ((dashboard || current_user.assigned_units.count == 0) ? 6 : 7)}
-          Empty slot
-        %td
+        - unless dashboard || current_user.assigned_units.count == 0
+          %td
+        %td.text-center{colspan: (dashboard ? 6 : 7)}
+          Empty slot -
           = link_to "Hire Unit", unit_templates_path, :class => "btn btn-primary btn-sm"
   - unless dashboard || current_user.assigned_units.count == 0
     = submit_tag "Remove selected from Arena", class: "btn btn-default"

@@ -1,0 +1,91 @@
+- if current_user.tutorial_level < 10
+  .alert.alert-info
+    - if current_user.tutorial_level == 0
+      %p 
+        Welcome to <em>Tactics?!?</em>, a prototype incremental RPG.
+
+      %p
+        The first thing you need to do is to hire a fully equipped warrior. 
+        %br
+        Go to the unit hiring page by clicking the <em>Hire Unit</em> button on your roster or going to <em>Menu &raquo; Hire Units</em>.
+    - if current_user.tutorial_level == 1
+      %p
+        In the <em>Units for Hire</em> page, you can see all the available units and their requirements. Right now we can only hire a Novice Warrior.
+      %p
+        Click the <em>Hire Fully Equipped for 130</em> to hire the fully equipped Warrior.
+        %br
+        You can also click <em>View Unit</em> first to see the attributes of the unit you're hiring.
+    - if current_user.tutorial_level == 2
+      %p
+        It seems you hired an unequipped unit.
+      %p
+        No problem. Just go to <em>Menu &raquo; Item Store</em>, buy a <strong>Dagger</strong>, <strong>Clothes</strong>, and <strong>Boots</strong>, then equip them on your unit by going to <em>Menu &raquo; Roster</em> and clicking <em>Equip/Rename Unit</em>.
+
+    - if current_user.tutorial_level == 3
+      %p
+        Congratulations on hiring your first unit!
+      %p
+        If you want to change your unit's equipment, just go to <em>Menu &raquo; Item Store</em>, to buy other equipment. Note that aside from <strong>Shuriken</strong>, your Novice Warrior can't other items.
+        After buying items, you can equip them on your unit by going to <em>Menu &raquo; Roster</em> and clicking <em>Equip/Rename Unit</em>. You can also rename your unit in that page.
+      %p
+        Anyway, time for quests!
+        %br
+        Go to <em>Missions &raquo; Send units on a Quest</em>. At this point, only <em>Sewers 1</em> is available.
+      %p
+        Click that quest's <em>View Quest</em> button to proceed.
+    - if current_user.tutorial_level == 4
+      %p
+        At the Quest details page, you can choose your raiding party for the quest.
+      %p
+        Raiding parties can have up to 6 units. You can also set their position, either front or back row.
+        %br
+        The 
+        %em= link_to "Help", help_path
+        page explains how combat works in Quests in detail.
+      %p
+        Go ahead and select your lone unit and <em>Begin Raid</em>.
+    - if current_user.tutorial_level == 5
+      %p
+        Congratulations on completing your first Quest!
+      %p
+        Defeating enemies and successfully completing quests give you experience points (XP) and Gold.
+        %br
+        XP goes towards your levelling - you gain more unit and equipment slots whenever you level up.
+        %br
+        Gold allows you to hire more expensive units and buy more expensive equipment.
+      %p
+        Successfully completing quests also unlock further quests. They get progressively more difficult so you'll have to run easier quests over and over to gain enough gold and experience hire more powerful units. You can also experiment with party combinations and formations to see what's the most effective way to go through a quest.
+      %p
+        Once you get tired re-running raids over and over, or if you want to earn gold and experience without doing anything, you should try out the Arenas at <em>Menu &raquo; Send units to Arenas</em>
+    - if current_user.tutorial_level == 6
+      %p
+        Welcome to the Arenas!
+      %p
+        Here you can assign your units to fight in scheduled tactical battles against bots or other <em>Tactics?!?</em> players. You gain rewards when your unit kills other units or is part of the winning team. In addition, an arena battle counts as 1 mission for unlocking units.
+      %p
+        Arenas have Point (<span class="fa fa-flash"></span>) requirements in order to balance the playing field. You can reach these requirements by hiring lower/higher ranked units or equipping weaker/stronger equipment.
+      %p
+        You can assign units through the <em>Assign Units</em> section of each Arena details page. Tick the units you want to assign and then click the <em>Assign selected units to the arena</em>.
+        %br
+        You can unassign units via the Roster (<em>Menu &raquo; Roster</em>) or through each unit's info page.
+      %p
+        Try assigning a unit to an Arena.
+    - if current_user.tutorial_level == 7
+      %p 
+        You now have units queued for an Arena.
+        %br
+        Open the <em>Home</em> page or your <em>Past Battles</em> page later to see the results of the battle.
+      %p
+        Apart from the usual rewards, fighting in arenas also give you the chance to gain Trophies (<span class="fa fa-trophy"></span>). Trophies are awarded to the top units in a battle (trophies awarded to bots are discarded) and go towards your place in the <em>Leaderboards</em>.
+      %p 
+        And that ends the tutorial. For more information, please refer to the <em>Help</em> page.
+      %p
+        Click
+        %em= link_to "here", skip_tutorial_my_profile_path, method: :post
+        to permanently dismiss this tutorial box.
+    - if current_user.tutorial_level < 7
+      %p
+        (Click
+        %em= link_to "here", skip_tutorial_my_profile_path, method: :post, data: { confirm: "Are you sure you want to skip the tutorial?" }
+        to skip the tutorial.)
+

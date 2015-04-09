@@ -3,6 +3,9 @@ class UnitTemplatesController < ApplicationController
 
   def index
     @units = UnitTemplate::ALL_TEMPLATES
+    if current_user.tutorial_level == 0
+      current_user.update(tutorial_level: 1)
+    end
   end
 
   def show
@@ -16,10 +19,16 @@ class UnitTemplatesController < ApplicationController
 
   def hire
     process_hire(false)
+    if current_user.tutorial_level == 1
+      current_user.update(tutorial_level: 2)
+    end
   end
 
   def hire_equipped
     process_hire(true)
+    if current_user.tutorial_level == 1
+      current_user.update(tutorial_level: 3)
+    end
   end
 
   private
