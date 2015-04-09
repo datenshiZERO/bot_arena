@@ -18,13 +18,13 @@
 .row.replay-container
   .col-md-12#board-controls
     %p
-      = link_to "#", :class => "btn btn-default btn-lg", :id => "play-raid" do
+      = link_to "#", :class => "btn btn-default btn-lg", :id => "play-raid", :title => "play/pause replay" do
         %span#play-icon.glyphicon.glyphicon-play
       &nbsp;
       %span.btn-group
-        = link_to "#", :class => "btn btn-default btn-lg", :id => "slower" do
+        = link_to "#", :class => "btn btn-default btn-lg", :id => "slower", :title => "reduce replay speed" do
           %span#slower-icon.glyphicon.glyphicon-minus
-        = link_to "#", :class => "btn btn-default btn-lg", :id => "faster" do
+        = link_to "#", :class => "btn btn-default btn-lg", :id => "faster", :title => "increase replay speed" do
           %span#faster-icon.glyphicon.glyphicon-plus
 
 .row.replay-container
