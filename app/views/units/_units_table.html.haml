@@ -23,7 +23,7 @@
           %span{ :class => "item-icon item-#{unit.armor_icon_class}" }
           %span{ :class => "item-icon item-#{unit.mobility_icon_class}" }
         %td= link_to unit.name, unit
-        %td= unit.unit_template.name
+        %td= link_to unit.unit_template.name, unit_template_path(unit.unit_template.slug)
         %td
           = unit.total_points
           %span.fa.fa-bolt

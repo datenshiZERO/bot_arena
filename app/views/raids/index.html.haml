@@ -12,7 +12,7 @@
     %th Actions
   - @raids.each do |raid|
     %tr
-      %td= link_to raid.quest.name, quest_url(raid.quest.id)
+      %td= link_to raid.quest.name, raid
       %td
         - if raid.outcome == "Success"
           %span.label.label-info Success
@@ -22,6 +22,7 @@
       %td= raid.credits
       %td= raid.kills
       %td
-        = link_to "View Raid", raid, :class => "btn btn-default btn-sm"
+        = link_to "View Raid Results", raid, :class => "btn btn-default btn-sm"
+        = link_to "View Quest", quest_url(raid.quest.id), :class => "btn btn-default btn-sm"
 
 = paginate @raids, theme: 'twitter-bootstrap-3'
