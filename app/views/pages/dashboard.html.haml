@@ -1,36 +1,37 @@
-%h2 Latest Arena Battles
-%table.table.table-striped.table-condensed.item-table
-  %tr
-    %th Battle
-    %th Arena
-    %th Unit
-    %th Unit Team
-    %th Unit Outcome
-    %th Battle Outcome
-    %th.text-right XP
-    %th.text-right Gold
-    %th Time
-    %th Actions
-  - current_user.latest_battles.each do |outcome|
+- if current_user.latest_battles.count > 0
+  %h2 Latest Arena Battles
+  %table.table.table-striped.table-condensed.item-table
     %tr
-      %td= link_to "Battle at '#{outcome.battle.arena.name}'", outcome.battle
-      %td= link_to outcome.battle.arena.name, outcome.battle.arena
-      %td= link_to outcome.unit.name, outcome.unit
-      %td= outcome.team
-      %td
-        %span{:class => outcome.unit_outcome_label }= outcome.outcome
-      %td
-        %span{:class => outcome.battle_outcome_label}= outcome.battle.outcome
-      %td.text-right= "+#{number_with_delimiter outcome.xp}"
-      %td.text-right= "+#{number_with_delimiter outcome.credits}"
-      %td
-        = time_ago_in_words outcome.created_at
-        ago
-      %td= link_to "View Battle", outcome.battle, class: "btn btn-default btn-sm"
+      %th Battle
+      %th Arena
+      %th Unit
+      %th Unit Team
+      %th Unit Outcome
+      %th Battle Outcome
+      %th.text-right XP
+      %th.text-right Gold
+      %th Time
+      %th Actions
+    - current_user.latest_battles.each do |outcome|
+      %tr
+        %td= link_to "Battle at '#{outcome.battle.arena.name}'", outcome.battle
+        %td= link_to outcome.battle.arena.name, outcome.battle.arena
+        %td= link_to outcome.unit.name, outcome.unit
+        %td= outcome.team
+        %td
+          %span{:class => outcome.unit_outcome_label }= outcome.outcome
+        %td
+          %span{:class => outcome.battle_outcome_label}= outcome.battle.outcome
+        %td.text-right= "+#{number_with_delimiter outcome.xp}"
+        %td.text-right= "+#{number_with_delimiter outcome.credits}"
+        %td
+          = time_ago_in_words outcome.created_at
+          ago
+        %td= link_to "View Battle", outcome.battle, class: "btn btn-default btn-sm"
 
-%p.text-center
-  = link_to "View previous battles &raquo;".html_safe, my_battles_path, :class => "btn btn-default btn-lg"
-  = link_to "Send your units to arenas &raquo;".html_safe, arenas_path, :class => "btn btn-primary btn-lg"
+  %p.text-center
+    = link_to "View previous battles &raquo;".html_safe, my_battles_path, :class => "btn btn-default btn-lg"
+    = link_to "Send your units to arenas &raquo;".html_safe, arenas_path, :class => "btn btn-primary btn-lg"
 
 %h2 Roster
 = render partial: "units/units_table", locals: { dashboard: true }
@@ -39,5 +40,7 @@
   = link_to "Manage roster &raquo;".html_safe, units_path, :class => "btn btn-default btn-lg"
   = link_to "Manage armory &raquo;".html_safe, user_equipment_index_path, :class => "btn btn-default btn-lg"
   = link_to "Send your units on a quest &raquo;".html_safe, quests_path, :class => "btn btn-primary btn-lg"
+  - if current_user.latest_battles.count == 0
+    = link_to "Send your units to arenas &raquo;".html_safe, arenas_path, :class => "btn btn-primary btn-lg"
 
 
