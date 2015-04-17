@@ -12,6 +12,8 @@
     = stylesheet_link_tag "application", :media => "all"
     %link{:href => "/favicon.ico", :rel => "shortcut icon"}/
   %body
+    - if Rails.env == "production"
+      = render "layouts/social_js_crap"
     .navbar.navbar-static-top.navbar-default
       .container
         .navbar-header
@@ -40,6 +42,9 @@
           = yield
     %footer
       .container
+        - if Rails.env == "production"
+          %p
+            .fb-share-button{"data-href" => "http://tactics.karaniwan.org", "data-layout" => "button"}
         %p
           &copy; 2015
           = link_to "Bryan Bibat", "http://bryanbibat.net"
