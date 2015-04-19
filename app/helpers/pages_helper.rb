@@ -9,6 +9,9 @@ module PagesHelper
 
   def user_flair(user)
     flair = ""
+    if user.guest?
+      flair += "<span class='fa fa-exclamation-triangle' title='guest account'></span> "
+    end
     if user.max_level?
       flair += "<span class='fa fa-star-o' title='reached max level'></span> "
     end

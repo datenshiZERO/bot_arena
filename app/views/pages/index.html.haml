@@ -2,7 +2,9 @@
 .jumbotron
   %h1 Tactics?!?
   %p SRPG meets incremental games (e.g. Cookie Clicker)
-  %p= link_to "Sign up &raquo;".html_safe, new_user_registration_path, :class => "btn btn-primary btn-lg"
+  %p
+    = link_to "Sign up &raquo;".html_safe, new_user_registration_path, :class => "btn btn-primary btn-lg"
+    = link_to "Start playing without signing up &raquo;".html_safe, guest_user_path, :class => "btn btn-default btn-lg", :method => "post"
 
 %p
   %strong Version 0.0.2.

@@ -1,0 +1,11 @@
+- build_meta_tags title: "New Raid"
+
+%h1 Convert to regular user
+
+= simple_form_for @user, url: guest_user_path, method: :put do |f|
+  = f.error_notification
+  = f.input :email, required: true, autofocus: true 
+  = f.input :username, required: true
+  = f.input :password, label: "New password", required: true, hint: "8 characters minimum"
+  = f.input :password_confirmation, label: "Confirm your new password", required: true
+  = f.submit :class => "btn btn-primary", value: "Convert to regular user"

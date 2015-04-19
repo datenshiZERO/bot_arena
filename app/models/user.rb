@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   
   validates :username, presence: true, length: { in: 3..16 }, uniqueness: true, exclusion: { in: %w{sign_in sign_out password cancel sign_up edit}, message: "is invalid" }
 
+  validate :non_guest_name, unless: :guest?
+
   XP_TABLE = [
     0, 500, 2000, 5500, 10000,
     15000, 21000, 28000, 36000, 45000,
@@ -117,5 +119,13 @@ class User < ActiveRecord::Base
 
   def complete_all_quests?
     completed_quests[39] == "Y"
+  end
+
+  private
+
+  def non_guest_name
+    if username.start_with? "guest_"
+      errors.add(:username, "can't begin with 'guest_'.")
+    end
   end
 end

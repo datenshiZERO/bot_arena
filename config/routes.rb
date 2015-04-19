@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get 'register', :to => 'registrations#new'
     get 'settings', :to => 'devise/registrations#edit'
   end
+  resource :guest_user, only: [:edit, :update, :create]
   devise_for :admins
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
