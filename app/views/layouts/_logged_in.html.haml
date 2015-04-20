@@ -38,4 +38,8 @@
         %li= link_to "Edit my profile", edit_my_profile_path
         %li= link_to "Edit my account", edit_user_registration_path
 
-  %li= link_to 'Sign out', logout_url, :method => :delete
+  %li
+    - if current_user.guest
+      = link_to 'Sign out', logout_url, :method => :delete, :data => { :confirm => "Are you sure you want sign out of this guest account? You will NOT be able to log in to it again." } 
+    - else
+      = link_to 'Sign out', logout_url, :method => :delete
