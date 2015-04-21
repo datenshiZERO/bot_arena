@@ -22,6 +22,22 @@
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-xs" %></p>
+
+<h3>Begin Speedrun</h3>
+
+<p>Clicking this button will <strong>reset</strong> your account and will allow you to begin a speedrun. i.e.:</p>
+<ul>
+  <li>All of your units will be fired, and their items sold.</li>
+  <li>Your XP, missions, and kills will be reset to 0 and Gold to 150.</li>
+  <li>Your Quest progress will be reset.</li>
+</ul>
+
+<p>The following will not be affected:</p>
+<ul>
+  <li>Your previous speedrun records.</li>
+  <li>Your current number of Arena trophies.</li>
+</ul>
+<p><%= link_to "Begin Speedrun", begin_speedrun_my_profile_path, data: { confirm: "Are you sure you want to reset your account to begin a speedrun?" }, method: :put, class: "btn btn-danger btn-sm" %></p>
 
 <%= link_to "Back", :back %>

@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   resource :my_profile do
     member do
       post :skip_tutorial
+      put :begin_speedrun
     end
   end
 end

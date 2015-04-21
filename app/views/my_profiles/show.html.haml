@@ -23,6 +23,10 @@
   = number_with_delimiter current_user.total_kills
 
 %p
+  %strong Speedrun start time:
+  = l (current_user.speedrun_start_at || current_user.created_at)
+
+%p
   %strong Joined at:
   %em= l current_user.created_at.to_date, format: :long
 
