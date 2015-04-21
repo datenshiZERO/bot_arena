@@ -40,7 +40,8 @@ class MyProfilesController < ApplicationController
       stage: 1,
       unlocked_quests: "YNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
       completed_quests: "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
-      speedrun_start_at: DateTime.now
+      speedrun_start_at: DateTime.now,
+      speedrun_end_at: nil
     )
     redirect_to root_path, notice: "Speedrun started. Good luck!"
   end
