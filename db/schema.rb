@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421074852) do
+ActiveRecord::Schema.define(version: 20150421084909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,12 +163,12 @@ ActiveRecord::Schema.define(version: 20150421074852) do
   add_index "user_equipments", ["user_id"], name: "index_user_equipments_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",                                                                                                     null: false
-    t.string   "encrypted_password",     default: "",                                                                                                     null: false
+    t.string   "email",                      default: "",                                                                                                     null: false
+    t.string   "encrypted_password",         default: "",                                                                                                     null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,                                                                                                      null: false
+    t.integer  "sign_in_count",              default: 0,                                                                                                      null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -176,23 +176,26 @@ ActiveRecord::Schema.define(version: 20150421074852) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.integer  "credits",                default: 150
-    t.integer  "total_xp",               default: 0
-    t.integer  "total_missions",         default: 0
-    t.integer  "total_kills",            default: 0
-    t.integer  "stage",                  default: 1
-    t.integer  "tutorial_level",         default: 0
-    t.string   "unlocked_quests",        default: "YNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
-    t.string   "completed_quests",       default: "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
-    t.integer  "total_trophies",         default: 0
-    t.boolean  "leaderboard_visible",    default: true
-    t.boolean  "guest",                  default: false
-    t.integer  "weekly_trophies",        default: 0
+    t.integer  "credits",                    default: 150
+    t.integer  "total_xp",                   default: 0
+    t.integer  "total_missions",             default: 0
+    t.integer  "total_kills",                default: 0
+    t.integer  "stage",                      default: 1
+    t.integer  "tutorial_level",             default: 0
+    t.string   "unlocked_quests",            default: "YNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+    t.string   "completed_quests",           default: "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+    t.integer  "total_trophies",             default: 0
+    t.boolean  "leaderboard_visible",        default: true
+    t.boolean  "guest",                      default: false
+    t.integer  "weekly_trophies",            default: 0
     t.datetime "speedrun_start_at"
     t.integer  "speedrun_time"
     t.datetime "speedrun_end_at"
     t.integer  "best_speedrun_time"
     t.datetime "best_speedrun_at"
+    t.integer  "speedrun_raid_count"
+    t.integer  "best_speedrun_raid_count"
+    t.datetime "most_efficient_speedrun_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
