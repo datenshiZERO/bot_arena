@@ -11,9 +11,9 @@ class Area
   end
 
   AREAS = [
-    { name: "Sewers" }, 
-    { name: "Forest" },
-    { name: "Desert" },
-    { name: "Haunted Castle" }
+    { name: "Sewers", display_class: "sewers" }, 
+    { name: "Forest", display_class: "forest" },
+    { name: "Desert", display_class: "desert" },
+    { name: "Haunted Castle", display_class: "castle" }
   ]
 end

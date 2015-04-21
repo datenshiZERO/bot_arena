@@ -653,4 +653,8 @@ class Quest
   def self.find(id)
     QUESTS.select { |q| q.stage == id.to_i }.first
   end
+
+  def area
+    Area::AREAS[area_id]
+  end
 end

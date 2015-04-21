@@ -106,6 +106,7 @@ highlightHit =  (action, target) ->
 $("#load-replay").click ->
   $("#load-replay").hide()
   $(".replay-container").show()
+  $("#monster-row").addClass(window.RaidLog["area"])
   false
 
 $("#play-raid").click ->

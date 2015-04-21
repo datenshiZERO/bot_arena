@@ -226,6 +226,7 @@ module Dungeon
       @raid.kills = @kills
       # TODO
       @raid.raid_log = JSON.generate({
+        area: @quest.area[:display_class],
         party: @initial_party,
         monsters: @initial_monsters,
         raid_log: @battle_log
