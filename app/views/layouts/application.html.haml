@@ -43,9 +43,8 @@
     %footer
       .container
         - if Rails.env == "production"
-          %p.social-share
-            .fb-share-button{"data-layout" => "button_count"}
-            %a.twitter-share-button{ href: "https://twitter.com/share" } Tweet
+          .fb-share-button{"data-layout" => "button_count"}
+          %a.twitter-share-button{ href: "https://twitter.com/share" } Tweet
         %p
           &copy; 2015
           = link_to "Bryan Bibat", "http://bryanbibat.net"
