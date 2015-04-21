@@ -47,12 +47,15 @@
     - if current_user.tutorial_level == 5
       %p
         Congratulations on completing your first Quest!
+      - if controller_name == "raids" && action_name == "show"
+        %p
+          You can view how the raid went by clicking the Load Replay button and pressing Play. You can increase or decrese the speed by pressing the plus or minus buttons.
       %p
-        Defeating enemies and successfully completing quests give you experience points (XP) and Gold.
-        %br
-        XP goes towards your levelling - you gain more unit and equipment slots whenever you level up.
-        %br
-        Gold allows you to hire more expensive units and buy more expensive equipment.
+        Defeating enemies and successfully completing quests give you experience points (XP) and Gold. 
+        %strong XP
+        goes towards your levelling - you gain more unit and equipment slots whenever you level up. 
+        %strong Gold
+        allows you to hire more expensive units and buy more expensive equipment.
       %p
         Successfully completing quests also unlock further quests. They get progressively more difficult so you'll have to run easier quests over and over to gain enough gold and experience hire more powerful units. You can also experiment with party combinations and formations to see what's the most effective way to go through a quest.
       %p

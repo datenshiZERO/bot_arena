@@ -39,8 +39,9 @@
 %p.text-center
   = link_to "Manage roster &raquo;".html_safe, units_path, :class => "btn btn-default btn-lg"
   = link_to "Manage armory &raquo;".html_safe, user_equipment_index_path, :class => "btn btn-default btn-lg"
-  = link_to "Send your units on a quest &raquo;".html_safe, quests_path, :class => "btn btn-primary btn-lg"
-  - if current_user.latest_battles.count == 0
-    = link_to "Send your units to arenas &raquo;".html_safe, arenas_path, :class => "btn btn-primary btn-lg"
+  - if current_user.units.count > 0
+    = link_to "Send your units on a quest &raquo;".html_safe, quests_path, :class => "btn btn-primary btn-lg"
+    - if current_user.latest_battles.count == 0
+      = link_to "Send your units to arenas &raquo;".html_safe, arenas_path, :class => "btn btn-primary btn-lg"
 
 
