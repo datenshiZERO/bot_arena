@@ -234,10 +234,12 @@ module Dungeon
           if user.best_speedrun_time.nil? || speedrun_time < user.best_speedrun_time
             user.best_speedrun_time = speedrun_time
             user.best_speedrun_at = speedrun_end
-          end
-          if user.best_speedrun_raid_count.nil? || raid_count < user.most_efficient_speedrun_at
             user.best_speedrun_raid_count = raid_count
-            user.most_efficient_speedrun_at = speedrun_end
+          end
+          if user.efficient_speedrun_raid_count.nil? || raid_count < user.efficient_speedrun_raid_count
+            user.efficient_speedrun_time = speedrun_time
+            user.efficient_speedrun_at = speedrun_end
+            user.efficient_speedrun_raid_count = raid_count
           end
           user.save!
         end

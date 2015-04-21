@@ -40,6 +40,7 @@
       %tr
         %th Player
         %th.text-right Best Time
+        %th.text-right Raid Count
         %th.text-right Run Date
       - @top_speedrunners.each do |user|
         %tr
@@ -49,6 +50,8 @@
           %td.text-right
             = time_elapsed user.best_speedrun_time
           %td.text-right
+            = number_with_delimiter user.best_speedrun_raid_count
+          %td.text-right
             = l user.best_speedrun_at, format: :short
 
   .col-md-6
@@ -57,6 +60,7 @@
       %tr
         %th Player
         %th.text-right Lowest Raid Count
+        %th.text-right Time
         %th.text-right Run Date
       - @eff_speedrunners.each do |user|
         %tr
@@ -64,6 +68,8 @@
             = user.username
             = user_flair(user)
           %td.text-right
-            = number_with_delimiter user.best_speedrun_raid_count
+            = number_with_delimiter user.efficient_speedrun_raid_count
           %td.text-right
-            = l user.most_efficient_speedrun_at, format: :short
+            = time_elapsed user.efficient_speedrun_time
+          %td.text-right
+            = l user.efficient_speedrun_at, format: :short
