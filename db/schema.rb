@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421054755) do
+ActiveRecord::Schema.define(version: 20150421074852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,11 @@ ActiveRecord::Schema.define(version: 20150421054755) do
     t.boolean  "leaderboard_visible",    default: true
     t.boolean  "guest",                  default: false
     t.integer  "weekly_trophies",        default: 0
+    t.datetime "speedrun_start_at"
+    t.integer  "speedrun_time"
+    t.datetime "speedrun_end_at"
+    t.integer  "best_speedrun_time"
+    t.datetime "best_speedrun_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

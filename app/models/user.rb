@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
     self.completed_quests = fields
   end
 
-  def complete_all_quests?
+  def completed_all_quests?
     completed_quests[39] == "Y"
   end
 

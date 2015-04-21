@@ -15,9 +15,17 @@ module PagesHelper
     if user.max_level?
       flair += "<span class='fa fa-star-o' title='reached max level'></span> "
     end
-    if user.complete_all_quests?
+    if user.completed_all_quests?
       flair += "<span class='fa fa-flag-checkered' title='completed all quests'></span> "
     end
     flair.html_safe
+  end
+
+  def time_elapsed(secs)
+    hours = secs / 3600
+    secs2 = secs % 3600
+    minutes = secs2 / 60
+    seconds = secs2 % 60
+    "%d:%02d:%02d" % [ hours, minutes, seconds ]
   end
 end

@@ -32,4 +32,20 @@
             = number_with_delimiter user.weekly_trophies
             %span.fa.fa-trophy
       
-
+%h2 Fastest speedrunners
+.row
+  .col-md-6
+    %table.table.table-condensed.table-striped
+      %tr
+        %th Player
+        %th.text-right Best Time
+        %th.text-right Run Date
+      - @top_speedrunners.each do |user|
+        %tr
+          %td
+            = user.username
+            = user_flair(user)
+          %td.text-right
+            = time_elapsed user.best_speedrun_time
+          %td.text-right
+            = l user.best_speedrun_at, format: :short

@@ -218,6 +218,17 @@ module Dungeon
         if !party_wiped?
           user.unlock_quests(@quest)
           user.complete_quest(@quest)
+          if user.completed_all_quests? && user.speedrun_end_at.nil?
+            speedrun_end = DateTime.now
+            speedrun_start = user.speedrun_start_at || user.created_at
+            speedrun_time = (speedrun_end.to_time - speedrun_start.to_time).to_i
+            user.speedrun_end_at = speedrun_end
+            user.speedrun_time = speedrun_time
+            if user.best_speedrun_time.nil? || best_speedrun_time < user.best_speedrun_time
+              user.best_speedrun_time = speedrun_time
+              user.best_speedrun_at = speedrun_end
+            end
+          end
         end
         user.save!
       end
