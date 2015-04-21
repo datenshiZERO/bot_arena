@@ -1,6 +1,6 @@
 class BattlesController < ApplicationController
   def index
-    @battles = Battle.order("updated_at desc").where("updated_at > ?", DateTime.now - 3.days).includes(:arena).page params[:page]
+    @battles = Battle.order("updated_at desc").where("updated_at > ?", DateTime.now - 3.hours).includes(:arena).page params[:page]
   end
 
   def show

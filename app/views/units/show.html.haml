@@ -139,7 +139,7 @@
         %th.text-right XP
         %th.text-right Gold
         %th.text-right Time
-      - @outcomes.order("created_at desc").each do |outcome|
+      - @outcomes.order("created_at desc").limit(10).each do |outcome|
         %tr
           %td= link_to outcome.battle.battle_id, outcome.battle
           %td= outcome.team
