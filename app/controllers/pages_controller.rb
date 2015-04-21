@@ -13,5 +13,6 @@ class PagesController < ApplicationController
 
   def leaderboard
     @top_ten = User.where(leaderboard_visible: true).order("total_trophies DESC").limit(10)
+    @weekly_top_ten = User.where(leaderboard_visible: true).order("weekly_trophies DESC").limit(10)
   end
 end

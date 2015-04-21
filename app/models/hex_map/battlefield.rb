@@ -434,6 +434,7 @@ module HexMap
             user.total_xp += outcome.xp
             user.credits += outcome.credits
             user.total_trophies += outcome.trophies
+            user.weekly_trophies += outcome.trophies
           end
           user.save!
         end
