@@ -1,0 +1,4 @@
+- if item.slot == "weapon"
+  %span{ title: "weapon's damage / accuracy / range (minimum-maximum)" }
+    = "#{item.damage}/#{item.accuracy}/#{item.range_min}-#{item.range_max}"
+  %span.fa.fa-crosshairs

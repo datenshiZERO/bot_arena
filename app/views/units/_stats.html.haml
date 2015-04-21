@@ -1,0 +1,16 @@
+- if show_points
+  %span{ title: "unit's overall power rating" }
+    = unit.total_points
+    %span.fa.fa-bolt
+%span{ title: "unit's max health" }
+  = unit.eff_hp
+  %span.fa.fa-heart
+%span{ title: "unit's movement speed" }
+  = unit.eff_move
+  %span.fa.fa-arrows
+%span{ title: "unit's defense (damage reduction) / evasion rating" }
+  = "#{unit.eff_defense}/#{unit.eff_evade}"
+  %span.fa.fa-shield
+%span{ title: "unit's damage / accuracy / range (minimum-maximum)" }
+  = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
+  %span.fa.fa-crosshairs

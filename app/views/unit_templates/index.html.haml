@@ -33,21 +33,28 @@
         %span{ :class => "item-icon item-#{unit.mobility_default.icon_class}" }
       %td= unit.name
       %td.text-right
-        = unit.points
-        %span.fa.fa-bolt
+        %span{ title: "unit's base power rating" }
+          = unit.points
+          %span.fa.fa-bolt
         \-
-        = unit.weapon_points
+        %span{ title: "unit's max weapon power rating" }
+          = unit.weapon_points
         \/
-        = unit.armor_points
+        %span{ title: "unit's max armor power rating" }
+          = unit.armor_points
         \/
-        = unit.mobility_points
+        %span{ title: "unit's max mobility item power rating" }
+          = unit.mobility_points
       %td.text-right
-        = unit.hp
-        %span.fa.fa-heart
-        = unit.move
-        %span.fa.fa-arrows
-        = "#{unit.defense}/#{unit.evade}"
-        %span.fa.fa-shield
+        %span{ title: "unit's base health" }
+          = unit.hp
+          %span.fa.fa-heart
+        %span{ title: "unit's base movement speed" }
+          = unit.move
+          %span.fa.fa-arrows
+        %span{ title: "unit's base defense (damage reduction) / evasion rating" }
+          = "#{unit.defense}/#{unit.evade}"
+          %span.fa.fa-shield
       %td.text-right= number_with_delimiter unit.kill_requirement
       %td.text-right= number_with_delimiter unit.mission_requirement
       %td

@@ -55,14 +55,18 @@
             %span{ :class => "item-icon item-#{unit["mobility_icon_class"]}" }
           %td= unit["name"]
           %td
-            = unit["hp"]
-            %span.fa.fa-heart
-            = unit["move"]
-            %span.fa.fa-arrows
-            = "#{unit['defense']}/#{unit['evade']}"
-            %span.fa.fa-shield
-            = "#{unit['damage']}/#{unit['accuracy']}"
-            %span.fa.fa-crosshairs
+            %span{ title: "unit's max health" }
+              = unit["hp"]
+              %span.fa.fa-heart
+            %span{ title: "unit's movement speed" }
+              = unit["move"]
+              %span.fa.fa-arrows
+            %span{ title: "unit's defense (damage reduction) / evasion rating" }
+              = "#{unit['defense']}/#{unit['evade']}"
+              %span.fa.fa-shield
+            %span{ title: "unit's damage / accuracy rating" }
+              = "#{unit['damage']}/#{unit['accuracy']}"
+              %span.fa.fa-crosshairs
             - if unit["ranged"]
               %span.label.label-warning Ranged
             - else

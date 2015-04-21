@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def active_units
-    units.where(fired: false).includes(:arena, :user_equipments)
+    units.where(fired: false).includes(:arena, :user_equipments).order("created_at")
   end
 
   def assigned_units

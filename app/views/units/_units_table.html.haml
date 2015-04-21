@@ -8,7 +8,7 @@
       %th Name
       %th Type
       %th Stats
-      %th Status
+      %th Arena
       - unless dashboard
         %th Actions
     - current_user.active_units.each do |unit|
@@ -26,16 +26,7 @@
         %td= link_to unit.name, unit
         %td= link_to unit.unit_template.name, unit_template_path(unit.unit_template.slug)
         %td
-          = unit.total_points
-          %span.fa.fa-bolt
-          = unit.eff_hp
-          %span.fa.fa-heart
-          = unit.eff_move
-          %span.fa.fa-arrows
-          = "#{unit.eff_defense}/#{unit.eff_evade}"
-          %span.fa.fa-shield
-          = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
-          %span.fa.fa-crosshairs
+          = render partial: "units/stats", locals: { unit: unit, show_points: true }
         %td
           - if unit.arena.present?
             = link_to unit.arena.name, unit.arena

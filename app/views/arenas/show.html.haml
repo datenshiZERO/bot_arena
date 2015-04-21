@@ -91,14 +91,7 @@
             %td= unit.unit_template.name
             %td= unit.count
             %td
-              = unit.eff_hp
-              %span.fa.fa-heart
-              = unit.eff_move
-              %span.fa.fa-arrows
-              = "#{unit.eff_defense}/#{unit.eff_evade}"
-              %span.fa.fa-shield
-              = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
-              %span.fa.fa-crosshairs
+              = render partial: "units/stats", locals: { unit: unit, show_points: false }
   - if @arena.players_max > 1
     .col-md-6
       %h3 Filler Units
@@ -120,14 +113,7 @@
             %td= unit.unit_template.name
             %td= "#{((unit.count.to_f / @arena.battle_bots.where(filler: true).sum(:count)) * 100).round(0)}%"
             %td
-              = unit.eff_hp
-              %span.fa.fa-heart
-              = unit.eff_move
-              %span.fa.fa-arrows
-              = "#{unit.eff_defense}/#{unit.eff_evade}"
-              %span.fa.fa-shield
-              = "#{unit.eff_damage}/#{unit.eff_accuracy}/#{unit.eff_range_min}-#{unit.eff_range_max}"
-              %span.fa.fa-crosshairs
+              = render partial: "units/stats", locals: { unit: unit, show_points: false }
 - if user_signed_in?
   %hr
   %h2 Assign Units

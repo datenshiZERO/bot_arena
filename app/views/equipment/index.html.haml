@@ -20,21 +20,13 @@
       %td= item.slot.capitalize
       %td= number_with_delimiter item.price
       %td
-        = item.points
-        %span.fa.fa-bolt
+        %span{ title: "item's power rating" }
+          = item.points
+          %span.fa.fa-bolt
       %td
-        - if item.slot == "weapon"
-          = "#{item.damage}/#{item.accuracy}/#{item.range_min}-#{item.range_max}"
-          %span.fa.fa-crosshairs
+        = render partial: "equipment/weapon_stats", locals: { item: item }
       %td
-        = item.bonus_hp
-        %span.fa.fa-heart
-        = item.bonus_move
-        %span.fa.fa-arrows
-        = "#{item.bonus_defense}/#{item.bonus_evade}"
-        %span.fa.fa-shield
-        = "#{item.bonus_accuracy}"
-        %span.fa.fa-crosshairs
+        = render partial: "equipment/bonus_stats", locals: { item: item }
       %td
         = link_to "View Item", equipment_path(item.slug), :class => "btn btn-default btn-sm"
         = render partial: "buy_buttons", locals: { item: item }

@@ -1,0 +1,12 @@
+%span{ title: "item's bonus to health" }
+  = item.bonus_hp
+  %span.fa.fa-heart
+%span{ title: "item's bonus to movement speed" }
+  = item.bonus_move
+  %span.fa.fa-arrows
+%span{ title: "item's bonus to defense (damage reduction) / evasion rating" }
+  = "#{item.bonus_defense}/#{item.bonus_evade}"
+  %span.fa.fa-shield
+%span{ title: "item's bonus to accuracy" }
+  = "#{item.bonus_accuracy}"
+  %span.fa.fa-crosshairs
