@@ -83,7 +83,7 @@ class Arena < ActiveRecord::Base
     units.each do |unit|
       #Rails.logger.error "e #{unit.arena_id} #{id}"
       if unit.total_points < points_min || points_max < unit.total_points ||
-          unit.arena_id != id || unit.fired
+          unit.arena_id != id || unit.fired || unit.user.nil?
         # Eject from arena
         unit.arena = nil
         unit.save

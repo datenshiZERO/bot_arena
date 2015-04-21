@@ -16,6 +16,13 @@ class Unit < ActiveRecord::Base
     UnitTemplate.find(template_slug)
   end
 
+  def owner_name
+    if user.present?
+      user.username
+    else
+      ""
+    end
+  end
   def weapon
     weapons = user_equipments.select { |e| e.slot == "weapon" }
     return nil if weapons.empty?

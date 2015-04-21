@@ -4,9 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :units
-  has_many :user_equipment
-  has_many :raids
+  has_many :units, dependent: :nullify
+  has_many :user_equipment, dependent: :nullify
+  has_many :raids, dependent: :destroy
   
   validates :username, presence: true, length: { in: 3..16 }, uniqueness: true, exclusion: { in: %w{sign_in sign_out password cancel sign_up edit}, message: "is invalid" }
 

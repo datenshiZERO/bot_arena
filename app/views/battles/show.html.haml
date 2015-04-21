@@ -59,14 +59,14 @@
     %h3 Player-owned units
     - if @battle.unit_battle_outcomes.count < @battle.arena.players_max
       %em Players slots not completely filled - no trophies awarded.
+.row
+  .col-md-8
     %table.table.table-striped.table-condensed.unit-table
       %tr
         %th Unit
-        %th Equipment
         %th Team
         %th Name
         %th Owner
-        %th Stats
         %th.text-right Kills
         %th.text-right Assists
         %th.text-right Trophies
@@ -75,24 +75,11 @@
         - if @battle.grouped_outcomes[team].present?
           - @battle.grouped_outcomes[team].each do |outcome|
             %tr
-              %td
+              %td.medium
                 %span{ :class => "unit-icon team-#{team}-unit #{outcome.unit.icon_class}" }
-              %td
-                %span{ :class => "item-icon item-#{outcome.unit.weapon_icon_class}" }
-                %span{ :class => "item-icon item-#{outcome.unit.armor_icon_class}" }
-                %span{ :class => "item-icon item-#{outcome.unit.mobility_icon_class}" }
               %td= outcome.team
               %td= link_to outcome.parsed_details["name"], outcome.unit
-              %td= outcome.unit.user.username
-              %td 
-                = outcome.parsed_details["hp"]
-                %span.fa.fa-heart
-                = outcome.parsed_details["move"]
-                %span.fa.fa-arrows
-                = "#{outcome.parsed_details["defense"]}/#{outcome.parsed_details["evade"]}"
-                %span.fa.fa-shield
-                = "#{outcome.parsed_details["damage"]}/#{outcome.parsed_details["accuracy"]}/#{outcome.parsed_details["range_min"]}-#{outcome.parsed_details["range_max"]}"
-                %span.fa.fa-crosshairs
+              %td= outcome.unit.owner_name
               %td.text-right= outcome.kills
               %td.text-right= outcome.assists
               %td.text-right
