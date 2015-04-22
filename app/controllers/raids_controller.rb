@@ -47,6 +47,10 @@ class RaidsController < ApplicationController
     end
   end
 
+  def get_rerun
+    redirect_to current_user.raids.find(params[:id]), notice: "Please wait for the page to completely load before re-running"
+  end
+
   private
 
   def raid_params

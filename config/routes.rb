@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   resources :quests
   resources :raids do
     member do
+      get :rerun, to: "raids#get_rerun"
       post :rerun
     end
   end
