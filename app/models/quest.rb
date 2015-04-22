@@ -77,7 +77,7 @@ class Quest
       xp_win: 15,
       credits_win: 15,
       area_id: 0,
-      unlocks: [ 5, 11 ]
+      unlocks: [ 5 ]
     },
     {
       name: "Sewers - 5",
@@ -95,7 +95,7 @@ class Quest
       xp_win: 20,
       credits_win: 20,
       area_id: 0,
-      unlocks: [ 6 ]
+      unlocks: [ 6, 11 ]
     },
     {
       name: "Sewers - 6",
