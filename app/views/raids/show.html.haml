@@ -45,6 +45,7 @@
         %th Equipment
         %th Name
         %th Stats
+        %th Row
       - @raid.party_snapshot.each do |unit|
         %tr
           %td
@@ -71,6 +72,11 @@
               %span.label.label-warning Ranged
             - else
               %span.label.label-info Melee
+          %td
+            - if unit["front"]
+              %span.label.label-info Front
+            - else
+              %span.label.label-warning Back
 
   .col-md-4
     %h2 Results
