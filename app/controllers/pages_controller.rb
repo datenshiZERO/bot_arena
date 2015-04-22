@@ -14,6 +14,7 @@ class PagesController < ApplicationController
   end
 
   def leaderboard
+    @has_share = @has_footer_share = true
     @top_ten = User.where(leaderboard_visible: true).order("total_trophies DESC").limit(10)
     @weekly_top_ten = User.where(leaderboard_visible: true).order("weekly_trophies DESC").limit(10)
     @top_speedrunners = User.where(leaderboard_visible: true).where("best_speedrun_time is not null").order("best_speedrun_time").limit(10)
