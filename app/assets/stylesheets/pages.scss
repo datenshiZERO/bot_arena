@@ -586,6 +586,77 @@ $c-mercenary-medium: -352px -96px;
 .item-icon.item-gloves-of-accuracy {
   background-position: -352px -256px;
 }
+.small-icons {
+  .item-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+  }
+  .item-icon.item-undefined {
+    background-position: 0px -256px;
+  }
+  .item-icon.item-dagger {
+    background-position: -256px -288px;
+  }
+  .item-icon.item-shuriken {
+    background-position: -272px -288px;
+  }
+  .item-icon.item-clothes {
+    background-position: -288px -288px;
+  }
+  .item-icon.item-boots {
+    background-position: -304px -288px;
+  }
+  .item-icon.item-spear {
+    background-position: -256px -304px;
+  }
+  .item-icon.item-bow {
+    background-position: -272px -304px;
+  }
+  .item-icon.item-leather-armor {
+    background-position: -288px -304px;
+  }
+  .item-icon.item-gloves {
+    background-position: -304px -304px;
+  }
+  .item-icon.item-sword {
+    background-position: -256px -320px;
+  }
+  .item-icon.item-war-bow {
+    background-position: -272px -320px;
+  }
+  .item-icon.item-banded-mail {
+    background-position: -288px -320px;
+  }
+  .item-icon.item-sabaton {
+    background-position: -304px -320px;
+  }
+  .item-icon.item-battle-axe {
+    background-position: -256px -336px;
+  }
+  .item-icon.item-ice-staff {
+    background-position: -272px -336px;
+  }
+  .item-icon.item-cuirass {
+    background-position: -288px -336px;
+  }
+  .item-icon.item-boots-of-haste {
+    background-position: -304px -336px;
+  }
+  .item-icon.item-great-sword {
+    background-position: -256px -352px;
+  }
+  .item-icon.item-fire-staff {
+    background-position: -272px -352px;
+  }
+  .item-icon.item-full-plate-mail {
+    background-position: -288px -352px;
+  }
+  .item-icon.item-gloves-of-accuracy {
+    background-position: -304px -352px;
+  }
+}
 
 .monster-icon {
   background-image: image-url("sprites.png");
