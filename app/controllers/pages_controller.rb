@@ -1,10 +1,12 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :help, :leaderboard]
   def index
+    @has_share = @has_footer_share = true
     @latest_battles = Battle.order("updated_at desc").includes(:arena).limit 5
   end
 
   def dashboard
+    @has_share = @has_footer_share = true
   end
 
   def my_battles

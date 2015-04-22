@@ -39,6 +39,10 @@
 .row
   .col-md-8
     %h2 Party
+    - unless user_signed_in? && current_user.raids.exists?(@raid)
+      %h3
+        Lead by:
+        = @raid.user.username
     %table.table.table-striped.table-condensed.unit-table
       %tr
         %th Unit
@@ -95,20 +99,23 @@
     %p
       %strong Gold received:
       = @raid.credits
+    - if user_signed_in? && current_user.raids.exists?(@raid)
+      %p
+        = link_to "Run again using same party", rerun_raid_path(@raid), method: :post, class: "btn btn-primary btn-lg"
+      %p
+        = link_to "Try again with a different party", quest_path(@raid.quest.id), class: "btn btn-default btn-lg"
+    .fb-share-button{"data-layout" => "box_count"}
+    %a.twitter-share-button{ :href => "https://twitter.com/share", "data-count" => "vertical", "data-text" => "You'll never guess how this dungeon raid turned out! LOL" } Tweet
+- if user_signed_in? && current_user.raids.exists?(@raid)
+  - if current_user.completed_quest?(@raid.quest) && @raid.quest.unlocked_quests.compact.size > 0
+    %hr
     %p
-      = link_to "Run again using same party", rerun_raid_path(@raid), method: :post, class: "btn btn-primary btn-lg"
+      Completing this quest unlocked the following quests:
     %p
-      = link_to "Try again with a different party", quest_path(@raid.quest.id), class: "btn btn-default btn-lg"
+      - @raid.quest.unlocked_quests.each do |quest|
+        = link_to "Go to \"#{quest.name}\"", quest_url(quest.id), class: "btn btn-default"
 
-- if current_user.completed_quest?(@raid.quest) && @raid.quest.unlocked_quests.compact.size > 0
   %hr
   %p
-    Completing this quest unlocked the following quests:
-  %p
-    - @raid.quest.unlocked_quests.each do |quest|
-      = link_to "Go to \"#{quest.name}\"", quest_url(quest.id), class: "btn btn-default"
-
-%hr
-%p
-  = link_to "Back to list of Raids", raids_path, class: "btn btn-default"
-  = link_to "Back to list of Quests", quests_path, class: "btn btn-default"
+    = link_to "Back to list of Raids", raids_path, class: "btn btn-default"
+    = link_to "Back to list of Quests", quests_path, class: "btn btn-default"

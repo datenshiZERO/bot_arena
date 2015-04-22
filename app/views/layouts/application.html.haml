@@ -12,7 +12,7 @@
     = stylesheet_link_tag "application", :media => "all"
     %link{:href => "/favicon.ico", :rel => "shortcut icon"}/
   %body
-    - if Rails.env == "production"
+    - if @has_share
       = render "layouts/social_js_crap"
     .navbar.navbar-static-top.navbar-default
       .container
@@ -42,7 +42,7 @@
           = yield
     %footer
       .container
-        - if Rails.env == "production"
+        - if @has_footer_share
           .fb-share-button{"data-layout" => "button_count"}
           %a.twitter-share-button{ href: "https://twitter.com/share" } Tweet
         %p

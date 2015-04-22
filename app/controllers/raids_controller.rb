@@ -1,14 +1,15 @@
 class RaidsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :show
   def index
     @raids = current_user.raids.order("created_at desc").page params[:page]
   end
 
   def show
-    if current_user.tutorial_level == 4
+    @has_share = true
+    if user_signed_in? && current_user.tutorial_level == 4
       current_user.update(tutorial_level: 5)
     end
-    @raid = current_user.raids.find params[:id]
+    @raid = Raid.find params[:id]
   end
 
   def create

@@ -4,6 +4,7 @@ class BattlesController < ApplicationController
   end
 
   def show
+    @has_share = true
     @battle = Battle.includes(:arena, unit_battle_outcomes: { unit: :user}).find(params[:id])
   end
 end
