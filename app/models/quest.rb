@@ -28,8 +28,7 @@ class Quest
       stage: 1,
       encounters: Encounter.generate_encounters([
         [1, :green_slime, 1],
-        [2, :green_slime, 1],
-        [3, :green_slime, 2]
+        [2, :green_slime, 1]
       ]),
       xp_win: 5,
       credits_win: 5,
@@ -41,8 +40,7 @@ class Quest
       stage: 2,
       encounters: Encounter.generate_encounters([
         [1, :green_slime, 1],
-        [2, :green_slime, 2],
-        [3, :green_slime, 1],
+        [2, :green_slime, 1],
         [3, :giant_rat, 1]
       ]),
       xp_win: 7,
@@ -54,7 +52,7 @@ class Quest
       name: "Sewers - 3",
       stage: 3,
       encounters: Encounter.generate_encounters([
-        [1, :green_slime, 2],
+        [1, :green_slime, 1],
         [2, :green_slime, 2],
         [2, :giant_rat, 1],
         [3, :green_slime, 4]
