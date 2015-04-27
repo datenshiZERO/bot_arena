@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   get 'help' => 'pages#help', as: 'help'
 
   get 'my_battles' => 'pages#my_battles', as: 'my_battles'
-  resources :battles
+  resources :battles do
+    member do
+      put :retain
+    end
+  end
   get 'leaderboard' => 'pages#leaderboard', as: 'leaderboard'
 
   resources :units_for_hire, controller: "unit_templates", as: "unit_templates" do

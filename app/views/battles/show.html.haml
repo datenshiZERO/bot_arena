@@ -88,6 +88,11 @@
                   %span.fa.fa-trophy
               %td.text-center
                 %span{:class => outcome.unit_outcome_label }= outcome.outcome
+    - if user_signed_in? && !@battle.retain
+      %p
+        = link_to "Retain this battle record", retain_battle_path(@battle), method: :put, class: "btn btn-warning btn-sm"
+      %p
+        %em Unless retained, all battles are deleted after 1 week.
 
   .col-md-2
     .fb-share-button{"data-layout" => "box_count"}
