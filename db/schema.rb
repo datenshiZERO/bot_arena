@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421230756) do
+ActiveRecord::Schema.define(version: 20150427073102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,9 +81,10 @@ ActiveRecord::Schema.define(version: 20150421230756) do
     t.integer  "arena_id"
     t.string   "outcome"
     t.text     "battle_log"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "winning_team"
+    t.boolean  "retain",       default: false
   end
 
   add_index "battles", ["arena_id"], name: "index_battles_on_arena_id", using: :btree
@@ -208,7 +209,7 @@ ActiveRecord::Schema.define(version: 20150421230756) do
   add_foreign_key "battle_bots", "arenas"
   add_foreign_key "battles", "arenas"
   add_foreign_key "raids", "users"
-  add_foreign_key "unit_battle_outcomes", "battles"
+  add_foreign_key "unit_battle_outcomes", "battles", on_delete: :cascade
   add_foreign_key "unit_battle_outcomes", "units"
   add_foreign_key "units", "arenas"
   add_foreign_key "units", "users"
